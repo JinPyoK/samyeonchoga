@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "80954504329",
+    "project_id": "samyeonchoga",
+    "storage_bucket": "samyeonchoga.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80954504329:android:f8a7f5b0e65c2d59c8c258",
+        "android_client_info": {
+          "package_name": "com.jinpyok.samyeonchoga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80954504329-joul2k1eqvonlklbnp2d84tt2dhflus7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jinpyok.samyeonchoga",
+            "certificate_hash": "3603df53097586c95fbb476b05bbbb8e2296d036"
+          }
+        },
+        {
+          "client_id": "80954504329-h0tucbrbklc2e5cb4s0hjsvctsgenaln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7r4cH_PVCVBcUomA0CjWDR1m58CjOWjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80954504329-h0tucbrbklc2e5cb4s0hjsvctsgenaln.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "80954504329-eancgqum3fpphn1sr853ltpme60fjb6j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.jinpyok.samyeonchoga"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

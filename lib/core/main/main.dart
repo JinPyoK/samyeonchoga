@@ -1,6 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:samyeonchoga/core/constant/native_key.dart';
+import 'package:samyeonchoga/core/firebase/firebase_options.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await _initSdks();
+
   runApp(const MyApp());
 }
 
@@ -122,4 +131,17 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+}
+
+Future<void> _initSdks() async {
+  /// 파이어베이스
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  /// 카카오
+  KakaoSdk.init(
+    nativeAppKey: nativeAppKey,
+    javaScriptAppKey: javaScriptKey,
+  );
 }
