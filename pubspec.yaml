@@ -39,7 +39,6 @@ dependencies:
   # UI
   font_awesome_flutter: # 아이콘
   google_fonts: # 구글 폰트
-  random_avatar: # 유저 프로필
   auth_button_kit: # OAuth 소셜 로그인 버튼, 카카오는 없음
   skeletonizer: # 로딩 스켈레톤
 
