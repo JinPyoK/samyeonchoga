@@ -28,18 +28,75 @@ class AuthScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.orange.shade200,
+              Colors.orange.shade500,
+            ],
+          ),
+        ),
         padding: const EdgeInsets.all(12.0),
         child: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("사면초가"),
+              Column(
+                children: [
+                  Text(
+                    "四 面 楚 歌",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 42 * hu,
+                    ),
+                  ),
+                  Text(
+                    "사 면 초 가",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 42 * hu,
+                    ),
+                  ),
+                  SizedBox(height: 5 * hu),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 36,
+                      vertical: 24,
+                    ),
+                    child: Text(
+                      "사방에서 초나라 노래가 흘러나온다는 뜻으로, 사면이 모두 적에게 포위되거나, 누구의 지지나 도움도 받을 수 없어 고립된 상태를 이르는 말.",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 12 * hu,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(
                 height: 200 * hu,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20 * wu),
+                      child: Text(
+                        "로그인을 진행해 주세요!",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 12 * hu,
+                        ),
+                      ),
+                    ),
+
                     /// 카카오 로그인
                     GestureDetector(
                       onTap: () async {
