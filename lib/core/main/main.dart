@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/constant/native_key.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
 import 'package:samyeonchoga/ui/auth/screen/auth_screen.dart';
@@ -29,6 +28,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: _customTheme,
         title: 'samyeonchoga',
+        // home: isLogin() ? const HomeNavigationScreen() : const AuthScreen(),
         home: const AuthScreen(),
       ),
     );
@@ -51,7 +51,7 @@ Future<void> _initSdks() async {
 final _customTheme = ThemeData(
   textTheme: GoogleFonts.nanumGothicTextTheme(),
   snackBarTheme: const SnackBarThemeData(
-    backgroundColor: blackColor,
-    actionTextColor: whiteColor,
+    backgroundColor: Colors.black,
+    actionTextColor: Colors.white,
   ),
 );

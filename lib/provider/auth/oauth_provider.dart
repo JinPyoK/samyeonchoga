@@ -52,7 +52,7 @@ Future<String?> oAuthLogin({required String vendor}) async {
 }
 
 /// 로그인 여부
-bool isLogin() => _auth.currentUser == null;
+bool isLogin() => _auth.currentUser != null;
 
 /// UID 가지고 오기
 String? getUID() => _auth.currentUser?.uid;
