@@ -46,7 +46,7 @@ Future<String?> oAuthLogin({required String vendor}) async {
 
     await _auth.signInWithCredential(credential);
     return null;
-  } on Exception catch (_) {
+  } catch (_) {
     return '로그인 도중 에러 발생';
   }
 }

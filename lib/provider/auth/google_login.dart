@@ -18,7 +18,7 @@ Future<String?> _signInWithGoogle() async {
     _accessToken = googleAuth.accessToken;
 
     return null;
-  } on Exception catch (_) {
+  } catch (_) {
     return "구글 로그인 도중 에러가 발생했습니다";
   }
 }
