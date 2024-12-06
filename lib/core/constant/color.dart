@@ -4,4 +4,4 @@ const whiteColor = Color(0xffF5F5F5);
 
 const blackColor = Colors.black;
 
-const orangeColor = Colors.deepOrangeAccent;
+const woodColor = Color(0xffDFB460);

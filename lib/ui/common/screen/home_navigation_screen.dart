@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/provider/auth/oauth_provider.dart';
+import 'package:samyeonchoga/provider/gold/gold_provider.dart';
+import 'package:samyeonchoga/ui/common/widget/gold.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
 import 'package:samyeonchoga/ui/rank/screen/rank_screen.dart';
 import 'package:samyeonchoga/ui/store/screen/store_screen.dart';
@@ -26,6 +29,20 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: whiteColor,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 12),
+          child: Text(getDisplayName() ?? '닉네임 없음'),
+        ),
+        centerTitle: false,
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 24),
+            child: Gold(gold: gold),
+          ),
+        ],
+      ),
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -39,7 +56,11 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
         selectedIndex: _currentIndex,
         onDestinationSelected: (index) {
           _currentIndex = index;
-          _pageController.jumpToPage(index);
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
           setState(() {});
         },
         destinations: const <NavigationDestination>[

@@ -59,6 +59,19 @@ final _customTheme = ThemeData(
   scaffoldBackgroundColor: whiteColor,
   navigationBarTheme: const NavigationBarThemeData(
     backgroundColor: whiteColor,
-    indicatorColor: orangeColor,
+    indicatorColor: woodColor,
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: OutlinedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(width: 3),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      foregroundColor: blackColor,
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+      fixedSize: Size(100 * wu, 40 * hu),
+    ),
   ),
 );
