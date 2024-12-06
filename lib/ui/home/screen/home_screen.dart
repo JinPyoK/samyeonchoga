@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/home/widget/home_setting_child.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -78,6 +79,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Text("환경 설정"),
                         Text("장군 bgm, 효과음 소리 조절 / 로그아웃"),
+                        HomeSettingChild(),
                       ],
                     ),
                   );

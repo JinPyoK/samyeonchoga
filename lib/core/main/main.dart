@@ -74,4 +74,17 @@ final _customTheme = ThemeData(
       fixedSize: Size(100 * wu, 40 * hu),
     ),
   ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+    style: ElevatedButton.styleFrom(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+      foregroundColor: whiteColor,
+      backgroundColor: woodColor,
+      textStyle: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+      fixedSize: Size(70 * wu, 30 * hu),
+    ),
+  ),
 );

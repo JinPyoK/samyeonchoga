@@ -18,9 +18,6 @@ void showCustomDialog(BuildContext context, Widget customChild) {
           ),
           actions: [
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: whiteColor,
-              ),
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
               },
