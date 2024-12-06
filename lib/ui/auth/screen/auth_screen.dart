@@ -6,6 +6,7 @@ import 'package:samyeonchoga/provider/auth/oauth_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
+import 'package:samyeonchoga/ui/common/widget/samyeonchoga_title.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -37,22 +38,7 @@ class AuthScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text(
-                  "四 面 楚 歌",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blackColor,
-                    fontSize: 42 * hu,
-                  ),
-                ),
-                Text(
-                  "사 면 초 가",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: blackColor,
-                    fontSize: 42 * hu,
-                  ),
-                ),
+                const SamyeonchogaTitle(),
                 SizedBox(height: 5 * hu),
                 Padding(
                   padding: const EdgeInsets.symmetric(

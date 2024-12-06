@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/common/widget/samyeonchoga_title.dart';
 import 'package:samyeonchoga/ui/home/widget/home_setting_child.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,26 +14,7 @@ class HomeScreen extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(bottom: 100 * hu),
-          child: Column(
-            children: [
-              Text(
-                "四 面 楚 歌",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: blackColor,
-                  fontSize: 42 * hu,
-                ),
-              ),
-              Text(
-                "사 면 초 가",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: blackColor,
-                  fontSize: 42 * hu,
-                ),
-              ),
-            ],
-          ),
+          child: const SamyeonchogaTitle(),
         ),
         Padding(
           padding: EdgeInsets.only(bottom: 50 * hu),

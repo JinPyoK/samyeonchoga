@@ -51,7 +51,7 @@ Future<void> _initSdks() async {
 }
 
 final _customTheme = ThemeData(
-  textTheme: GoogleFonts.songMyungTextTheme(),
+  textTheme: GoogleFonts.nanumGothicTextTheme(),
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: blackColor,
     actionTextColor: whiteColor,
@@ -68,9 +68,6 @@ final _customTheme = ThemeData(
         borderRadius: BorderRadius.circular(5),
       ),
       foregroundColor: blackColor,
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
       fixedSize: Size(100 * wu, 40 * hu),
     ),
   ),
