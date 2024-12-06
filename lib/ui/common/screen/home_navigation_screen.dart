@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
 import 'package:samyeonchoga/ui/rank/screen/rank_screen.dart';
 import 'package:samyeonchoga/ui/store/screen/store_screen.dart';
@@ -34,38 +35,37 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           StoreScreen(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-            ); // BottomNav 탭 시 PageView 이동
-          });
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _currentIndex,
+        onDestinationSelected: (index) {
+          _currentIndex = index;
+          _pageController.jumpToPage(index);
+          setState(() {});
         },
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.black,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        type: BottomNavigationBarType.shifting,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.houseChimney),
+        destinations: const <NavigationDestination>[
+          NavigationDestination(
+            icon: FaIcon(FontAwesomeIcons.houseChimney),
+            selectedIcon: FaIcon(
+              FontAwesomeIcons.houseChimney,
+              color: whiteColor,
+            ),
             label: "Home",
-            backgroundColor: Colors.orangeAccent.shade400,
           ),
-          BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.rankingStar),
+          NavigationDestination(
+            icon: FaIcon(FontAwesomeIcons.rankingStar),
+            selectedIcon: FaIcon(
+              FontAwesomeIcons.rankingStar,
+              color: whiteColor,
+            ),
             label: "Rank",
-            backgroundColor: Colors.brown.shade400,
           ),
-          BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.store),
+          NavigationDestination(
+            icon: FaIcon(FontAwesomeIcons.store),
+            selectedIcon: FaIcon(
+              FontAwesomeIcons.store,
+              color: whiteColor,
+            ),
             label: "Store",
-            backgroundColor: Colors.blueGrey.shade400,
           ),
         ],
       ),

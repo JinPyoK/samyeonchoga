@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
+import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/constant/native_key.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
+import 'package:samyeonchoga/provider/auth/oauth_provider.dart';
 import 'package:samyeonchoga/ui/auth/screen/auth_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         theme: _customTheme,
         title: 'samyeonchoga',
-        // home: isLogin() ? const HomeNavigationScreen() : const AuthScreen(),
-        home: const AuthScreen(),
+        home: isLogin() ? const HomeNavigationScreen() : const AuthScreen(),
       ),
     );
   }
@@ -53,5 +55,10 @@ final _customTheme = ThemeData(
   snackBarTheme: const SnackBarThemeData(
     backgroundColor: Colors.black,
     actionTextColor: Colors.white,
+  ),
+  scaffoldBackgroundColor: whiteColor,
+  navigationBarTheme: const NavigationBarThemeData(
+    backgroundColor: whiteColor,
+    indicatorColor: orangeColor,
   ),
 );
