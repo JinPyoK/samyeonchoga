@@ -53,8 +53,8 @@ Future<void> _initSdks() async {
 final _customTheme = ThemeData(
   textTheme: GoogleFonts.songMyungTextTheme(),
   snackBarTheme: const SnackBarThemeData(
-    backgroundColor: Colors.black,
-    actionTextColor: Colors.white,
+    backgroundColor: blackColor,
+    actionTextColor: whiteColor,
   ),
   scaffoldBackgroundColor: whiteColor,
   navigationBarTheme: const NavigationBarThemeData(

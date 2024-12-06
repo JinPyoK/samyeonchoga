@@ -51,6 +51,18 @@ Future<String?> oAuthLogin({required String vendor}) async {
   }
 }
 
+Future<String?> oAuthLogout() async {
+  String? errorCode;
+
+  try {
+    await _auth.signOut();
+    errorCode = null;
+  } catch (_) {
+    errorCode = '로그아웃 도중 에러가 발생했습니다';
+  }
+  return errorCode;
+}
+
 /// 로그인 여부
 bool isLogin() => _auth.currentUser != null;
 
