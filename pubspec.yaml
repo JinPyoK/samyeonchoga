@@ -39,7 +39,6 @@ dependencies:
   # UI
   font_awesome_flutter: # 아이콘
   google_fonts: # 구글 폰트
-  auth_button_kit: # OAuth 소셜 로그인 버튼, 카카오는 없음
   skeletonizer: # 로딩 스켈레톤
 
   # Riverpod
@@ -48,14 +47,7 @@ dependencies:
 
   # Firebase
   firebase_core:
-  firebase_auth:
-  cloud_firestore: ^5.5.0
   firebase_database:
-
-  # OAuth
-  google_sign_in: # 구글
-  sign_in_with_apple: # 애플
-  kakao_flutter_sdk_user: # 카카오
 
 dev_dependencies:
   flutter_test:
@@ -87,8 +79,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/login/kakao_login.png
-
     - assets/image/board.png
     - assets/image/red_king.png
     - assets/image/red_cha.png

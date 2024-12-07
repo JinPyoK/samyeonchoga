@@ -1,5 +1,3 @@
-const kakaoLoginPath = 'assets/login/kakao_login.png';
-
 const imageBoardPath = 'assets/image/board.png';
 const imageRedKingPath = 'assets/image/red_king.png';
 const imageRedChaPath = 'assets/image/red_cha.png';

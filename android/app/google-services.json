@@ -14,14 +14,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "80954504329-joul2k1eqvonlklbnp2d84tt2dhflus7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.jinpyok.samyeonchoga",
-            "certificate_hash": "3603df53097586c95fbb476b05bbbb8e2296d036"
-          }
-        },
-        {
           "client_id": "80954504329-h0tucbrbklc2e5cb4s0hjsvctsgenaln.apps.googleusercontent.com",
           "client_type": 3
         }

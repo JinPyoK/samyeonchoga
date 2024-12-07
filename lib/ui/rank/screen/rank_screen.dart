@@ -11,7 +11,7 @@ class RankScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36),
+          padding: const EdgeInsets.only(left: 24),
           child: Text(
             "랭크",
             style: TextStyle(
