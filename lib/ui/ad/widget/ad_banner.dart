@@ -7,14 +7,14 @@ class AdBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(18),
+      padding: EdgeInsets.all(10 * hu),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(),
         ),
         child: Row(
           children: [
-            SizedBox(height: 100 * hu),
+            SizedBox(height: 80 * hu),
           ],
         ),
       ),
