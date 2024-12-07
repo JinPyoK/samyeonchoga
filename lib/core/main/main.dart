@@ -58,7 +58,6 @@ final _customTheme = ThemeData(
         borderRadius: BorderRadius.circular(5),
       ),
       foregroundColor: blackColor,
-      fixedSize: Size(100 * wu, 40 * hu),
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -71,7 +70,6 @@ final _customTheme = ThemeData(
       textStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
-      fixedSize: Size(70 * wu, 30 * hu),
     ),
   ),
 );

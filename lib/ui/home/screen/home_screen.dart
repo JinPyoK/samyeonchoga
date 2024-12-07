@@ -34,35 +34,12 @@ class HomeScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 50 * hu),
             child: Column(
               children: [
-                OutlinedButton(
-                  onPressed: () {
-                    showCustomDialog(
-                      context,
-                      const HomeGameStartChild(),
-                    );
-                  },
-                  child: const Text("게임 시작"),
-                ),
+                _renderButton(context, '게임 시작', const HomeGameStartChild(),
+                    defaultAction: false),
                 SizedBox(height: 20 * hu),
-                OutlinedButton(
-                  onPressed: () {
-                    showCustomDialog(
-                      context,
-                      const HomeHelpChild(),
-                    );
-                  },
-                  child: const Text("도움말"),
-                ),
+                _renderButton(context, '도움말', const HomeHelpChild()),
                 SizedBox(height: 20 * hu),
-                OutlinedButton(
-                  onPressed: () {
-                    showCustomDialog(
-                      context,
-                      const HomeSettingChild(),
-                    );
-                  },
-                  child: const Text("환경 설정"),
-                ),
+                _renderButton(context, '환경 설정', const HomeSettingChild()),
               ],
             ),
           )
@@ -77,3 +54,13 @@ final _textStyle = GoogleFonts.songMyung(
   color: blackColor,
   fontSize: 42 * hu,
 );
+
+OutlinedButton _renderButton(BuildContext context, String text, Widget child,
+        {bool defaultAction = true}) =>
+    OutlinedButton(
+      onPressed: () {
+        showCustomDialog(context, child, defaultAction: defaultAction);
+      },
+      style: OutlinedButton.styleFrom(fixedSize: Size(100 * wu, 40 * hu)),
+      child: Text(text),
+    );

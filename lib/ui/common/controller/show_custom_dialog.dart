@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 
-void showCustomDialog(BuildContext context, Widget customChild) {
+void showCustomDialog(BuildContext context, Widget customChild,
+    {bool defaultAction = true}) {
   showGeneralDialog(
     context: context,
     pageBuilder: (context, a1, a2) => Container(),
@@ -17,12 +18,13 @@ void showCustomDialog(BuildContext context, Widget customChild) {
             child: customChild,
           ),
           actions: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: const Text("확인"),
-            ),
+            if (defaultAction)
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: const Text("확인"),
+              ),
           ],
         ),
       );
