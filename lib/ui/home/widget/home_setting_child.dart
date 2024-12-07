@@ -10,6 +10,11 @@ class HomeSettingChild extends StatefulWidget {
 class _HomeSettingChildState extends State<HomeSettingChild> {
   @override
   Widget build(BuildContext context) {
-    return TextButton(onPressed: () {}, child: const Text("로그아웃"));
+    return const Column(
+      children: [
+        Text("환경 설정"),
+        Text("장군 bgm, 효과음 소리 조절"),
+      ],
+    );
   }
 }
