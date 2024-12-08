@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Gold extends StatelessWidget {
-  const Gold({
+class GoldWidget extends StatelessWidget {
+  const GoldWidget({
     super.key,
     required this.gold,
   });

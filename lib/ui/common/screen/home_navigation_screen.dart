@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/provider/gold/gold_provider.dart';
+import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/ui/ad/screen/ad_screen.dart';
-import 'package:samyeonchoga/ui/common/widget/gold.dart';
+import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
 import 'package:samyeonchoga/ui/rank/screen/rank_screen.dart';
 
@@ -30,10 +30,10 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: whiteColor,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 24),
-            child: Gold(gold: gold),
+            padding: const EdgeInsets.only(right: 24),
+            child: GoldWidget(gold: myGold.gold),
           ),
         ],
       ),

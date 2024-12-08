@@ -1,10 +1,10 @@
 import 'package:isar/isar.dart';
 import 'package:samyeonchoga/repository/local_database/isar_base.dart';
 
-part 'gold.g.dart';
+part 'gold_storage.g.dart';
 
 @collection
-final class Gold {
+final class GoldStorage {
   Id id = Isarbase.fixedId;
 
   int gold = 5000;
@@ -16,7 +16,8 @@ final class Gold {
   /// 앱 첫 실행시 한 번 호출 할듯
   Future<void> readGold() async {
     final result = await Isarbase.read(this);
-    final myGold = result as Gold;
+    if (result == null) return;
+    final myGold = result as GoldStorage;
     gold = myGold.gold;
   }
 

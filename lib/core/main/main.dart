@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
+import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/repository/local_database/isar_base.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
@@ -42,6 +43,9 @@ Future<void> _initGame() async {
 
   /// Isar 로컬 데이터베이스
   await Isarbase.initIsarbase();
+
+  /// 앱 시작시 골드 로드하기
+  await myGold.readGold();
 }
 
 final _customTheme = ThemeData(
