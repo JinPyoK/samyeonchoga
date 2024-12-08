@@ -71,12 +71,12 @@ class RankTile extends StatelessWidget {
 }
 
 List<Widget> _renderTrophy(int ranking) {
-  Color trophyColor = Colors.amber;
+  Color trophyColor = const Color(0xffFFD700);
 
   if (ranking == 2) {
-    trophyColor = Colors.grey;
+    trophyColor = const Color(0xffBBC6C9);
   } else if (ranking == 3) {
-    trophyColor = Colors.brown;
+    trophyColor = const Color(0xffB68061);
   }
 
   return <Widget>[
