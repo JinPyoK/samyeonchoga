@@ -54,9 +54,20 @@ class AdScreen extends StatelessWidget {
 }
 
 Padding _renderCaution(String text) => Padding(
-      padding: EdgeInsets.all(5 * hu),
-      child: Text(
-        "* $text",
-        style: const TextStyle(color: Colors.black54),
+      padding: EdgeInsets.symmetric(vertical: 5 * hu, horizontal: 10 * wu),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            '* ',
+            style: TextStyle(color: Colors.black54),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(color: Colors.black54),
+            ),
+          ),
+        ],
       ),
     );
