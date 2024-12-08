@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/rank/widget/rank_tile.dart';
 
@@ -10,15 +11,35 @@ class RankScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24),
-          child: Text(
-            "랭크",
-            style: TextStyle(
-              fontSize: 36 * hu,
-              fontWeight: FontWeight.bold,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(left: 20 * wu),
+              child: Text(
+                "랭크",
+                style: TextStyle(
+                  fontSize: 36 * hu,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: EdgeInsets.only(right: 20 * wu),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: woodColor,
+                ),
+                padding: const EdgeInsets.all(5),
+                width: 36 * hu,
+                height: 36 * hu,
+                child: const FittedBox(
+                  child: Icon(Icons.refresh, color: whiteColor),
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: ListView.builder(

@@ -14,7 +14,7 @@ class AdScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 24),
+            padding: EdgeInsets.only(left: 20 * wu),
             child: Text(
               "광고",
               style: TextStyle(
