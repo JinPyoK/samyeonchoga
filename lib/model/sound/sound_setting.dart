@@ -1,27 +1,27 @@
 import 'package:isar/isar.dart';
 import 'package:samyeonchoga/repository/local_database/isar_base.dart';
 
-part 'gold_storage.g.dart';
+part 'sound_setting.g.dart';
 
 @collection
-final class GoldStorage {
+final class SoundSetting {
   Id id = Isarbase.fixedId;
 
-  int gold = 1352;
+  double volume = 5;
 
-  void addGold(int gold) {
-    this.gold += gold;
+  void changeVolume(double volume) {
+    this.volume = volume;
   }
 
   /// 앱 첫 실행시 한 번 호출 할듯
-  Future<void> readGold() async {
+  Future<void> readSoundVolume() async {
     final result = await Isarbase.read(this);
     if (result == null) return;
-    final myGold = result as GoldStorage;
-    gold = myGold.gold;
+    final mySoundVolume = result as SoundSetting;
+    volume = mySoundVolume.volume;
   }
 
-  Future<void> writeGold() async {
+  Future<void> writSoundVolume() async {
     await Isarbase.write(this);
   }
 }

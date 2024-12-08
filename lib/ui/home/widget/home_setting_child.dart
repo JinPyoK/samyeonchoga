@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
@@ -25,16 +24,20 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
           ),
         ),
         Slider(
-          value: volume,
+          value: soundSetting.volume,
           min: 0,
           max: 9,
           divisions: 9,
           activeColor: woodColor,
           inactiveColor: Colors.black45,
           onChanged: (value) {
-            volume = value;
+            soundSetting.volume = value;
             setState(() {});
-            log(volume.toString());
+
+            EasyDebounce.debounce('soundSetting', const Duration(seconds: 1),
+                () async {
+              await soundSetting.writSoundVolume();
+            });
           },
         )
       ],

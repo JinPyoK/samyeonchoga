@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 
-class HomeGameStartChild extends StatefulWidget {
+class HomeGameStartChild extends ConsumerStatefulWidget {
   const HomeGameStartChild({super.key});
 
   @override
-  State<HomeGameStartChild> createState() => _HomeGameStartChildState();
+  ConsumerState<HomeGameStartChild> createState() => _HomeGameStartChildState();
 }
 
-class _HomeGameStartChildState extends State<HomeGameStartChild> {
-  int _gold = 2000; // 나중에 리버팟으로 상태관리 예정
-
+class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
   GestureDetector _renderLineup(
       Lineup selectedLineup, List<String> imagePath, List<String> label) {
     return GestureDetector(
@@ -80,6 +81,8 @@ class _HomeGameStartChildState extends State<HomeGameStartChild> {
 
   @override
   Widget build(BuildContext context) {
+    final inGameGold = ref.watch(inGameGoldProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -96,7 +99,7 @@ class _HomeGameStartChildState extends State<HomeGameStartChild> {
               ),
               padding: EdgeInsets.all(10 * hu),
               child: Text(
-                _gold.toString(),
+                inGameGold.toString(),
                 style: TextStyle(fontSize: 25 * hu),
               ),
             ),
@@ -114,31 +117,52 @@ class _HomeGameStartChildState extends State<HomeGameStartChild> {
             children: [
               OutlinedButton(
                   onPressed: () {
-                    _gold = 0;
-                    setState(() {});
+                    ref.read(inGameGoldProvider.notifier).setInGameGold(0);
                   },
                   child: const Text("최소")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {
-                    if (_gold <= 0) return;
-                    _gold -= 100;
+                    if (inGameGold <= 100) {
+                      ref.read(inGameGoldProvider.notifier).setInGameGold(0);
+                    } else {
+                      ref
+                          .read(inGameGoldProvider.notifier)
+                          .setInGameGold(inGameGold - 100);
+                    }
                     setState(() {});
                   },
                   child: const Text("-100")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {
-                    if (_gold >= 3000) return;
-                    _gold += 100;
-                    setState(() {});
+                    if (inGameGold + 100 >= myGold.gold) {
+                      ref
+                          .read(inGameGoldProvider.notifier)
+                          .setInGameGold(myGold.gold);
+                    } else {
+                      if (inGameGold >= 2900) {
+                        ref
+                            .read(inGameGoldProvider.notifier)
+                            .setInGameGold(3000);
+                      } else {
+                        ref
+                            .read(inGameGoldProvider.notifier)
+                            .setInGameGold(inGameGold + 100);
+                      }
+                    }
                   },
                   child: const Text("+100")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {
-                    _gold = 3000;
-                    setState(() {});
+                    if (myGold.gold <= 3000) {
+                      ref
+                          .read(inGameGoldProvider.notifier)
+                          .setInGameGold(myGold.gold);
+                    } else {
+                      ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
+                    }
                   },
                   child: const Text("최대")),
             ],
