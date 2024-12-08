@@ -31,18 +31,21 @@ class RankTile extends StatelessWidget {
               Row(
                 children: [
                   SizedBox(
-                    width: 45 * hu,
+                    width: 30 * wu,
                     child: Text(
                       ranking.toString(),
-                      style: TextStyle(fontSize: 20 * hu),
+                      style: TextStyle(fontSize: 15 * wu),
                     ),
                   ),
                   SizedBox(
-                    width: 120 * hu,
-                    child: Text(
-                      nickName,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(fontSize: 12 * hu),
+                    width: 120 * wu,
+                    height: 25 * hu,
+                    child: FittedBox(
+                      child: Text(
+                        nickName,
+                        textAlign: TextAlign.start,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
@@ -51,14 +54,21 @@ class RankTile extends StatelessWidget {
                 children: [
                   if (ranking == 1 || ranking == 2 || ranking == 3)
                     ..._renderTrophy(ranking),
-                  Text(
-                    round.toString(),
-                    style: TextStyle(fontSize: 14 * hu),
+                  SizedBox(
+                    width: 40 * wu,
+                    height: 20 * hu,
+                    child: FittedBox(
+                      child: Text(
+                        round.toString(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 5 * wu),
                   Text(
                     'round',
-                    style: TextStyle(fontSize: 14 * hu),
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 10 * wu),
                   ),
                 ],
               ),
