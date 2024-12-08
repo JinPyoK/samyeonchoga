@@ -5,14 +5,15 @@ part 'gold.g.dart';
 
 @collection
 final class Gold {
-  Id id = Isarbase.id;
+  Id id = Isarbase.fixedId;
 
   int gold = 5000;
 
-  void changeGold(int charge) {
-    gold += charge;
+  void addGold(int gold) {
+    this.gold += gold;
   }
 
+  /// 앱 첫 실행시 한 번 호출 할듯
   Future<void> readGold() async {
     final result = await Isarbase.read(this);
     final myGold = result as Gold;

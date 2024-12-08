@@ -5,7 +5,7 @@ import 'package:samyeonchoga/model/gold/gold.dart';
 sealed class Isarbase {
   static Isar? _isar;
 
-  static int id = 1;
+  static const int fixedId = 1;
 
   static Future<void> initIsarbase() async {
     final path = await getApplicationDocumentsDirectory();
@@ -32,7 +32,7 @@ sealed class Isarbase {
 
     switch (data.runtimeType.toString()) {
       case 'Gold':
-        result = await Isarbase._isar!.golds.get(Isarbase.id);
+        result = await Isarbase._isar!.golds.get(Isarbase.fixedId);
       default:
         return null;
     }
