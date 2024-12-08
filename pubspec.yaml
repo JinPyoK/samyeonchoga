@@ -49,6 +49,13 @@ dependencies:
   firebase_core:
   firebase_database:
 
+  # Isar Local Database
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+
+  # Path for Isar
+  path_provider:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,6 +72,9 @@ dev_dependencies:
 
   # Riverpod
   riverpod_generator:
+
+  # Isar
+  isar_generator: ^3.1.0+1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/release
 /assets/
 /lib/core/constant/native_key.dart
+
+*.g.dart
