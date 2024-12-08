@@ -94,7 +94,7 @@ flutter:
     - assets/image/blue_zol.png
 
     - assets/sound/game_start.mp3
-    - assets/sound/piece_move.wav
+    - assets/sound/piece_move.m4a
     - assets/sound/piece_tap.mp3
     - assets/sound/blue_killed.mp3
     - assets/sound/red_killed.mp3

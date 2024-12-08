@@ -13,7 +13,7 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
     return const Column(
       children: [
         Text("환경 설정"),
-        Text("장군 bgm, 효과음 소리 조절"),
+        Text("효과음 소리 조절"),
       ],
     );
   }

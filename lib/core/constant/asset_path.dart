@@ -13,7 +13,7 @@ const imageBlueSangPath = 'assets/image/blue_sang.png';
 const imageBlueZolPath = 'assets/image/blue_zol.png';
 
 const soundGameStartPath = 'assets/sound/game_start.mp3';
-const soundPieceMovePath = 'assets/sound/piece_move.wav';
+const soundPieceMovePath = 'assets/sound/piece_move.m4a';
 const soundPieceTapPath = 'assets/sound/piece_tap.mp3';
 const soundBlueKilledPath = 'assets/sound/blue_killed.mp3';
 const soundRedKilledPath = 'assets/sound/red_killed.mp3';

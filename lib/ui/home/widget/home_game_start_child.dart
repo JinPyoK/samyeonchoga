@@ -114,14 +114,14 @@ class _HomeGameStartChildState extends State<HomeGameStartChild> {
             children: [
               OutlinedButton(
                   onPressed: () {
-                    _gold = 100;
+                    _gold = 0;
                     setState(() {});
                   },
                   child: const Text("최소")),
               const SizedBox(width: 10),
               OutlinedButton(
                   onPressed: () {
-                    if (_gold <= 100) return;
+                    if (_gold <= 0) return;
                     _gold -= 100;
                     setState(() {});
                   },
