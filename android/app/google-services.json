@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "80954504329",
+    "firebase_url": "https://samyeonchoga-default-rtdb.firebaseio.com",
     "project_id": "samyeonchoga",
     "storage_bucket": "samyeonchoga.firebasestorage.app"
   },

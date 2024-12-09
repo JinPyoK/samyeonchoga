@@ -32,5 +32,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:80954504329:ios:db6a2ed17b1e9fd2c8c258</string>
+	<key>DATABASE_URL</key>
+	<string>https://samyeonchoga-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

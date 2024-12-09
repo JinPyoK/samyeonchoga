@@ -1,5 +1,5 @@
 final class RankModel {
-  /// DateTime.toLocal().toString()
+  /// DateTime => Realtime Database의 경로, 데이터 참조용
   final String id;
 
   /// Rank round
@@ -17,9 +17,9 @@ final class RankModel {
         nickName: json['nickName'] as String);
   }
 
+  /// 경로(Id) 제외
   Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'round': round,
       'nickName': nickName,
     };
