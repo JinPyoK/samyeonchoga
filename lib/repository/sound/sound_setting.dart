@@ -1,5 +1,5 @@
 import 'package:isar/isar.dart';
-import 'package:samyeonchoga/repository/local_database/isar_base.dart';
+import 'package:samyeonchoga/core/local_database/isar_base.dart';
 
 part 'sound_setting.g.dart';
 

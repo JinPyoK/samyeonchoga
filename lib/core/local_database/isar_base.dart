@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:samyeonchoga/model/gold/gold_storage.dart';
-import 'package:samyeonchoga/model/sound/sound_setting.dart';
+import 'package:samyeonchoga/repository/gold/gold_storage.dart';
+import 'package:samyeonchoga/repository/sound/sound_setting.dart';
 
 sealed class Isarbase {
   static Isar? _isar;
