@@ -51,6 +51,16 @@ class _RankScreenState extends ConsumerState<RankScreen>
                 ),
               ),
             ),
+            // OutlinedButton(
+            //     onPressed: () {
+            //       ref.read(rankProvider.notifier).registerRank(
+            //             rankModel: RankModel.autoId(
+            //               round: 300,
+            //               nickName: 'nickName',
+            //             ),
+            //           );
+            //     },
+            //     child: const Text("더미")),
             const RankRefreshButton(),
           ],
         ),

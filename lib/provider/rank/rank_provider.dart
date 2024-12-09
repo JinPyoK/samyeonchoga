@@ -44,15 +44,6 @@ final class Rank extends _$Rank {
   }
 
   Future<void> registerRank({required RankModel rankModel}) async {
-    final rankList = await _repo.readRank();
-
-    /// 마지막 순위의 데이터 제거 후 랭크 데이터 쓰기 => 데이터 100개만 유지
-    if (rankList.length < 100) {
-      rankList.add(rankModel);
-    } else {
-      rankList.removeLast();
-      rankList.add(rankModel);
-    }
-    await _repo.writeRank(rankList: rankList);
+    await _repo.writeRank(rankModel: rankModel);
   }
 }
