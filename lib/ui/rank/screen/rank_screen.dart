@@ -18,6 +18,10 @@ class RankScreen extends ConsumerStatefulWidget {
 
 class _RankScreenState extends ConsumerState<RankScreen>
     with AutomaticKeepAliveClientMixin {
+  /// 공동 순위 스택
+  int rankStack = 0;
+  int sameRound = 99999;
+
   @override
   bool get wantKeepAlive => true;
 
@@ -51,16 +55,6 @@ class _RankScreenState extends ConsumerState<RankScreen>
                 ),
               ),
             ),
-            // OutlinedButton(
-            //     onPressed: () {
-            //       ref.read(rankProvider.notifier).registerRank(
-            //             rankModel: RankModel.autoId(
-            //               round: 300,
-            //               nickName: 'nickName',
-            //             ),
-            //           );
-            //     },
-            //     child: const Text("더미")),
             const RankRefreshButton(),
           ],
         ),
@@ -78,20 +72,36 @@ class _RankScreenState extends ConsumerState<RankScreen>
           ),
         if (rankState.state == RankStateEnum.fetch)
           Expanded(
-            child: ListView.builder(
-              itemCount: rankList.length,
-              itemBuilder: (_, index) {
+            child: ListView(
+              children: rankList.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
+
+                /// 공동 순위 나타내기
+                if (index > 0) {
+                  if (item.round == sameRound) {
+                    rankStack++;
+                  } else {
+                    rankStack = 0;
+                    sameRound = item.round;
+                  }
+                } else {
+                  /// index == 0
+                  rankStack = 0;
+                  sameRound = item.round;
+                }
+
                 return RankTile(
-                  rank: index + 1,
+                  rank: index + 1 - rankStack,
                   model: RankModel(
-                    id: rankList[index].id,
-                    round: rankList[index].round,
-                    nickName: rankList[index].nickName,
+                    id: item.id,
+                    round: item.round,
+                    nickName: item.nickName,
                   ),
                 );
-              },
+              }).toList(),
             ),
-          ),
+          )
       ],
     );
   }
