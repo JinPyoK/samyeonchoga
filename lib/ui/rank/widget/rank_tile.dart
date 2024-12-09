@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 
 class RankTile extends StatelessWidget {
   const RankTile({
     super.key,
-    required this.ranking,
-    required this.round,
-    required this.nickName,
+    required this.rank,
+    required this.model,
   });
 
-  final int ranking;
-  final int round;
-  final String nickName;
+  final int rank;
+  final RankModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class RankTile extends StatelessWidget {
                   SizedBox(
                     width: 30 * wu,
                     child: Text(
-                      ranking.toString(),
+                      rank.toString(),
                       style: TextStyle(fontSize: 15 * wu),
                     ),
                   ),
@@ -42,7 +41,7 @@ class RankTile extends StatelessWidget {
                     height: 25 * hu,
                     child: FittedBox(
                       child: Text(
-                        nickName,
+                        model.nickName,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -52,14 +51,14 @@ class RankTile extends StatelessWidget {
               ),
               Row(
                 children: [
-                  if (ranking == 1 || ranking == 2 || ranking == 3)
-                    ..._renderTrophy(ranking),
+                  if (rank == 1 || rank == 2 || rank == 3)
+                    ..._renderTrophy(rank),
                   SizedBox(
                     width: 40 * wu,
                     height: 20 * hu,
                     child: FittedBox(
                       child: Text(
-                        round.toString(),
+                        model.round.toString(),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
