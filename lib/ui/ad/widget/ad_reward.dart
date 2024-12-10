@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
+import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 
 class AdReward extends StatefulWidget {
   const AdReward({super.key, required this.adUnitId});
@@ -77,7 +81,13 @@ class _AdRewardState extends State<AdReward> {
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
           } else {
             _rewardedAd!.show(
-              onUserEarnedReward: (_, __) {},
+              onUserEarnedReward: (_, __) {
+                myGold.gold += 1000;
+                if (setStateGold != null) {
+                  setStateGold!(() {});
+                }
+                unawaited(myGold.writeGold());
+              },
             );
           }
         },
