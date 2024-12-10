@@ -60,7 +60,7 @@ class _AdBannerState extends State<AdBanner> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 5 * wu, vertical: 10 * hu),
+      padding: EdgeInsets.symmetric(horizontal: 5 * wu, vertical: 5 * hu),
       child: SizedBox(
         width: widget.adSize.width.toDouble(),
         height: widget.adSize.height.toDouble(),

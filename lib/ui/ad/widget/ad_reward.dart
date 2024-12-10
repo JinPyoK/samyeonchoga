@@ -74,7 +74,7 @@ class _AdRewardState extends State<AdReward> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10 * hu),
+      padding: EdgeInsets.symmetric(horizontal: 10 * wu),
       child: ElevatedButton(
         onPressed: () {
           if (_rewardedAd == null) {
