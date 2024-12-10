@@ -1,14 +1,25 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:samyeonchoga/ui/ad/controller/ad_id.dart';
 import 'package:samyeonchoga/ui/ad/widget/ad_banner.dart';
+import 'package:samyeonchoga/ui/ad/widget/ad_reward.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 
-class AdScreen extends StatelessWidget {
+class AdScreen extends StatefulWidget {
   const AdScreen({super.key});
 
   @override
+  State<AdScreen> createState() => _AdScreenState();
+}
+
+class _AdScreenState extends State<AdScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -23,30 +34,25 @@ class AdScreen extends StatelessWidget {
               ),
             ),
           ),
-          const Column(
-            children: [
-              AdBanner(),
-              AdBanner(),
-              AdBanner(),
-            ],
+          AdBanner(
+            adSize:
+                AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+            adUnitId: bannerId1,
           ),
-          Padding(
-            padding: EdgeInsets.all(10 * hu),
-            child: ElevatedButton(
-              onPressed: () {
-                log("보상형 광고 시청");
-              },
-              child: const Text("광고 시청 후 1000골드 획득"),
-            ),
+          AdBanner(
+            adSize:
+                AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+            adUnitId: bannerId2,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _renderCaution("골드는 유저 여러분의 스마트폰 또는 PC 기기에 종속됩니다."),
-              _renderCaution("앱을 삭제하면 보유하고 있던 골드가 사라집니다."),
-              _renderCaution("광고를 올바르게 시청하지 않은 경우 보상이 주어지지 않을 수 있습니다."),
-            ],
-          )
+          AdBanner(
+            adSize:
+                AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+            adUnitId: bannerId3,
+          ),
+          AdReward(adUnitId: rewardId1),
+          _renderCaution("골드는 유저 여러분의 스마트폰 또는 PC 기기에 종속됩니다."),
+          _renderCaution("앱을 삭제하면 보유하고 있던 골드가 사라집니다."),
+          _renderCaution("광고를 올바르게 시청하지 않은 경우 보상이 주어지지 않을 수 있습니다.")
         ],
       ),
     );

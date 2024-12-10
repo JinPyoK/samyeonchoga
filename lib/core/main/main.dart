@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
 import 'package:samyeonchoga/core/local_database/isar_base.dart';
@@ -50,6 +53,9 @@ Future<void> _initGame() async {
 
   /// 앱 시작시 사운드 설정 로드하기
   await soundSetting.readSoundVolume();
+
+  /// 구글 애드몹
+  unawaited(MobileAds.instance.initialize());
 }
 
 final _customTheme = ThemeData(

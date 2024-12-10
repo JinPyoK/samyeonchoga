@@ -45,3 +45,9 @@ app.*.map.json
 /lib/core/constant/native_key.dart
 
 *.g.dart
+
+# AndroidManifest.xml
+android/app/src/main/AndroidManifest.xml
+
+# Info.plist
+ios/Runner/Info.plist
