@@ -7,6 +7,7 @@ import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
 class HomeGameStartChild extends ConsumerStatefulWidget {
   const HomeGameStartChild({super.key});
@@ -248,7 +249,12 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                   Navigator.of(context, rootNavigator: true).pop();
                 },
                 child: const Text("취소")),
-            ElevatedButton(onPressed: () {}, child: const Text("게임 시작")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const InGameScreen()));
+                },
+                child: const Text("게임 시작")),
           ],
         )
       ],
