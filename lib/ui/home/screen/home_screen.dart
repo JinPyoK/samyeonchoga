@@ -12,39 +12,33 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 30 * hu),
-            child: Column(
-              children: [
-                Text(
-                  "四 面 楚 歌",
-                  style: _textStyle,
-                ),
-                Text(
-                  "사 면 초 가",
-                  style: _textStyle,
-                ),
-              ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Column(
+          children: [
+            Text(
+              "四 面 楚 歌",
+              style: _textStyle,
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 50 * hu),
-            child: Column(
-              children: [
-                _renderButton(context, '게임 시작', const HomeGameStartChild(),
-                    defaultAction: false),
-                SizedBox(height: 20 * hu),
-                _renderButton(context, '도움말', const HomeHelpChild()),
-                SizedBox(height: 20 * hu),
-                _renderButton(context, '환경 설정', const HomeSettingChild()),
-              ],
+            Text(
+              "사 면 초 가",
+              style: _textStyle,
             ),
-          )
-        ],
-      ),
+          ],
+        ),
+        Column(
+          children: [
+            _renderButton(context, '게임 시작', const HomeGameStartChild(),
+                defaultAction: false),
+            SizedBox(height: 20 * hu),
+            _renderButton(context, '도움말', const HomeHelpChild()),
+            SizedBox(height: 20 * hu),
+            _renderButton(context, '환경 설정', const HomeSettingChild()),
+          ],
+        ),
+        Container(), // spaceAround를 위한 더미 컨테이너
+      ],
     );
   }
 }
