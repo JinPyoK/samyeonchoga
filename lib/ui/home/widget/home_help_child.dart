@@ -25,7 +25,7 @@ class HomeHelpChild extends StatelessWidget {
         _renderDescription(
             '한나라의 기물 부활 개수는 최대를 넘을 수 없으며, 골드가 소모됩니다.\n병: 5개, 20골드\n상: 2개, 30골드\n사: 2개, 30골드\n마: 2개, 50골드\n포: 2개, 70골드\n차: 2개, 130골드'),
         _renderTitle('6. 기물 처형'),
-        _renderDescription('초나라 기물을 즉시 처형할 수 있습니다. 300골드를 소모합니다. '),
+        _renderDescription('초나라 또는 한나라 기물을 즉시 처형할 수 있습니다. 300골드를 소모합니다. '),
         _renderTitle('7. 게임 종료'),
         _renderDescription(
             '한나라의 왕이 초나라의 기물로부터 취해졌을 때 게임이 종료됩니다. 도중에 게임을 저장한 후, 추후 저장했던 게임을 다시 시작할 수 있습니다. 골드와 마찬가지로, 앱을 삭제하면 저장했던 게임이 사라집니다.'),

@@ -251,6 +251,7 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                 child: const Text("취소")),
             ElevatedButton(
                 onPressed: () {
+                  Navigator.of(context, rootNavigator: true).pop();
                   Navigator.push(context,
                       MaterialPageRoute(builder: (_) => const InGameScreen()));
                 },
