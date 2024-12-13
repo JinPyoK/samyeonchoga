@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 
-void showCustomDialog(BuildContext context, Widget customChild,
-    {bool defaultAction = true}) {
+void showCustomDialog(
+  BuildContext context,
+  Widget customChild, {
+  Color color = whiteColor,
+  bool defaultAction = true,
+  Color actionButtonColor = woodColor,
+}) {
   showGeneralDialog(
     context: context,
     pageBuilder: (context, a1, a2) => Container(),
@@ -11,7 +16,7 @@ void showCustomDialog(BuildContext context, Widget customChild,
       return ScaleTransition(
         scale: a1,
         child: AlertDialog(
-          backgroundColor: whiteColor,
+          backgroundColor: color,
           scrollable: true,
           content: Padding(
             padding: const EdgeInsets.only(top: 32),
@@ -20,10 +25,12 @@ void showCustomDialog(BuildContext context, Widget customChild,
           actions: [
             if (defaultAction)
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: actionButtonColor),
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                 },
-                child: const Text("확인"),
+                child: Text(actionButtonColor == woodColor ? '확인' : '취소'),
               ),
           ],
         ),
