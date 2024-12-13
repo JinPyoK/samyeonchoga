@@ -190,7 +190,14 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: () {}, child: const Text("기물 처형")),
+                      onPressed: () {},
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("기물 처형"),
+                          GoldWidget(gold: 300, goldTextColor: whiteColor),
+                        ],
+                      )),
                 )),
               ],
             ),
