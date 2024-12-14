@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 
@@ -14,6 +15,7 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inGameGold = ref.watch(inGameGoldProvider);
+    final inGameRound = ref.watch(inGameRoundProvider);
 
     return AppBar(
       backgroundColor: inGameBlackColor,
@@ -22,9 +24,9 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
         child: CircularProgressIndicator(color: whiteColor),
       ),
       centerTitle: true,
-      title: const Text(
-        '10',
-        style: TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
+      title: Text(
+        inGameRound.toString(),
+        style: const TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
       ),
       actions: [
         Padding(

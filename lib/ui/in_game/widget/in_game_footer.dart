@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_spawn_piece_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
@@ -14,10 +16,52 @@ class InGameFooter extends ConsumerStatefulWidget {
 }
 
 class _InGameFooterState extends ConsumerState<InGameFooter> {
-  ElevatedButton _renderSpawnButton(String imagePath, String label, int gold) {
+  ElevatedButton _renderSpawnButton(KindOfPiece piece) {
+    late String imagePath;
+    late String label;
+    late int gold;
+
+    switch (piece) {
+      case KindOfPiece.cha:
+        imagePath = imageRedChaPath;
+        label = '차';
+        gold = 130;
+        break;
+      case KindOfPiece.po:
+        imagePath = imageRedPoPath;
+        label = '포';
+        gold = 70;
+        break;
+      case KindOfPiece.ma:
+        imagePath = imageRedMaPath;
+        label = '마';
+        gold = 50;
+        break;
+      case KindOfPiece.sang:
+        imagePath = imageRedSangPath;
+        label = '상';
+        gold = 30;
+        break;
+      case KindOfPiece.sa:
+        imagePath = imageRedSaPath;
+        label = '사';
+        gold = 30;
+        break;
+      default:
+        imagePath = imageRedByungPath;
+        label = '병';
+        gold = 20;
+        break;
+    }
+
     return ElevatedButton(
       style: ElevatedButton.styleFrom(fixedSize: Size(100, 50 * hu)),
-      onPressed: () {},
+      onPressed: () {
+        ref
+            .read(inGameSpawnPieceProviderProvider.notifier)
+            .changeSpawnPiece(piece);
+        Navigator.pop(context);
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,8 +79,74 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     );
   }
 
+  Widget _renderSpawnSelectedBox(KindOfPiece piece) {
+    late String imagePath;
+    late String label;
+
+    switch (piece) {
+      case KindOfPiece.cha:
+        imagePath = imageRedChaPath;
+        label = '차';
+        break;
+      case KindOfPiece.po:
+        imagePath = imageRedPoPath;
+        label = '포';
+        break;
+      case KindOfPiece.ma:
+        imagePath = imageRedMaPath;
+        label = '마';
+        break;
+      case KindOfPiece.sang:
+        imagePath = imageRedSangPath;
+        label = '상';
+        break;
+      case KindOfPiece.sa:
+        imagePath = imageRedSaPath;
+        label = '사';
+        break;
+      default:
+        imagePath = imageRedByungPath;
+        label = '병';
+        break;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: SizedBox(
+        height: 50 * hu,
+        child: InputDecorator(
+          decoration: InputDecoration(
+            labelText: '부활 기물 선택',
+            labelStyle:
+                const TextStyle(color: whiteColor, fontWeight: FontWeight.bold),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(color: whiteColor),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(imagePath),
+              const SizedBox(width: 10),
+              Text(
+                label,
+                style: const TextStyle(
+                  color: whiteColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final selectedSpawnPiece = ref.watch(inGameSpawnPieceProviderProvider);
+
     return ColoredBox(
       color: inGameBlackColor,
       child: Padding(
@@ -48,38 +158,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SizedBox(
-                      height: 50 * hu,
-                      child: InputDecorator(
-                        decoration: InputDecoration(
-                          labelText: '부활 기물 선택',
-                          labelStyle: const TextStyle(
-                              color: whiteColor, fontWeight: FontWeight.bold),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                            borderSide: const BorderSide(color: whiteColor),
-                          ),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(imageRedChaPath),
-                            const SizedBox(width: 10),
-                            const Text(
-                              "차",
-                              style: TextStyle(
-                                  color: whiteColor,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                Expanded(child: _renderSpawnSelectedBox(selectedSpawnPiece)),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -94,7 +173,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 const Text(
-                                  "게임을 종료하시겠습니까?\n\n게임을 저장하지 않으면 남은 골드는 돌려받습니다.",
+                                  "게임을 종료하시겠습니까?\n\n게임을 저장하지 않고 종료하면 남은 골드는 돌려받습니다.",
                                   style: TextStyle(
                                     color: blackColor,
                                     fontWeight: FontWeight.bold,
@@ -142,41 +221,17 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                _renderSpawnButton(
-                                  imageRedChaPath,
-                                  '차',
-                                  130,
-                                ),
+                                _renderSpawnButton(KindOfPiece.cha),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(
-                                  imageRedPoPath,
-                                  '포',
-                                  70,
-                                ),
+                                _renderSpawnButton(KindOfPiece.po),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(
-                                  imageRedMaPath,
-                                  '마',
-                                  50,
-                                ),
+                                _renderSpawnButton(KindOfPiece.ma),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(
-                                  imageRedSangPath,
-                                  '상',
-                                  30,
-                                ),
+                                _renderSpawnButton(KindOfPiece.sang),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(
-                                  imageRedSaPath,
-                                  '사',
-                                  30,
-                                ),
+                                _renderSpawnButton(KindOfPiece.sa),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(
-                                  imageRedByungPath,
-                                  '병',
-                                  20,
-                                ),
+                                _renderSpawnButton(KindOfPiece.byungOrZol),
                               ],
                             ),
                           ),
