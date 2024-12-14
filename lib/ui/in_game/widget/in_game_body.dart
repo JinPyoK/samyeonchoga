@@ -23,8 +23,8 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       final renderBox =
           imageBoardKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
-
       initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
+      setState(() {});
     });
   }
 
@@ -39,7 +39,21 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
             image: imageBoard,
             key: imageBoardKey,
           ),
-          // Positioned(child: Image.asset(name))
+          Positioned(
+            left: boardPositionXValue[4],
+            bottom: boardPositionYValueForKing[2],
+            child: Image(image: imageRedKing, width: pieceSize),
+          ),
+          Positioned(
+            left: boardPositionXValue[2],
+            bottom: boardPositionYValue[1],
+            child: Image(image: imageRedPo, width: pieceSize),
+          ),
+          Positioned(
+            left: boardPositionXValue[7],
+            bottom: boardPositionYValue[5],
+            child: Image(image: imageRedByung, width: pieceSize),
+          ),
         ],
       ),
     );

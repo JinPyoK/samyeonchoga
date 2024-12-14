@@ -1,57 +1,66 @@
-import 'dart:developer';
+double pieceSize = 50;
 
-import 'package:samyeonchoga/model/in_game/board_position_enum.dart';
-
-Map<BoardPositionX, double> boardPositionXValue = {
-  BoardPositionX.x1: 0,
-  BoardPositionX.x2: 0,
-  BoardPositionX.x3: 0,
-  BoardPositionX.x4: 0,
-  BoardPositionX.x5: 0,
-  BoardPositionX.x6: 0,
-  BoardPositionX.x7: 0,
-  BoardPositionX.x8: 0,
-  BoardPositionX.x9: 0,
+Map<int, double> boardPositionXValue = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+  8: 0,
 };
 
-Map<BoardPositionY, double> boardPositionYValue = {
-  BoardPositionY.y1: 0,
-  BoardPositionY.y2: 0,
-  BoardPositionY.y3: 0,
-  BoardPositionY.y4: 0,
-  BoardPositionY.y5: 0,
-  BoardPositionY.y6: 0,
-  BoardPositionY.y7: 0,
-  BoardPositionY.y8: 0,
-  BoardPositionY.y9: 0,
-  BoardPositionY.y10: 0,
+Map<int, double> boardPositionYValue = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+  6: 0,
+  7: 0,
+  8: 0,
+  9: 0,
+};
+
+/// 한나라 왕의 이미지만 y value 차이가 있음
+Map<int, double> boardPositionYValueForKing = {
+  0: 1,
+  1: 1,
+  2: 1,
 };
 
 void initBoardPositionValue(
     {required double boardWidth, required double boardHeight}) {
-  log('이미지 넓이: $boardWidth, 높이: $boardHeight');
-
   final xValue = boardWidth / 360;
   final yValue = boardHeight / 720;
 
-  boardPositionXValue[BoardPositionX.x1] = xValue * 1;
-  boardPositionXValue[BoardPositionX.x2] = xValue * 2;
-  boardPositionXValue[BoardPositionX.x3] = xValue * 3;
-  boardPositionXValue[BoardPositionX.x4] = xValue * 4;
-  boardPositionXValue[BoardPositionX.x5] = xValue * 5;
-  boardPositionXValue[BoardPositionX.x6] = xValue * 6;
-  boardPositionXValue[BoardPositionX.x7] = xValue * 7;
-  boardPositionXValue[BoardPositionX.x8] = xValue * 8;
-  boardPositionXValue[BoardPositionX.x9] = xValue * 9;
+  pieceSize = 40 * xValue;
 
-  boardPositionYValue[BoardPositionY.y1] = yValue * 1;
-  boardPositionYValue[BoardPositionY.y2] = yValue * 2;
-  boardPositionYValue[BoardPositionY.y3] = yValue * 3;
-  boardPositionYValue[BoardPositionY.y4] = yValue * 4;
-  boardPositionYValue[BoardPositionY.y5] = yValue * 5;
-  boardPositionYValue[BoardPositionY.y6] = yValue * 6;
-  boardPositionYValue[BoardPositionY.y7] = yValue * 7;
-  boardPositionYValue[BoardPositionY.y8] = yValue * 8;
-  boardPositionYValue[BoardPositionY.y9] = yValue * 9;
-  boardPositionYValue[BoardPositionY.y10] = yValue * 10;
+  boardPositionXValue[0] = xValue * 0.7;
+  boardPositionXValue[1] = xValue * 39.7;
+  boardPositionXValue[2] = xValue * 79.7;
+  boardPositionXValue[3] = xValue * 119.7;
+  boardPositionXValue[4] = xValue * 159.7;
+  boardPositionXValue[5] = xValue * 199.7;
+  boardPositionXValue[6] = xValue * 239.7;
+  boardPositionXValue[7] = xValue * 279.7;
+  boardPositionXValue[8] = xValue * 319.7;
+
+  boardPositionYValue[0] = yValue * 4;
+  boardPositionYValue[1] = yValue * 75;
+  boardPositionYValue[2] = yValue * 146;
+  boardPositionYValue[3] = yValue * 217;
+  boardPositionYValue[4] = yValue * 288;
+  boardPositionYValue[5] = yValue * 359;
+  boardPositionYValue[6] = yValue * 430;
+  boardPositionYValue[7] = yValue * 501;
+  boardPositionYValue[8] = yValue * 572;
+  boardPositionYValue[9] = yValue * 643;
+
+  boardPositionYValueForKing[0] = yValue * 1;
+  boardPositionYValueForKing[1] = yValue * 72;
+  boardPositionYValueForKing[2] = yValue * 143.5;
 }
