@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
 class HomeGameStartChild extends ConsumerStatefulWidget {
@@ -17,8 +17,63 @@ class HomeGameStartChild extends ConsumerStatefulWidget {
 }
 
 class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
-  GestureDetector _renderLineup(
-      Lineup selectedLineup, List<String> imagePath, List<String> label) {
+  GestureDetector _renderLineup(Lineup selectedLineup) {
+    late ImageProvider lineup1;
+    late ImageProvider lineup2;
+    late ImageProvider lineup3;
+    late ImageProvider lineup4;
+
+    late String label1;
+    late String label2;
+    late String label3;
+    late String label4;
+
+    switch (selectedLineup) {
+      case Lineup.maSangMaSang:
+        lineup1 = imageRedMa;
+        lineup2 = imageRedSang;
+        lineup3 = imageRedMa;
+        lineup4 = imageRedSang;
+        label1 = '마';
+        label2 = '상';
+        label3 = '마';
+        label4 = '상';
+        break;
+
+      case Lineup.sangMaSangMa:
+        lineup1 = imageRedSang;
+        lineup2 = imageRedMa;
+        lineup3 = imageRedSang;
+        lineup4 = imageRedMa;
+        label1 = '상';
+        label2 = '마';
+        label3 = '상';
+        label4 = '마';
+        break;
+
+      case Lineup.maSangSangMa:
+        lineup1 = imageRedMa;
+        lineup2 = imageRedSang;
+        lineup3 = imageRedSang;
+        lineup4 = imageRedMa;
+        label1 = '마';
+        label2 = '상';
+        label3 = '상';
+        label4 = '마';
+        break;
+
+      default:
+        lineup1 = imageRedSang;
+        lineup2 = imageRedMa;
+        lineup3 = imageRedMa;
+        lineup4 = imageRedSang;
+        label1 = '상';
+        label2 = '마';
+        label3 = '마';
+        label4 = '상';
+        break;
+    }
+
     return GestureDetector(
       onTap: () {
         lineup = selectedLineup;
@@ -38,36 +93,36 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
               children: [
                 Column(
                   children: [
-                    Image.asset(imagePath[0], fit: BoxFit.cover),
+                    Image(image: lineup1),
                     Text(
-                      label[0],
+                      label1,
                       style: TextStyle(fontSize: 100 * hu),
                     ),
                   ],
                 ),
                 Column(
                   children: [
-                    Image.asset(imagePath[1], fit: BoxFit.cover),
+                    Image(image: lineup2),
                     Text(
-                      label[1],
+                      label2,
                       style: TextStyle(fontSize: 100 * hu),
                     ),
                   ],
                 ),
                 Column(
                   children: [
-                    Image.asset(imagePath[2], fit: BoxFit.cover),
+                    Image(image: lineup3),
                     Text(
-                      label[2],
+                      label3,
                       style: TextStyle(fontSize: 100 * hu),
                     ),
                   ],
                 ),
                 Column(
                   children: [
-                    Image.asset(imagePath[3], fit: BoxFit.cover),
+                    Image(image: lineup4),
                     Text(
-                      label[3],
+                      label4,
                       style: TextStyle(fontSize: 100 * hu),
                     ),
                   ],
@@ -177,66 +232,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
             spacing: 10 * wu,
             runSpacing: 10 * hu,
             children: [
-              _renderLineup(
-                Lineup.maSangMaSang,
-                <String>[
-                  imageRedMaPath,
-                  imageRedSangPath,
-                  imageRedMaPath,
-                  imageRedSangPath,
-                ],
-                <String>[
-                  '마',
-                  '상',
-                  '마',
-                  '상',
-                ],
-              ),
-              _renderLineup(
-                Lineup.sangMaSangMa,
-                <String>[
-                  imageRedSangPath,
-                  imageRedMaPath,
-                  imageRedSangPath,
-                  imageRedMaPath,
-                ],
-                <String>[
-                  '상',
-                  '마',
-                  '상',
-                  '마',
-                ],
-              ),
-              _renderLineup(
-                Lineup.maSangSangMa,
-                <String>[
-                  imageRedMaPath,
-                  imageRedSangPath,
-                  imageRedSangPath,
-                  imageRedMaPath,
-                ],
-                <String>[
-                  '마',
-                  '상',
-                  '상',
-                  '마',
-                ],
-              ),
-              _renderLineup(
-                Lineup.sangMaMaSang,
-                <String>[
-                  imageRedSangPath,
-                  imageRedMaPath,
-                  imageRedMaPath,
-                  imageRedSangPath,
-                ],
-                <String>[
-                  '상',
-                  '마',
-                  '마',
-                  '상',
-                ],
-              ),
+              _renderLineup(Lineup.maSangMaSang),
+              _renderLineup(Lineup.sangMaSangMa),
+              _renderLineup(Lineup.maSangSangMa),
+              _renderLineup(Lineup.sangMaMaSang),
             ],
           ),
         ),

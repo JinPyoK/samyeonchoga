@@ -1,12 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_spawn_piece_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
+import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
 class InGameFooter extends ConsumerStatefulWidget {
   const InGameFooter({super.key});
@@ -17,38 +19,38 @@ class InGameFooter extends ConsumerStatefulWidget {
 
 class _InGameFooterState extends ConsumerState<InGameFooter> {
   ElevatedButton _renderSpawnButton(KindOfPiece piece) {
-    late String imagePath;
+    late ImageProvider imagePiece;
     late String label;
     late int gold;
 
     switch (piece) {
       case KindOfPiece.cha:
-        imagePath = imageRedChaPath;
+        imagePiece = imageRedCha;
         label = '차';
         gold = 130;
         break;
       case KindOfPiece.po:
-        imagePath = imageRedPoPath;
+        imagePiece = imageRedPo;
         label = '포';
         gold = 70;
         break;
       case KindOfPiece.ma:
-        imagePath = imageRedMaPath;
+        imagePiece = imageRedMa;
         label = '마';
         gold = 50;
         break;
       case KindOfPiece.sang:
-        imagePath = imageRedSangPath;
+        imagePiece = imageRedSang;
         label = '상';
         gold = 30;
         break;
       case KindOfPiece.sa:
-        imagePath = imageRedSaPath;
+        imagePiece = imageRedSa;
         label = '사';
         gold = 30;
         break;
       default:
-        imagePath = imageRedByungPath;
+        imagePiece = imageRedByung;
         label = '병';
         gold = 20;
         break;
@@ -65,7 +67,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(imagePath),
+          Image(image: imagePiece),
           const SizedBox(width: 10),
           Text(
             label,
@@ -80,63 +82,68 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
   }
 
   Widget _renderSpawnSelectedBox(KindOfPiece piece) {
-    late String imagePath;
+    late ImageProvider imagePiece;
     late String label;
 
     switch (piece) {
       case KindOfPiece.cha:
-        imagePath = imageRedChaPath;
+        imagePiece = imageRedCha;
         label = '차';
         break;
       case KindOfPiece.po:
-        imagePath = imageRedPoPath;
+        imagePiece = imageRedPo;
         label = '포';
         break;
       case KindOfPiece.ma:
-        imagePath = imageRedMaPath;
+        imagePiece = imageRedMa;
         label = '마';
         break;
       case KindOfPiece.sang:
-        imagePath = imageRedSangPath;
+        imagePiece = imageRedSang;
         label = '상';
         break;
       case KindOfPiece.sa:
-        imagePath = imageRedSaPath;
+        imagePiece = imageRedSa;
         label = '사';
         break;
       default:
-        imagePath = imageRedByungPath;
+        imagePiece = imageRedByung;
         label = '병';
         break;
     }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        height: 50 * hu,
-        child: InputDecorator(
-          decoration: InputDecoration(
-            labelText: '부활 기물 선택',
-            labelStyle:
-                const TextStyle(color: whiteColor, fontWeight: FontWeight.bold),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8.0),
-              borderSide: const BorderSide(color: whiteColor),
+      child: GestureDetector(
+        onTap: () {
+          log("기물 부활 내비게이터 생성: $label");
+        },
+        child: SizedBox(
+          height: 50 * hu,
+          child: InputDecorator(
+            decoration: InputDecoration(
+              labelText: '부활 기물 선택',
+              labelStyle: const TextStyle(
+                  color: whiteColor, fontWeight: FontWeight.bold),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: const BorderSide(color: whiteColor),
+              ),
             ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(imagePath),
-              const SizedBox(width: 10),
-              Text(
-                label,
-                style: const TextStyle(
-                  color: whiteColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
-            ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(image: imagePiece),
+                const SizedBox(width: 10),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    color: whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
