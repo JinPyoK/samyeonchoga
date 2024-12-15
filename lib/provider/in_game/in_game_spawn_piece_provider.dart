@@ -6,11 +6,11 @@ part 'in_game_spawn_piece_provider.g.dart';
 @Riverpod()
 final class InGameSpawnPieceProvider extends _$InGameSpawnPieceProvider {
   @override
-  KindOfPiece build() {
-    return KindOfPiece.cha;
+  PieceType build() {
+    return PieceType.cha;
   }
 
-  void changeSpawnPiece(KindOfPiece piece) {
+  void changeSpawnPiece(PieceType piece) {
     state = piece;
   }
 }

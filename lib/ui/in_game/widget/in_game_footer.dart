@@ -18,33 +18,33 @@ class InGameFooter extends ConsumerStatefulWidget {
 }
 
 class _InGameFooterState extends ConsumerState<InGameFooter> {
-  ElevatedButton _renderSpawnButton(KindOfPiece piece) {
+  ElevatedButton _renderSpawnButton(PieceType piece) {
     late ImageProvider imagePiece;
     late String label;
     late int gold;
 
     switch (piece) {
-      case KindOfPiece.cha:
+      case PieceType.cha:
         imagePiece = imageRedCha;
         label = '차';
         gold = 130;
         break;
-      case KindOfPiece.po:
+      case PieceType.po:
         imagePiece = imageRedPo;
         label = '포';
         gold = 70;
         break;
-      case KindOfPiece.ma:
+      case PieceType.ma:
         imagePiece = imageRedMa;
         label = '마';
         gold = 50;
         break;
-      case KindOfPiece.sang:
+      case PieceType.sang:
         imagePiece = imageRedSang;
         label = '상';
         gold = 30;
         break;
-      case KindOfPiece.sa:
+      case PieceType.sa:
         imagePiece = imageRedSa;
         label = '사';
         gold = 30;
@@ -81,28 +81,28 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     );
   }
 
-  Widget _renderSpawnSelectedBox(KindOfPiece piece) {
+  Widget _renderSpawnSelectedBox(PieceType piece) {
     late ImageProvider imagePiece;
     late String label;
 
     switch (piece) {
-      case KindOfPiece.cha:
+      case PieceType.cha:
         imagePiece = imageRedCha;
         label = '차';
         break;
-      case KindOfPiece.po:
+      case PieceType.po:
         imagePiece = imageRedPo;
         label = '포';
         break;
-      case KindOfPiece.ma:
+      case PieceType.ma:
         imagePiece = imageRedMa;
         label = '마';
         break;
-      case KindOfPiece.sang:
+      case PieceType.sang:
         imagePiece = imageRedSang;
         label = '상';
         break;
-      case KindOfPiece.sa:
+      case PieceType.sa:
         imagePiece = imageRedSa;
         label = '사';
         break;
@@ -228,17 +228,17 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                _renderSpawnButton(KindOfPiece.cha),
+                                _renderSpawnButton(PieceType.cha),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(KindOfPiece.po),
+                                _renderSpawnButton(PieceType.po),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(KindOfPiece.ma),
+                                _renderSpawnButton(PieceType.ma),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(KindOfPiece.sang),
+                                _renderSpawnButton(PieceType.sang),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(KindOfPiece.sa),
+                                _renderSpawnButton(PieceType.sa),
                                 const SizedBox(height: 10),
-                                _renderSpawnButton(KindOfPiece.byungOrZol),
+                                _renderSpawnButton(PieceType.byung),
                               ],
                             ),
                           ),
