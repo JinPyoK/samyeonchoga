@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
+import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
 class InGameBody extends ConsumerStatefulWidget {
   const InGameBody({super.key});
@@ -39,11 +41,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
             image: imageBoard,
             key: imageBoardKey,
           ),
-          Positioned(
-            left: boardPositionXValue[4],
-            bottom: boardPositionYValueForKing[8],
-            child: Image(image: imageRedKing, width: pieceSize),
-          ),
+          InGamePiece(pieceModel: RedKingModel(x: 4, y: 8)),
           Positioned(
             left: boardPositionXValue[2],
             bottom: boardPositionYValue[1],
