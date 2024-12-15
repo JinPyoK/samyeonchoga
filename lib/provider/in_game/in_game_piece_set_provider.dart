@@ -141,37 +141,18 @@ final class InGamePieceSet extends _$InGamePieceSet {
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       state.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
     } else {
-      if (pieceModel.pieceType == PieceType.cha) {
-        if (_numOfPiece[PieceType.cha]! >= 2) {
+      if (pieceModel.pieceType == PieceType.byung) {
+        if (_numOfPiece[pieceModel.pieceType]! >= 5) {
           // Todo: 기물의 수가 최대입니다 알림
           return;
         }
-      } else if (pieceModel.pieceType == PieceType.po) {
-        if (_numOfPiece[PieceType.po]! >= 2) {
-          // Todo: 기물의 수가 최대입니다 알림
-          return;
-        }
-      } else if (pieceModel.pieceType == PieceType.ma) {
-        if (_numOfPiece[PieceType.ma]! >= 2) {
-          // Todo: 기물의 수가 최대입니다 알림
-          return;
-        }
-      } else if (pieceModel.pieceType == PieceType.sang) {
-        if (_numOfPiece[PieceType.sang]! >= 2) {
-          // Todo: 기물의 수가 최대입니다 알림
-          return;
-        }
-      } else if (pieceModel.pieceType == PieceType.sa) {
-        if (_numOfPiece[PieceType.sa]! >= 2) {
-          // Todo: 기물의 수가 최대입니다 알림
-          return;
-        }
-      } else if (pieceModel.pieceType == PieceType.byung) {
-        if (_numOfPiece[PieceType.byung]! >= 5) {
+      } else {
+        if (_numOfPiece[pieceModel.pieceType]! >= 2) {
           // Todo: 기물의 수가 최대입니다 알림
           return;
         }
       }
+
       final gold = ref.read(inGameGoldProvider);
 
       if (gold < pieceModel.value) {
@@ -227,28 +208,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
     /// 제거되는 대상이 한나라 기물이면 기물 수 차감
     if (targetPieceModel != null) {
       if (targetPieceModel.team == Team.red) {
-        switch (targetPieceModel.pieceType) {
-          case PieceType.cha:
-            _numOfPiece[PieceType.cha] = _numOfPiece[PieceType.cha]! - 1;
-            break;
-          case PieceType.po:
-            _numOfPiece[PieceType.po] = _numOfPiece[PieceType.po]! - 1;
-            break;
-          case PieceType.ma:
-            _numOfPiece[PieceType.ma] = _numOfPiece[PieceType.ma]! - 1;
-            break;
-          case PieceType.sang:
-            _numOfPiece[PieceType.sang] = _numOfPiece[PieceType.sang]! - 1;
-            break;
-          case PieceType.sa:
-            _numOfPiece[PieceType.sa] = _numOfPiece[PieceType.sa]! - 1;
-            break;
-          case PieceType.byung:
-            _numOfPiece[PieceType.byung] = _numOfPiece[PieceType.byung]! - 1;
-            break;
-          default:
-            break;
-        }
+        _numOfPiece[targetPieceModel.pieceType] =
+            _numOfPiece[targetPieceModel.pieceType]! - 1;
       }
     }
 
