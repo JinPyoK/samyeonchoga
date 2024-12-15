@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
