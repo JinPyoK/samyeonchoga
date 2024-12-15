@@ -7,7 +7,9 @@ import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
+import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
+import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
@@ -16,10 +18,20 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
 part 'in_game_piece_set_provider.g.dart';
+
+Map<PieceType, int> _numOfPiece = {
+  PieceType.cha: 2,
+  PieceType.po: 2,
+  PieceType.ma: 2,
+  PieceType.sang: 2,
+  PieceType.sa: 2,
+  PieceType.byung: 5,
+};
 
 @Riverpod()
 final class InGamePieceSet extends _$InGamePieceSet {
@@ -120,16 +132,66 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
   /// 기물 부활
   void spawnPiece(PieceBaseModel pieceModel, [bool isInit = false]) {
-    changeStatus(pieceModel.x, pieceModel.y, pieceModel);
-
     /// ref.watch가 state가 변경될 때마다 위젯을 다시 빌드하게 하지만, state 자체가 변경된 횟수와 관계없이 최종적으로 변경된 상태에서만 빌드됩니다.
     /// Flutter와 Riverpod의 작동 방식에서 ref.watch는 state 객체가 변경되었을 때 반응하지만, 상태 변경이 하나의 이벤트처럼 처리되므로 중간에 변경된 모든 state를 각각 렌더링하지 않습니다.
     /// 출처: ChatGPT
     ///
     /// 그럼에도 불구하고 코드 분기처리하여 안전하게 작성하기
     if (isInit) {
+      changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       state.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
     } else {
+      if (pieceModel.pieceType == PieceType.cha) {
+        if (_numOfPiece[PieceType.cha]! >= 2) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      } else if (pieceModel.pieceType == PieceType.po) {
+        if (_numOfPiece[PieceType.po]! >= 2) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      } else if (pieceModel.pieceType == PieceType.ma) {
+        if (_numOfPiece[PieceType.ma]! >= 2) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      } else if (pieceModel.pieceType == PieceType.sang) {
+        if (_numOfPiece[PieceType.sang]! >= 2) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      } else if (pieceModel.pieceType == PieceType.sa) {
+        if (_numOfPiece[PieceType.sa]! >= 2) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      } else if (pieceModel.pieceType == PieceType.byung) {
+        if (_numOfPiece[PieceType.byung]! >= 5) {
+          // Todo: 기물의 수가 최대입니다 알림
+          return;
+        }
+      }
+      final gold = ref.read(inGameGoldProvider);
+
+      if (gold < pieceModel.value) {
+        // Todo: 골드가 모자라다는 알림
+        return;
+      }
+
+      /// 모든 조건이 맞을 때
+
+      /// 골드 차감
+      ref
+          .read(inGameGoldProvider.notifier)
+          .setInGameGold(gold - pieceModel.value);
+
+      /// 기물 수 증가
+      _numOfPiece[pieceModel.pieceType] =
+          _numOfPiece[pieceModel.pieceType]! + 1;
+
+      /// 상태 변경
+      changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       final newState = state;
       newState.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
       state = newState;
@@ -137,12 +199,65 @@ final class InGamePieceSet extends _$InGamePieceSet {
   }
 
   /// 기물 제거
-  void removePiece(int targetX, int targetY) {
-    changeStatus(targetX, targetY, null);
+  void removePiece(PieceActionableModel pieceActionable,
+      [bool isExecute = false]) {
+    final gold = ref.read(inGameGoldProvider);
+    final targetPieceModel =
+        getStatus(pieceActionable.targetX, pieceActionable.targetY);
 
+    if (isExecute) {
+      if (gold < 300) {
+        // Todo: 골드가 모자라다는 알림
+        return;
+      }
+
+      ref.read(inGameGoldProvider.notifier).setInGameGold(gold - 300);
+    } else {
+      /// 처형이 아닌 단순 기물 공격
+      if (targetPieceModel != null) {
+        if (targetPieceModel.team == Team.blue) {
+          /// 한이 초 기물을 취함
+          ref
+              .read(inGameGoldProvider.notifier)
+              .setInGameGold(gold + pieceActionable.targetValue);
+        }
+      }
+    }
+
+    /// 제거되는 대상이 한나라 기물이면 기물 수 차감
+    if (targetPieceModel != null) {
+      if (targetPieceModel.team == Team.red) {
+        switch (targetPieceModel.pieceType) {
+          case PieceType.cha:
+            _numOfPiece[PieceType.cha] = _numOfPiece[PieceType.cha]! - 1;
+            break;
+          case PieceType.po:
+            _numOfPiece[PieceType.po] = _numOfPiece[PieceType.po]! - 1;
+            break;
+          case PieceType.ma:
+            _numOfPiece[PieceType.ma] = _numOfPiece[PieceType.ma]! - 1;
+            break;
+          case PieceType.sang:
+            _numOfPiece[PieceType.sang] = _numOfPiece[PieceType.sang]! - 1;
+            break;
+          case PieceType.sa:
+            _numOfPiece[PieceType.sa] = _numOfPiece[PieceType.sa]! - 1;
+            break;
+          case PieceType.byung:
+            _numOfPiece[PieceType.byung] = _numOfPiece[PieceType.byung]! - 1;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    changeStatus(pieceActionable.targetX, pieceActionable.targetY, null);
     final newState = state;
     newState.removeWhere(
-      (piece) => targetX == piece.pieceModel.x && targetY == piece.pieceModel.y,
+      (piece) =>
+          pieceActionable.targetX == piece.pieceModel.x &&
+          pieceActionable.targetY == piece.pieceModel.y,
     );
     state = List.from(newState);
   }

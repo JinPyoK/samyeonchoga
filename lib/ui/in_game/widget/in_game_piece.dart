@@ -1,9 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
 class InGamePiece extends ConsumerStatefulWidget {
@@ -32,6 +33,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 500),
+      curve: Curves.easeOutCubic,
       left: boardPositionXValue[widget.pieceModel.x],
       bottom: widget.pieceModel.pieceType == PieceType.king
           ? boardPositionYValueForKing[widget.pieceModel.y]
@@ -41,7 +43,16 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
         duration: const Duration(seconds: 1),
         child: GestureDetector(
           onTap: () {
-            log("네비게이터 생성");
+            if (widget.pieceModel.team == Team.red) {
+              selectedPieceModel = widget.pieceModel;
+              ref.read(inGameNavigatorProvider.notifier).showPieceNavigator(
+                [
+                  PieceActionableModel(targetX: 1, targetY: 2, targetValue: 30),
+                  PieceActionableModel(targetX: 5, targetY: 7, targetValue: 30),
+                  PieceActionableModel(targetX: 4, targetY: 6, targetValue: 30),
+                ],
+              );
+            }
           },
           child: Image(
             image: widget.pieceModel.imageProvider,

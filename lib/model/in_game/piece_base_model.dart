@@ -20,7 +20,7 @@ abstract base class PieceBaseModel {
   int y;
 
   /// 이 기물이 취할 수 있는 액션
-  List<PieceActionableModel> actionable = [];
+  List<PieceActionableModel> pieceActionable = [];
 
   /// 기물의 움직임 애니메이션 setState
   void Function(void Function())? setStateThisPiece;

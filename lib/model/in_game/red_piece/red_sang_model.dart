@@ -16,7 +16,7 @@ final class RedSangModel extends RedPieceBaseModel {
   @override
   void searchActionable() {
     /// 현재 액션 가능한 리스트를 비워준다.
-    actionable.clear();
+    pieceActionable.clear();
 
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
   }

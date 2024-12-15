@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
@@ -32,6 +33,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
   @override
   Widget build(BuildContext context) {
     final pieceSet = ref.watch(inGamePieceSetProvider);
+    final navigatorBoxList = ref.watch(inGameNavigatorProvider);
 
     return ColoredBox(
       color: inGameBlackColor,
@@ -43,6 +45,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
             key: imageBoardKey,
           ),
           ...pieceSet,
+          ...navigatorBoxList,
         ],
       ),
     );

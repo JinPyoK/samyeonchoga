@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
@@ -63,6 +62,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
             .read(inGameFooterSpawnPieceProvider.notifier)
             .changeSpawnPiece(piece);
         Navigator.pop(context);
+        ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,7 +116,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
         onTap: () {
-          log("기물 부활 내비게이터 생성: $label");
+          ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
         },
         child: SizedBox(
           height: 50 * hu,
@@ -252,7 +252,11 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(inGameNavigatorProvider.notifier)
+                            .showExecuteNavigator();
+                      },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
