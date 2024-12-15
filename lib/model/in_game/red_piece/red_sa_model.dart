@@ -2,7 +2,7 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
-final class RedSaModel extends PieceBaseModel {
+final class RedSaModel extends RedPieceBaseModel {
   RedSaModel({
     required super.x,
     required super.y,

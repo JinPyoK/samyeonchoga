@@ -2,14 +2,14 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
-final class BluePoModel extends PieceBaseModel {
+final class BluePoModel extends BluePieceBaseModel {
   BluePoModel({
     required super.x,
     required super.y,
   }) : super(
           team: Team.blue,
           pieceType: PieceType.po,
-          value: 70,
+          value: 7,
           imageProvider: imageBluePo,
         );
 

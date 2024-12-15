@@ -2,14 +2,14 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
-final class BlueChaModel extends PieceBaseModel {
+final class BlueChaModel extends BluePieceBaseModel {
   BlueChaModel({
     required super.x,
     required super.y,
   }) : super(
           team: Team.blue,
           pieceType: PieceType.cha,
-          value: 130,
+          value: 13,
           imageProvider: imageBlueCha,
         );
 
