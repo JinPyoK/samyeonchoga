@@ -1,6 +1,7 @@
 enum Team {
   red,
   blue,
+  none,
 }
 
 enum KindOfPiece {

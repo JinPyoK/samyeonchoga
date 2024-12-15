@@ -27,9 +27,9 @@ Map<int, double> boardPositionYValue = {
 
 /// 한나라 왕의 이미지만 y value 차이가 있음
 Map<int, double> boardPositionYValueForKing = {
-  0: 1,
-  1: 1,
-  2: 1,
+  7: 1,
+  8: 1,
+  9: 1,
 };
 
 void initBoardPositionValue(
@@ -49,18 +49,18 @@ void initBoardPositionValue(
   boardPositionXValue[7] = xValue * 279.7;
   boardPositionXValue[8] = xValue * 319.7;
 
-  boardPositionYValue[0] = yValue * 4;
-  boardPositionYValue[1] = yValue * 75;
-  boardPositionYValue[2] = yValue * 146;
-  boardPositionYValue[3] = yValue * 217;
-  boardPositionYValue[4] = yValue * 288;
-  boardPositionYValue[5] = yValue * 359;
-  boardPositionYValue[6] = yValue * 430;
-  boardPositionYValue[7] = yValue * 501;
-  boardPositionYValue[8] = yValue * 572;
-  boardPositionYValue[9] = yValue * 643;
+  boardPositionYValue[0] = yValue * 643;
+  boardPositionYValue[1] = yValue * 572;
+  boardPositionYValue[2] = yValue * 501;
+  boardPositionYValue[3] = yValue * 430;
+  boardPositionYValue[4] = yValue * 359;
+  boardPositionYValue[5] = yValue * 288;
+  boardPositionYValue[6] = yValue * 217;
+  boardPositionYValue[7] = yValue * 146;
+  boardPositionYValue[8] = yValue * 75;
+  boardPositionYValue[9] = yValue * 4;
 
-  boardPositionYValueForKing[0] = yValue * 1;
-  boardPositionYValueForKing[1] = yValue * 72;
-  boardPositionYValueForKing[2] = yValue * 143.5;
+  boardPositionYValueForKing[7] = yValue * 143.5;
+  boardPositionYValueForKing[8] = yValue * 72;
+  boardPositionYValueForKing[9] = yValue * 1;
 }

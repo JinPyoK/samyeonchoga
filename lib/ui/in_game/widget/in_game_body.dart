@@ -41,7 +41,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
           ),
           Positioned(
             left: boardPositionXValue[4],
-            bottom: boardPositionYValueForKing[2],
+            bottom: boardPositionYValueForKing[8],
             child: Image(image: imageRedKing, width: pieceSize),
           ),
           Positioned(
