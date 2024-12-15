@@ -171,7 +171,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent,
+                          backgroundColor: redColor,
                         ),
                         onPressed: () {
                           showCustomDialog(
