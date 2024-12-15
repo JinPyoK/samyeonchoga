@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
-import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
 class InGameBody extends ConsumerStatefulWidget {
   const InGameBody({super.key});
@@ -26,12 +25,14 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
           imageBoardKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
       initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
-      setState(() {});
+      ref.read(inGamePieceSetProvider.notifier).initPieceSet();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final pieceSet = ref.watch(inGamePieceSetProvider);
+
     return ColoredBox(
       color: inGameBlackColor,
       child: Stack(
@@ -41,17 +42,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
             image: imageBoard,
             key: imageBoardKey,
           ),
-          InGamePiece(pieceModel: RedKingModel(x: 4, y: 8)),
-          Positioned(
-            left: boardPositionXValue[2],
-            bottom: boardPositionYValue[1],
-            child: Image(image: imageRedPo, width: pieceSize),
-          ),
-          Positioned(
-            left: boardPositionXValue[7],
-            bottom: boardPositionYValue[5],
-            child: Image(image: imageRedByung, width: pieceSize),
-          ),
+          ...pieceSet,
         ],
       ),
     );

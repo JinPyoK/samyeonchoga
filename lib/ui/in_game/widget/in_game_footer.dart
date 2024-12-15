@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_spawn_piece_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
@@ -60,7 +60,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
       style: ElevatedButton.styleFrom(fixedSize: Size(100, 50 * hu)),
       onPressed: () {
         ref
-            .read(inGameSpawnPieceProviderProvider.notifier)
+            .read(inGameFooterSpawnPieceProvider.notifier)
             .changeSpawnPiece(piece);
         Navigator.pop(context);
       },
@@ -152,7 +152,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
   @override
   Widget build(BuildContext context) {
-    final selectedSpawnPiece = ref.watch(inGameSpawnPieceProviderProvider);
+    final selectedSpawnPiece = ref.watch(inGameFooterSpawnPieceProvider);
 
     return ColoredBox(
       color: inGameBlackColor,
