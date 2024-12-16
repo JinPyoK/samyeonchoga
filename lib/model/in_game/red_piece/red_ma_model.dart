@@ -39,10 +39,11 @@ final class RedMaModel extends RedPieceBaseModel {
     if (y >= 2) {
       final proc = redMaStatusProcessing(x, y - 1);
 
-      /// 왼쪽
       if (proc[0] == 0) {
+        /// 왼쪽
         if (x > 0) {
           final proc = redMaStatusProcessing(x - 1, y - 2);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -51,6 +52,7 @@ final class RedMaModel extends RedPieceBaseModel {
         /// 오른쪽
         if (x < 8) {
           final proc = redMaStatusProcessing(x + 1, y - 2);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -61,10 +63,12 @@ final class RedMaModel extends RedPieceBaseModel {
     /// 아래
     if (y <= 7) {
       final proc = redMaStatusProcessing(x, y + 1);
+
       if (proc[0] == 0) {
         /// 왼쪽
         if (x > 0) {
           final proc = redMaStatusProcessing(x - 1, y + 2);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -73,6 +77,7 @@ final class RedMaModel extends RedPieceBaseModel {
         /// 오른쪽
         if (x < 8) {
           final proc = redMaStatusProcessing(x + 1, y + 2);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -83,10 +88,12 @@ final class RedMaModel extends RedPieceBaseModel {
     /// 왼쪽
     if (x >= 2) {
       final proc = redMaStatusProcessing(x - 1, y);
+
       if (proc[0] == 0) {
         /// 위
         if (y > 0) {
           final proc = redMaStatusProcessing(x - 2, y - 1);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -95,6 +102,7 @@ final class RedMaModel extends RedPieceBaseModel {
         /// 아래
         if (y < 9) {
           final proc = redMaStatusProcessing(x - 2, y + 1);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -105,10 +113,12 @@ final class RedMaModel extends RedPieceBaseModel {
     /// 오른쪽
     if (x <= 6) {
       final proc = redMaStatusProcessing(x + 1, y);
+
       if (proc[0] == 0) {
         /// 위
         if (y > 0) {
           final proc = redMaStatusProcessing(x + 2, y - 1);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
@@ -117,6 +127,7 @@ final class RedMaModel extends RedPieceBaseModel {
         /// 아래
         if (y < 9) {
           final proc = redMaStatusProcessing(x + 2, y + 1);
+
           if (proc[0] != 1) {
             findRedActions(proc[1], pieceActionable);
           }
