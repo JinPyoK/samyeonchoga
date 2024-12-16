@@ -16,6 +16,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provide
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
 class InGameNavigatorBox extends ConsumerStatefulWidget {
@@ -70,6 +71,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       selectedPieceModel!.x = widget.pieceActionable.targetX;
       selectedPieceModel!.y = widget.pieceActionable.targetY;
       selectedPieceModel!.setStateThisPiece!(() {});
+      ref.read(inGameTurnProvider.notifier).changeTurn();
     } else if (widget.navigatorType == NavigatorType.spawn) {
       ref.read(inGameNavigatorProvider.notifier).clearNavigator();
       late PieceBaseModel spawnPieceModel;

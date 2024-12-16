@@ -4,6 +4,7 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
 class InGamePiece extends ConsumerStatefulWidget {
@@ -19,7 +20,8 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
 
   void _onPieceTaped() {
-    if (widget.pieceModel.team == Team.red) {
+    final isMyTurn = ref.read(inGameTurnProvider);
+    if (widget.pieceModel.team == Team.red && isMyTurn) {
       selectedPieceModel = widget.pieceModel;
       widget.pieceModel.searchActionable();
       ref
