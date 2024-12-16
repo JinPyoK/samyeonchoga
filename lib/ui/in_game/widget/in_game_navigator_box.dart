@@ -35,6 +35,7 @@ class InGameNavigatorBox extends ConsumerStatefulWidget {
 class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
   double _navigatorOpacity = 0;
 
+  /// 한나라, 즉 유저에게만 작용하는 함수
   void _onNavigatorTaped() {
     if (widget.navigatorType == NavigatorType.pieceMove) {
       /// 네비게이터 삭제
@@ -50,6 +51,18 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
           targetValue: 0,
         ),
       );
+
+      /// 움직인 자리에 초나라 기물이 있다면 제거하기
+      final status = getStatus(
+          widget.pieceActionable.targetX, widget.pieceActionable.targetY);
+      if (status is PieceBaseModel) {
+        if (status.team == Team.blue) {
+          ref
+              .read(inGamePieceSetProvider.notifier)
+              .removePiece(widget.pieceActionable);
+        }
+      }
+
       changeStatus(widget.pieceActionable.targetX,
           widget.pieceActionable.targetY, selectedPieceModel!);
 

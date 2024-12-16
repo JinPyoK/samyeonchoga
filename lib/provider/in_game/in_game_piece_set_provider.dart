@@ -88,6 +88,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
     spawnPiece(BlueZolModel(x: 0, y: 3), true);
     spawnPiece(BlueZolModel(x: 2, y: 3), true);
     spawnPiece(BlueZolModel(x: 4, y: 3), true);
+    spawnPiece(BlueZolModel(x: 4, y: 7), true);
     spawnPiece(BlueZolModel(x: 6, y: 3), true);
     spawnPiece(BlueZolModel(x: 8, y: 3), true);
 
@@ -194,10 +195,9 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
       ref.read(inGameGoldProvider.notifier).setInGameGold(gold - 300);
     } else {
-      /// 처형이 아닌 단순 기물 공격
+      /// 처형이 아닌 단순 기물 공격, 한이 초 기물을 취함
       if (targetPieceModel is PieceBaseModel) {
         if (targetPieceModel.team == Team.blue) {
-          /// 한이 초 기물을 취함
           ref
               .read(inGameGoldProvider.notifier)
               .setInGameGold(gold + pieceActionable.targetValue);
