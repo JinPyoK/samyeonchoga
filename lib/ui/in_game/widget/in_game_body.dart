@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
@@ -27,6 +28,9 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       final size = renderBox.size;
       initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
       ref.read(inGamePieceSetProvider.notifier).initPieceSet();
+      Future.delayed(const Duration(seconds: 1), () {
+        ref.read(inGameTurnProvider.notifier).changeTurn();
+      });
     });
   }
 

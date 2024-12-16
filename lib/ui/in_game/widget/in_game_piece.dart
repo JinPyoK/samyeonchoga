@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
@@ -21,7 +22,8 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   void _onPieceTaped() {
     final isMyTurn = ref.read(inGameTurnProvider);
-    if (widget.pieceModel.team == Team.red && isMyTurn) {
+    final justGameStart = ref.read(inGameRoundProvider) == 0;
+    if (widget.pieceModel.team == Team.red && isMyTurn && !justGameStart) {
       selectedPieceModel = widget.pieceModel;
       widget.pieceModel.searchActionable();
       ref

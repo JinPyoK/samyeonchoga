@@ -6,7 +6,7 @@ part 'in_game_round_provider.g.dart';
 final class InGameRound extends _$InGameRound {
   @override
   int build() {
-    return 1;
+    return 0;
   }
 
   void nextRound() {
