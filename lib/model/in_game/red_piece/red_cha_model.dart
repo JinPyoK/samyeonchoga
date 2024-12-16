@@ -27,7 +27,7 @@ final class RedChaModel extends RedPieceBaseModel {
       if (status is PieceBaseModel) {
         if (status.team == Team.red) {
           return true;
-        } else if (status.team == Team.blue) {
+        } else {
           findRedActions(status, pieceActionable);
           return true;
         }
@@ -35,7 +35,6 @@ final class RedChaModel extends RedPieceBaseModel {
         findRedActions(status, pieceActionable);
         return false;
       }
-      return false;
     }
 
     /// 위
