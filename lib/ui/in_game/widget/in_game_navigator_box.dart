@@ -133,7 +133,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
           boardPositionYValue[widget.pieceActionable.targetY]! + pieceSize / 5,
       child: AnimatedOpacity(
         opacity: _navigatorOpacity,
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 300),
         child: GestureDetector(
           onTap: _onNavigatorTaped,
           child: Container(

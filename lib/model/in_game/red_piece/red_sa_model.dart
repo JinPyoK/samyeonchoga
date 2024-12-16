@@ -1,6 +1,6 @@
-import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/find_red_actions.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -25,25 +25,7 @@ final class RedSaModel extends RedPieceBaseModel {
     /// 사 액션 탐색
     void findSaActions(List<PieceOrJustActionable> statusList) {
       for (PieceOrJustActionable status in statusList) {
-        if (status is PieceActionableModel) {
-          pieceActionable.add(
-            PieceActionableModel(
-              targetX: status.targetX,
-              targetY: status.targetY,
-              targetValue: 0,
-            ),
-          );
-        } else if (status is PieceBaseModel) {
-          if (status.team == Team.blue) {
-            pieceActionable.add(
-              PieceActionableModel(
-                targetX: status.x,
-                targetY: status.y,
-                targetValue: status.value,
-              ),
-            );
-          }
-        }
+        findRedActions(status, pieceActionable);
       }
     }
 
