@@ -25,6 +25,7 @@ import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 part 'in_game_piece_set_provider.g.dart';
 
 Map<PieceType, int> _numOfPiece = {
+  PieceType.king: 1,
   PieceType.cha: 2,
   PieceType.po: 2,
   PieceType.ma: 2,

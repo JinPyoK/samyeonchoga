@@ -19,7 +19,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
 
   void _onPieceTaped() {
-    if (widget.pieceModel.team == Team.red) {
+    if (widget.pieceModel.team == Team.red || true) {
       selectedPieceModel = widget.pieceModel;
       widget.pieceModel.searchActionable();
       ref
