@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 
-abstract base class PieceOrStatusDummy {}
+abstract base class PieceOrJustActionable {}
 
-final class StatusDummy extends PieceOrStatusDummy {}
-
-abstract base class PieceBaseModel extends PieceOrStatusDummy {
+abstract base class PieceBaseModel extends PieceOrJustActionable {
   /// 기물의 팀 소속
   final Team team;
 

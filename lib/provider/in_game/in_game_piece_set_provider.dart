@@ -214,7 +214,14 @@ final class InGamePieceSet extends _$InGamePieceSet {
     }
 
     changeStatus(
-        pieceActionable.targetX, pieceActionable.targetY, StatusDummy());
+      pieceActionable.targetX,
+      pieceActionable.targetY,
+      PieceActionableModel(
+        targetX: pieceActionable.targetX,
+        targetY: pieceActionable.targetY,
+        targetValue: 0,
+      ),
+    );
     final newState = state;
     newState.removeWhere(
       (piece) =>

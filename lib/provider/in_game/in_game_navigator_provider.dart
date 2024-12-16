@@ -42,7 +42,7 @@ final class InGameNavigator extends _$InGameNavigator {
       for (int i = 3; i < 6; i++) {
         for (int j = 7; j < 10; j++) {
           final pieceModel = getStatus(i, j);
-          if (pieceModel is StatusDummy) {
+          if (pieceModel is PieceActionableModel) {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
@@ -57,7 +57,7 @@ final class InGameNavigator extends _$InGameNavigator {
       for (int i = 0; i < 9; i++) {
         for (int j = 6; j < 10; j++) {
           final pieceModel = getStatus(i, j);
-          if (pieceModel is StatusDummy) {
+          if (pieceModel is PieceActionableModel) {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(

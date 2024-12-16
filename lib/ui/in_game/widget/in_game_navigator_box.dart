@@ -35,6 +35,73 @@ class InGameNavigatorBox extends ConsumerStatefulWidget {
 class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
   double _navigatorOpacity = 0;
 
+  void _onNavigatorTaped() {
+    if (widget.navigatorType == NavigatorType.pieceMove) {
+      /// 네비게이터 삭제
+      ref.read(inGameNavigatorProvider.notifier).clearNavigator();
+
+      /// 보드 상태 변경
+      changeStatus(
+        selectedPieceModel!.x,
+        selectedPieceModel!.y,
+        PieceActionableModel(
+          targetX: selectedPieceModel!.x,
+          targetY: selectedPieceModel!.y,
+          targetValue: 0,
+        ),
+      );
+      changeStatus(widget.pieceActionable.targetX,
+          widget.pieceActionable.targetY, selectedPieceModel!);
+
+      /// 기물 착수
+      selectedPieceModel!.x = widget.pieceActionable.targetX;
+      selectedPieceModel!.y = widget.pieceActionable.targetY;
+      selectedPieceModel!.setStateThisPiece!(() {});
+    } else if (widget.navigatorType == NavigatorType.spawn) {
+      ref.read(inGameNavigatorProvider.notifier).clearNavigator();
+      late PieceBaseModel spawnPieceModel;
+      final pieceType = ref.read(inGameFooterSpawnPieceProvider);
+      if (pieceType == PieceType.cha) {
+        spawnPieceModel = RedChaModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      } else if (pieceType == PieceType.po) {
+        spawnPieceModel = RedPoModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      } else if (pieceType == PieceType.ma) {
+        spawnPieceModel = RedMaModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      } else if (pieceType == PieceType.sang) {
+        spawnPieceModel = RedSangModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      } else if (pieceType == PieceType.sa) {
+        spawnPieceModel = RedSaModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      } else {
+        spawnPieceModel = RedByungModel(
+          x: widget.pieceActionable.targetX,
+          y: widget.pieceActionable.targetY,
+        );
+      }
+
+      ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnPieceModel);
+    } else if (widget.navigatorType == NavigatorType.execute) {
+      ref.read(inGameNavigatorProvider.notifier).clearNavigator();
+      ref
+          .read(inGamePieceSetProvider.notifier)
+          .removePiece(widget.pieceActionable, true);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,67 +122,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
         opacity: _navigatorOpacity,
         duration: const Duration(milliseconds: 500),
         child: GestureDetector(
-          onTap: () {
-            if (widget.navigatorType == NavigatorType.pieceMove) {
-              /// 네비게이터 삭제
-              ref.read(inGameNavigatorProvider.notifier).clearNavigator();
-
-              /// 보드 상태 변경
-              changeStatus(
-                  selectedPieceModel!.x, selectedPieceModel!.y, StatusDummy());
-              changeStatus(widget.pieceActionable.targetX,
-                  widget.pieceActionable.targetY, selectedPieceModel!);
-
-              /// 기물 착수
-              selectedPieceModel!.x = widget.pieceActionable.targetX;
-              selectedPieceModel!.y = widget.pieceActionable.targetY;
-              selectedPieceModel!.setStateThisPiece!(() {});
-            } else if (widget.navigatorType == NavigatorType.spawn) {
-              ref.read(inGameNavigatorProvider.notifier).clearNavigator();
-              late PieceBaseModel spawnPieceModel;
-              final pieceType = ref.read(inGameFooterSpawnPieceProvider);
-              if (pieceType == PieceType.cha) {
-                spawnPieceModel = RedChaModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              } else if (pieceType == PieceType.po) {
-                spawnPieceModel = RedPoModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              } else if (pieceType == PieceType.ma) {
-                spawnPieceModel = RedMaModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              } else if (pieceType == PieceType.sang) {
-                spawnPieceModel = RedSangModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              } else if (pieceType == PieceType.sa) {
-                spawnPieceModel = RedSaModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              } else {
-                spawnPieceModel = RedByungModel(
-                  x: widget.pieceActionable.targetX,
-                  y: widget.pieceActionable.targetY,
-                );
-              }
-
-              ref
-                  .read(inGamePieceSetProvider.notifier)
-                  .spawnPiece(spawnPieceModel);
-            } else if (widget.navigatorType == NavigatorType.execute) {
-              ref.read(inGameNavigatorProvider.notifier).clearNavigator();
-              ref
-                  .read(inGamePieceSetProvider.notifier)
-                  .removePiece(widget.pieceActionable, true);
-            }
-          },
+          onTap: _onNavigatorTaped,
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(

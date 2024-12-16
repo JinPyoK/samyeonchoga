@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
@@ -18,6 +17,16 @@ class InGamePiece extends ConsumerStatefulWidget {
 
 class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
+
+  void _onPieceTaped() {
+    if (widget.pieceModel.team == Team.red) {
+      selectedPieceModel = widget.pieceModel;
+      widget.pieceModel.searchActionable();
+      ref
+          .read(inGameNavigatorProvider.notifier)
+          .showPieceNavigator(widget.pieceModel.pieceActionable);
+    }
+  }
 
   @override
   void initState() {
@@ -42,21 +51,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
         opacity: _spawnOpacity,
         duration: const Duration(seconds: 1),
         child: GestureDetector(
-          onTap: () {
-            if (widget.pieceModel.team == Team.red) {
-              selectedPieceModel = widget.pieceModel;
-              // ref.read(inGameNavigatorProvider.notifier).showPieceNavigator(
-              //       widget.pieceModel.pieceActionable,
-              //     );
-              ref.read(inGameNavigatorProvider.notifier).showPieceNavigator(
-                [
-                  PieceActionableModel(targetX: 1, targetY: 2, targetValue: 30),
-                  PieceActionableModel(targetX: 5, targetY: 7, targetValue: 30),
-                  PieceActionableModel(targetX: 4, targetY: 6, targetValue: 30),
-                ],
-              );
-            }
-          },
+          onTap: _onPieceTaped,
           child: Image(
             image: widget.pieceModel.imageProvider,
             width: pieceSize,
