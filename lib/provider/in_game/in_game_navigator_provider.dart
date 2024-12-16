@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/model/in_game/navigator_type_enum.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
+import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
@@ -41,7 +42,7 @@ final class InGameNavigator extends _$InGameNavigator {
       for (int i = 3; i < 6; i++) {
         for (int j = 7; j < 10; j++) {
           final pieceModel = getStatus(i, j);
-          if (pieceModel == null) {
+          if (pieceModel is StatusDummy) {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
@@ -56,7 +57,7 @@ final class InGameNavigator extends _$InGameNavigator {
       for (int i = 0; i < 9; i++) {
         for (int j = 6; j < 10; j++) {
           final pieceModel = getStatus(i, j);
-          if (pieceModel == null) {
+          if (pieceModel is StatusDummy) {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
@@ -79,7 +80,7 @@ final class InGameNavigator extends _$InGameNavigator {
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 10; j++) {
         final pieceModel = getStatus(i, j);
-        if (pieceModel != null) {
+        if (pieceModel is PieceBaseModel) {
           if (pieceModel.pieceType != PieceType.king) {
             navigatorBoxList.add(
               InGameNavigatorBox(

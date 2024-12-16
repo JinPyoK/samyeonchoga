@@ -195,7 +195,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
       ref.read(inGameGoldProvider.notifier).setInGameGold(gold - 300);
     } else {
       /// 처형이 아닌 단순 기물 공격
-      if (targetPieceModel != null) {
+      if (targetPieceModel is PieceBaseModel) {
         if (targetPieceModel.team == Team.blue) {
           /// 한이 초 기물을 취함
           ref
@@ -206,14 +206,15 @@ final class InGamePieceSet extends _$InGamePieceSet {
     }
 
     /// 제거되는 대상이 한나라 기물이면 기물 수 차감
-    if (targetPieceModel != null) {
+    if (targetPieceModel is PieceBaseModel) {
       if (targetPieceModel.team == Team.red) {
         _numOfPiece[targetPieceModel.pieceType] =
             _numOfPiece[targetPieceModel.pieceType]! - 1;
       }
     }
 
-    changeStatus(pieceActionable.targetX, pieceActionable.targetY, null);
+    changeStatus(
+        pieceActionable.targetX, pieceActionable.targetY, StatusDummy());
     final newState = state;
     newState.removeWhere(
       (piece) =>

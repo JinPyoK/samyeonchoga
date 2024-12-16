@@ -45,6 +45,9 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
           onTap: () {
             if (widget.pieceModel.team == Team.red) {
               selectedPieceModel = widget.pieceModel;
+              // ref.read(inGameNavigatorProvider.notifier).showPieceNavigator(
+              //       widget.pieceModel.pieceActionable,
+              //     );
               ref.read(inGameNavigatorProvider.notifier).showPieceNavigator(
                 [
                   PieceActionableModel(targetX: 1, targetY: 2, targetValue: 30),

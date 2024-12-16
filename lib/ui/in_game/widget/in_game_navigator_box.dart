@@ -61,7 +61,8 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
               ref.read(inGameNavigatorProvider.notifier).clearNavigator();
 
               /// 보드 상태 변경
-              changeStatus(selectedPieceModel!.x, selectedPieceModel!.y, null);
+              changeStatus(
+                  selectedPieceModel!.x, selectedPieceModel!.y, StatusDummy());
               changeStatus(widget.pieceActionable.targetX,
                   widget.pieceActionable.targetY, selectedPieceModel!);
 
