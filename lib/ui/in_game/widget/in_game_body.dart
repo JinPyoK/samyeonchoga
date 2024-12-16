@@ -41,16 +41,18 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
 
     return ColoredBox(
       color: inGameBlackColor,
-      child: Stack(
-        alignment: AlignmentDirectional.bottomStart,
-        children: [
-          Image(
-            image: imageBoard,
-            key: imageBoardKey,
-          ),
-          ...pieceSet,
-          ...navigatorBoxList,
-        ],
+      child: Center(
+        child: Stack(
+          alignment: AlignmentDirectional.bottomStart,
+          children: [
+            Image(
+              image: imageBoard,
+              key: imageBoardKey,
+            ),
+            ...pieceSet,
+            ...navigatorBoxList,
+          ],
+        ),
       ),
     );
   }

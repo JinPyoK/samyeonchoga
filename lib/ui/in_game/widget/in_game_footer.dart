@@ -258,7 +258,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                             .showExecuteNavigator();
                       },
                       child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text("기물 처형"),
                           GoldWidget(gold: 300, goldTextColor: whiteColor),
