@@ -56,7 +56,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       final status = getStatus(
           widget.pieceActionable.targetX, widget.pieceActionable.targetY);
       if (status is PieceBaseModel) {
-        if (status.team == Team.blue || true) {
+        if (status.team == Team.blue) {
           ref
               .read(inGamePieceSetProvider.notifier)
               .removePiece(widget.pieceActionable);

@@ -1,5 +1,7 @@
+import 'package:samyeonchoga/model/in_game/blue_piece/find_blue_actions.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
 final class BlueZolModel extends BluePieceBaseModel {
@@ -19,5 +21,42 @@ final class BlueZolModel extends BluePieceBaseModel {
     pieceActionable.clear();
 
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
+
+    /// 왼쪽
+    if (x > 0) {
+      final status = getStatus(x - 1, y);
+      findBlueActions(status, pieceActionable);
+    }
+
+    /// 아래
+    if (y < 9) {
+      final status = getStatus(x, y + 1);
+      findBlueActions(status, pieceActionable);
+    }
+
+    /// 오른쪽
+    if (x < 8) {
+      final status = getStatus(x + 1, y);
+      findBlueActions(status, pieceActionable);
+    }
+
+    /// 졸이 궁성 내부에 있을 때
+    if (x == 3 && y == 7) {
+      final status = getStatus(x + 1, y + 1);
+      findBlueActions(status, pieceActionable);
+    }
+
+    if (x == 5 && y == 7) {
+      final status = getStatus(x - 1, y + 1);
+      findBlueActions(status, pieceActionable);
+    }
+
+    if (x == 4 && y == 8) {
+      final status1 = getStatus(x - 1, y + 1);
+      final status2 = getStatus(x + 1, y + 1);
+
+      findBlueActions(status1, pieceActionable);
+      findBlueActions(status2, pieceActionable);
+    }
   }
 }
