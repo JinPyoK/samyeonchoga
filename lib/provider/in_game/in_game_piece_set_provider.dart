@@ -19,6 +19,7 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
@@ -143,35 +144,43 @@ final class InGamePieceSet extends _$InGamePieceSet {
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       state.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
     } else {
-      if (pieceModel.pieceType == PieceType.byung) {
-        if (_numOfPiece[pieceModel.pieceType]! >= 5) {
-          // Todo: 기물의 수가 최대입니다 알림
+      if (pieceModel.team == Team.red) {
+        if (pieceModel.pieceType == PieceType.byung) {
+          if (_numOfPiece[pieceModel.pieceType]! >= 5) {
+            ref
+                .read(inGameSystemNotificationProvider.notifier)
+                .notifySystemError('기물의 수가 최대입니다');
+            return;
+          }
+        } else {
+          if (_numOfPiece[pieceModel.pieceType]! >= 2) {
+            ref
+                .read(inGameSystemNotificationProvider.notifier)
+                .notifySystemError('기물의 수가 최대입니다');
+            return;
+          }
+        }
+
+        final gold = ref.read(inGameGoldProvider);
+
+        if (gold < pieceModel.value) {
+          ref
+              .read(inGameSystemNotificationProvider.notifier)
+              .notifySystemError('골드가 부족합니다');
           return;
         }
-      } else {
-        if (_numOfPiece[pieceModel.pieceType]! >= 2) {
-          // Todo: 기물의 수가 최대입니다 알림
-          return;
-        }
+
+        /// 모든 조건이 맞을 때
+
+        /// 골드 차감
+        ref
+            .read(inGameGoldProvider.notifier)
+            .setInGameGold(gold - pieceModel.value);
+
+        /// 기물 수 증가
+        _numOfPiece[pieceModel.pieceType] =
+            _numOfPiece[pieceModel.pieceType]! + 1;
       }
-
-      final gold = ref.read(inGameGoldProvider);
-
-      if (gold < pieceModel.value) {
-        // Todo: 골드가 모자라다는 알림
-        return;
-      }
-
-      /// 모든 조건이 맞을 때
-
-      /// 골드 차감
-      ref
-          .read(inGameGoldProvider.notifier)
-          .setInGameGold(gold - pieceModel.value);
-
-      /// 기물 수 증가
-      _numOfPiece[pieceModel.pieceType] =
-          _numOfPiece[pieceModel.pieceType]! + 1;
 
       /// 상태 변경
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
@@ -190,7 +199,9 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
     if (isExecute) {
       if (gold < 300) {
-        // Todo: 골드가 모자라다는 알림
+        ref
+            .read(inGameSystemNotificationProvider.notifier)
+            .notifySystemError('골드가 부족합니다');
         return;
       }
 

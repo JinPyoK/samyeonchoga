@@ -55,6 +55,18 @@ abstract base class BluePieceBaseModel extends PieceBaseModel {
   /// 현재 이 기물이 장군을 부르고 있는가? (초나라 기물만 해당)
   bool isTargetingKing = false;
 
+  /// 장군인지 파악
+  void doesThisPieceCallJanggoon() {
+    isTargetingKing = false;
+
+    for (PieceActionableModel actionable in pieceActionable) {
+      if (actionable.targetValue == 999999999) {
+        isTargetingKing = true;
+        break;
+      }
+    }
+  }
+
   BluePieceBaseModel({
     required super.x,
     required super.y,

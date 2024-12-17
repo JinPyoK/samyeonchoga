@@ -26,8 +26,14 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       final renderBox =
           imageBoardKey.currentContext?.findRenderObject() as RenderBox;
       final size = renderBox.size;
+
+      /// 장기판 사이즈에 따른 값 초기화
       initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
+
+      /// 기물 초기화
       ref.read(inGamePieceSetProvider.notifier).initPieceSet();
+
+      /// 기물 스폰 애니메이션 기다린 후 게임 시작
       Future.delayed(const Duration(seconds: 1), () {
         ref.read(inGameTurnProvider.notifier).changeTurn();
       });

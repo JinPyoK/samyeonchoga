@@ -4,6 +4,7 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
@@ -112,12 +113,16 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
         break;
     }
 
+    final isMyTurn = ref.watch(inGameTurnProvider);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: () {
-          ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
-        },
+        onTap: isMyTurn
+            ? () {
+                ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
+              }
+            : null,
         child: SizedBox(
           height: 50 * hu,
           child: InputDecorator(
@@ -153,6 +158,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
   @override
   Widget build(BuildContext context) {
     final selectedSpawnPiece = ref.watch(inGameFooterSpawnPieceProvider);
+    final isMyTurn = ref.watch(inGameTurnProvider);
 
     return ColoredBox(
       color: inGameBlackColor,
@@ -173,42 +179,45 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: redColor,
                         ),
-                        onPressed: () {
-                          showCustomDialog(
-                            context,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                const Text(
-                                  "게임을 종료하시겠습니까?\n\n게임을 저장하지 않고 종료하면 남은 골드는 돌려받습니다.",
-                                  style: TextStyle(
-                                    color: blackColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                        onPressed: isMyTurn
+                            ? () {
+                                showCustomDialog(
+                                  context,
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      const Text(
+                                        "게임을 종료하시겠습니까?\n\n게임을 저장하지 않고 종료하면 남은 골드는 돌려받습니다.",
+                                        style: TextStyle(
+                                          color: blackColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 30),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("게임 저장 후 종료")),
+                                      const SizedBox(height: 15),
+                                      ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: Colors.redAccent,
+                                          ),
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("저장하지 않고 종료")),
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(height: 30),
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("게임 저장 후 종료")),
-                                const SizedBox(height: 15),
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.redAccent,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("저장하지 않고 종료")),
-                              ],
-                            ),
-                            actionButtonColor: Colors.grey,
-                          );
-                        },
+                                  actionButtonColor: Colors.grey,
+                                );
+                              }
+                            : null,
                         child: const Text("게임 저장 및 종료")),
                   ),
                 ),
@@ -221,42 +230,47 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: () {
-                        showCustomDialog(
-                          context,
-                          SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                _renderSpawnButton(PieceType.cha),
-                                const SizedBox(height: 10),
-                                _renderSpawnButton(PieceType.po),
-                                const SizedBox(height: 10),
-                                _renderSpawnButton(PieceType.ma),
-                                const SizedBox(height: 10),
-                                _renderSpawnButton(PieceType.sang),
-                                const SizedBox(height: 10),
-                                _renderSpawnButton(PieceType.sa),
-                                const SizedBox(height: 10),
-                                _renderSpawnButton(PieceType.byung),
-                              ],
-                            ),
-                          ),
-                          color: Colors.transparent,
-                          actionButtonColor: Colors.grey,
-                        );
-                      },
+                      onPressed: isMyTurn
+                          ? () {
+                              showCustomDialog(
+                                context,
+                                SingleChildScrollView(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      _renderSpawnButton(PieceType.cha),
+                                      const SizedBox(height: 10),
+                                      _renderSpawnButton(PieceType.po),
+                                      const SizedBox(height: 10),
+                                      _renderSpawnButton(PieceType.ma),
+                                      const SizedBox(height: 10),
+                                      _renderSpawnButton(PieceType.sang),
+                                      const SizedBox(height: 10),
+                                      _renderSpawnButton(PieceType.sa),
+                                      const SizedBox(height: 10),
+                                      _renderSpawnButton(PieceType.byung),
+                                    ],
+                                  ),
+                                ),
+                                color: Colors.transparent,
+                                actionButtonColor: Colors.grey,
+                              );
+                            }
+                          : null,
                       child: const Text("기물 부활")),
                 )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: () {
-                        ref
-                            .read(inGameNavigatorProvider.notifier)
-                            .showExecuteNavigator();
-                      },
+                      onPressed: isMyTurn
+                          ? () {
+                              ref
+                                  .read(inGameNavigatorProvider.notifier)
+                                  .showExecuteNavigator();
+                            }
+                          : null,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [

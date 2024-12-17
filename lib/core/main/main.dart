@@ -92,6 +92,7 @@ final _customTheme = ThemeData(
       textStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
+      disabledBackgroundColor: Colors.grey,
     ),
   ),
 );
