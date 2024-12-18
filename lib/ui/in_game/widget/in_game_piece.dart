@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
@@ -7,6 +8,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
+import 'package:samyeonchoga/ui/in_game/widget/system_notification/piece_janggoon_notification.dart';
 
 class InGamePiece extends ConsumerStatefulWidget {
   const InGamePiece({super.key, required this.pieceModel});
@@ -19,7 +21,8 @@ class InGamePiece extends ConsumerStatefulWidget {
 
 class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
-  double _pieceScale = 1;
+
+  bool _callJanggoon = false;
 
   void _onPieceTaped() {
     final isMyTurn = ref.read(inGameTurnProvider);
@@ -37,6 +40,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   void initState() {
     super.initState();
     widget.pieceModel.setStateThisPiece = setState;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnOpacity = 1;
       setState(() {});
@@ -45,18 +49,12 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   @override
   void setState(VoidCallback fn) {
-    /// 뛰는 기물이면 스케일 애니메이션 동작
-    if (widget.pieceModel.pieceType == PieceType.po ||
-        widget.pieceModel.pieceType == PieceType.ma ||
-        widget.pieceModel.pieceType == PieceType.sang) {
-      _pieceScale = 1.3;
-      super.setState(fn);
+    if (widget.pieceModel is BluePieceBaseModel) {
+      final bluePieceModel = widget.pieceModel as BluePieceBaseModel;
 
-      Future.delayed(const Duration(milliseconds: 200), () {
-        _pieceScale = 1;
-        super.setState(fn);
-      });
+      _callJanggoon = bluePieceModel.isTargetingKing;
     }
+
     super.setState(fn);
   }
 
@@ -69,22 +67,42 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
       bottom: widget.pieceModel.pieceType == PieceType.king
           ? boardPositionYValueForKing[widget.pieceModel.y]
           : boardPositionYValue[widget.pieceModel.y],
-      child: AnimatedScale(
-        duration: const Duration(milliseconds: 200),
-        curve: Curves.easeOut,
-        scale: _pieceScale,
-        child: AnimatedOpacity(
-          opacity: _spawnOpacity,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeOut,
-          child: GestureDetector(
-            onTap: _onPieceTaped,
-            child: Image(
-              image: widget.pieceModel.imageProvider,
-              width: pieceSize,
+      child: Stack(
+        alignment: AlignmentDirectional.topCenter,
+        children: [
+          AnimatedOpacity(
+            opacity: _spawnOpacity,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+            child: GestureDetector(
+              onTap: _onPieceTaped,
+              child: ShaderMask(
+                shaderCallback: (rect) {
+                  return RadialGradient(
+                    colors: _callJanggoon
+                        ? [
+                            whiteColor,
+                            Colors.blueAccent,
+                          ]
+                        : [
+                            whiteColor,
+                            whiteColor,
+                          ],
+                  ).createShader(rect);
+                },
+                child: Image(
+                  image: widget.pieceModel.imageProvider,
+                  width: pieceSize,
+                ),
+              ),
             ),
           ),
-        ),
+          if (_callJanggoon)
+            Transform.translate(
+              offset: Offset(0, -pieceSize / 2),
+              child: const PieceJanggoonNotification(),
+            ),
+        ],
       ),
     );
   }

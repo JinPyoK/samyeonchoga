@@ -13,7 +13,7 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
   }
 
   void notifyJanggoon() {
-    log("장군!!");
+    log("장군!!", name: 'notifyJanggoon');
 
     state.clear();
 

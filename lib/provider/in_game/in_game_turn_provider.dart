@@ -211,6 +211,8 @@ final class InGameTurn extends _$InGameTurn {
       bluePiece.searchActionable();
       bluePiece.doesThisPieceCallJanggoon();
 
+      bluePiece.setStateThisPiece!(() {});
+
       if (bluePiece.isTargetingKing) {
         targetKing = true;
       }
