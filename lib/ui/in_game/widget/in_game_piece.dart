@@ -19,6 +19,7 @@ class InGamePiece extends ConsumerStatefulWidget {
 
 class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
+  double _pieceScale = 1;
 
   void _onPieceTaped() {
     final isMyTurn = ref.read(inGameTurnProvider);
@@ -43,6 +44,23 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   }
 
   @override
+  void setState(VoidCallback fn) {
+    /// 뛰는 기물이면 스케일 애니메이션 동작
+    if (widget.pieceModel.pieceType == PieceType.po ||
+        widget.pieceModel.pieceType == PieceType.ma ||
+        widget.pieceModel.pieceType == PieceType.sang) {
+      _pieceScale = 1.3;
+      super.setState(fn);
+
+      Future.delayed(const Duration(milliseconds: 200), () {
+        _pieceScale = 1;
+        super.setState(fn);
+      });
+    }
+    super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 500),
@@ -51,14 +69,20 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
       bottom: widget.pieceModel.pieceType == PieceType.king
           ? boardPositionYValueForKing[widget.pieceModel.y]
           : boardPositionYValue[widget.pieceModel.y],
-      child: AnimatedOpacity(
-        opacity: _spawnOpacity,
-        duration: const Duration(seconds: 1),
-        child: GestureDetector(
-          onTap: _onPieceTaped,
-          child: Image(
-            image: widget.pieceModel.imageProvider,
-            width: pieceSize,
+      child: AnimatedScale(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+        scale: _pieceScale,
+        child: AnimatedOpacity(
+          opacity: _spawnOpacity,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeOut,
+          child: GestureDetector(
+            onTap: _onPieceTaped,
+            child: Image(
+              image: widget.pieceModel.imageProvider,
+              width: pieceSize,
+            ),
           ),
         ),
       ),

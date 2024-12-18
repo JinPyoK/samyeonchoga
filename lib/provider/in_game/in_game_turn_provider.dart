@@ -41,6 +41,8 @@ final class InGameTurn extends _$InGameTurn {
 
       /// 초나라 착수 후 장군 체크
       _determineIfJanggoon();
+
+      state = true;
     }
   }
 
@@ -69,7 +71,7 @@ final class InGameTurn extends _$InGameTurn {
     }
 
     /// 10 ~ 19 라운드
-    else if (round < 20) {
+    else if (round <= 20) {
       if (round % 5 != 0) {
         return;
       }
@@ -83,7 +85,7 @@ final class InGameTurn extends _$InGameTurn {
     }
 
     /// 30 ~ 39 라운드
-    else if (round < 40) {
+    else if (round <= 40) {
       if (round % 5 != 0) {
         return;
       }
@@ -195,9 +197,6 @@ final class InGameTurn extends _$InGameTurn {
     piece.x = pieceActionable.targetX;
     piece.y = pieceActionable.targetY;
     piece.setStateThisPiece!(() {});
-
-    /// 턴 변경
-    changeTurn();
   }
 
   void _determineIfJanggoon() {

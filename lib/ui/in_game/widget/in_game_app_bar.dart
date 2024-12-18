@@ -6,6 +6,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
+import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 
 class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const InGameAppBar({super.key});
@@ -18,6 +19,7 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
     final inGameGold = ref.watch(inGameGoldProvider);
     final inGameRound = ref.watch(inGameRoundProvider);
     final isMyTurn = ref.watch(inGameTurnProvider);
+    final goldNotification = ref.watch(getGoldNotificationWidgetProvider);
 
     return AppBar(
       backgroundColor: inGameBlackColor,
@@ -33,6 +35,8 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
         style: const TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
       ),
       actions: [
+        if (goldNotification != null) goldNotification,
+        const SizedBox(width: 10),
         Padding(
           padding: EdgeInsets.only(right: 10 * wu),
           child: GoldWidget(gold: inGameGold, goldTextColor: whiteColor),

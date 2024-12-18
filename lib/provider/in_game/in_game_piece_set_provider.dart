@@ -21,6 +21,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
+import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
 part 'in_game_piece_set_provider.g.dart';
@@ -43,7 +44,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
   }
 
   void initPieceSet() {
-    /// 초나라 포진 설정
+    /// 한나라 포진 설정
     switch (lineup) {
       case Lineup.maSangMaSang:
         spawnPiece(RedMaModel(x: 1, y: 9), true);
@@ -71,6 +72,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
         break;
     }
 
+    /// 한나라 기물 세팅
     spawnPiece(RedKingModel(x: 4, y: 8), true);
     spawnPiece(RedSaModel(x: 3, y: 9), true);
     spawnPiece(RedSaModel(x: 5, y: 9), true);
@@ -87,6 +89,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
     spawnPiece(RedByungModel(x: 6, y: 6), true);
     spawnPiece(RedByungModel(x: 8, y: 6), true);
 
+    /// 초나라 기물 세팅
     spawnPiece(BlueZolModel(x: 0, y: 3), true);
     spawnPiece(BlueZolModel(x: 2, y: 3), true);
     spawnPiece(BlueZolModel(x: 4, y: 3), true);
@@ -102,7 +105,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
     final randomNumber = Random().nextInt(4);
 
-    /// 한나라 포진 설정
+    /// 초나라 포진 설정
     switch (randomNumber) {
       case 0:
         spawnPiece(BlueMaModel(x: 1, y: 0), true);
@@ -180,6 +183,11 @@ final class InGamePieceSet extends _$InGamePieceSet {
         /// 기물 수 증가
         _numOfPiece[pieceModel.pieceType] =
             _numOfPiece[pieceModel.pieceType]! + 1;
+
+        /// 골드 노티피케이션
+        ref
+            .read(getGoldNotificationWidgetProvider.notifier)
+            .showGoldNotification(false, pieceModel.value);
       }
 
       /// 상태 변경
@@ -205,14 +213,26 @@ final class InGamePieceSet extends _$InGamePieceSet {
         return;
       }
 
+      /// 골드 차감
       ref.read(inGameGoldProvider.notifier).setInGameGold(gold - 300);
+
+      /// 골드 노티피케이션
+      ref
+          .read(getGoldNotificationWidgetProvider.notifier)
+          .showGoldNotification(false, 300);
     } else {
       /// 처형이 아닌 단순 기물 공격, 한이 초 기물을 취함
       if (targetPieceModel is PieceBaseModel) {
         if (targetPieceModel.team == Team.blue) {
+          /// 골드 증액
           ref
               .read(inGameGoldProvider.notifier)
               .setInGameGold(gold + pieceActionable.targetValue);
+
+          /// 골드 노티피케이션
+          ref
+              .read(getGoldNotificationWidgetProvider.notifier)
+              .showGoldNotification(true, targetPieceModel.value);
         }
       }
     }
