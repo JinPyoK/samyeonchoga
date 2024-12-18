@@ -42,6 +42,7 @@ dependencies:
   skeletonizer: # 로딩 스켈레톤
   animated_text_kit: ^4.2.2 # 시스템 노티피케이션
   flutter_animate: ^4.5.2 # 기물 움직임 (포, 마, 상)
+  animated_flip_counter: ^0.3.4 # 골드
 
   # Riverpod
   flutter_riverpod:
