@@ -40,7 +40,7 @@ dependencies:
   font_awesome_flutter: # 아이콘
   google_fonts: # 구글 폰트
   skeletonizer: # 로딩 스켈레톤
-  animated_text_kit: ^4.2.2 # 시스템 노티피케이션
+  animated_text_kit: ^4.2.2 # 기물 장군 표시
   animated_flip_counter: ^0.3.4 # 골드
 
   # Riverpod
