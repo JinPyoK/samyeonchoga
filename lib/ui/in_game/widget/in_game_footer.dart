@@ -4,6 +4,7 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
@@ -114,11 +115,14 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     }
 
     final isMyTurn = ref.watch(inGameTurnProvider);
+    final roundStart = ref.read(inGameRoundProvider) == 0;
+
+    final buttonOn = isMyTurn && !roundStart;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: isMyTurn
+        onTap: buttonOn
             ? () {
                 ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
               }
@@ -159,6 +163,9 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
   Widget build(BuildContext context) {
     final selectedSpawnPiece = ref.watch(inGameFooterSpawnPieceProvider);
     final isMyTurn = ref.watch(inGameTurnProvider);
+    final roundStart = ref.read(inGameRoundProvider) == 0;
+
+    final buttonOn = isMyTurn && !roundStart;
 
     return ColoredBox(
       color: inGameBlackColor,
@@ -179,7 +186,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: redColor,
                         ),
-                        onPressed: isMyTurn
+                        onPressed: buttonOn
                             ? () {
                                 showCustomDialog(
                                   context,
@@ -230,7 +237,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: isMyTurn
+                      onPressed: buttonOn
                           ? () {
                               showCustomDialog(
                                 context,
@@ -264,7 +271,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: isMyTurn
+                      onPressed: buttonOn
                           ? () {
                               ref
                                   .read(inGameNavigatorProvider.notifier)
