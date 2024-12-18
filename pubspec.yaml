@@ -40,6 +40,8 @@ dependencies:
   font_awesome_flutter: # 아이콘
   google_fonts: # 구글 폰트
   skeletonizer: # 로딩 스켈레톤
+  animated_text_kit: ^4.2.2 # 시스템 노티피케이션
+  flutter_animate: ^4.5.2 # 기물 움직임 (포, 마, 상)
 
   # Riverpod
   flutter_riverpod:
@@ -58,9 +60,8 @@ dependencies:
 
   # Util
   easy_debounce:
-
-  # Path for Isar
-  path_provider:
+  path_provider: # 이자르 로컬 데이터베이스
+  package_info_plus: ^8.1.2 # 업데이트 알림 다이얼로그
 
 dev_dependencies:
   flutter_test:
