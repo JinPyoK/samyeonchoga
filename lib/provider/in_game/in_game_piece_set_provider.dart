@@ -105,6 +105,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
     spawnPiece(BlueChaModel(x: 0, y: 0), true);
     spawnPiece(BlueChaModel(x: 8, y: 0), true);
+    spawnPiece(BluePoModel(x: 4, y: 5), true);
 
     final randomNumber = Random().nextInt(4);
 

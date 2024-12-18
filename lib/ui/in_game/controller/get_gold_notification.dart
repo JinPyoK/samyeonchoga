@@ -42,6 +42,13 @@ class _GoldNotificationState extends State<_GoldNotification> {
   }
 
   @override
+  void setState(VoidCallback fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: _goldOpacity,

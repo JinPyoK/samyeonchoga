@@ -44,7 +44,7 @@ final class InGameTurn extends _$InGameTurn {
       });
 
       /// 초나라 착수 후 장군 체크
-      _determineIfJanggoon();
+      determineIfJanggoon();
 
       state = true;
     }
@@ -203,7 +203,7 @@ final class InGameTurn extends _$InGameTurn {
     piece.setStateThisPiece!(() {});
   }
 
-  void _determineIfJanggoon() {
+  void determineIfJanggoon() {
     bool targetKing = false;
 
     /// 초나라의 기물 모두 조사

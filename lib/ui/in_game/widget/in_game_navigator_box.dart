@@ -114,6 +114,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       ref
           .read(inGamePieceSetProvider.notifier)
           .removePiece(widget.pieceActionable, true);
+      ref.read(inGameTurnProvider.notifier).determineIfJanggoon();
     }
   }
 
