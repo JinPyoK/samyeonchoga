@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math' hide log;
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -30,6 +29,11 @@ final class InGameTurn extends _$InGameTurn {
     /// 초나라의 턴이라면 라운드를 증가시키고 초나라 착수
     if (state == false) {
       ref.read(inGameRoundProvider.notifier).nextRound();
+
+      /// 시스템 노티피케이션 리스트 비워주기
+      ref
+          .read(inGameSystemNotificationProvider.notifier)
+          .clearNotificationList();
 
       /// 초나라 기물 부활
       _blueSpawn();
@@ -219,7 +223,6 @@ final class InGameTurn extends _$InGameTurn {
     }
 
     if (targetKing) {
-      log("장군!!");
       ref.read(inGameSystemNotificationProvider.notifier).notifyJanggoon();
     }
   }

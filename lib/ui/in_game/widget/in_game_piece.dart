@@ -39,8 +39,8 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   @override
   void initState() {
     super.initState();
-    widget.pieceModel.setStateThisPiece = setState;
 
+    widget.pieceModel.setStateThisPiece = setState;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnOpacity = 1;
       setState(() {});

@@ -7,8 +7,8 @@ part 'get_gold_notification.g.dart';
 @Riverpod()
 final class GetGoldNotificationWidget extends _$GetGoldNotificationWidget {
   @override
-  Widget? build() {
-    return null;
+  Widget build() {
+    return Container();
   }
 
   void showGoldNotification(bool isIncrease, int getGold) {

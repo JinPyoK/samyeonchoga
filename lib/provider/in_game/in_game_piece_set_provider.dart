@@ -44,6 +44,9 @@ final class InGamePieceSet extends _$InGamePieceSet {
   }
 
   void initPieceSet() {
+    /// 상태보드 초기화
+    initStatusBoard();
+
     /// 한나라 포진 설정
     switch (lineup) {
       case Lineup.maSangMaSang:

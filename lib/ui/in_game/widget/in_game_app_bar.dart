@@ -35,7 +35,7 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
         style: const TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
       ),
       actions: [
-        if (goldNotification != null) goldNotification,
+        goldNotification,
         const SizedBox(width: 10),
         Padding(
           padding: EdgeInsets.only(right: 10 * wu),
