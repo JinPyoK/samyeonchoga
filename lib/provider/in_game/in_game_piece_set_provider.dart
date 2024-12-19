@@ -21,6 +21,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
@@ -49,6 +50,9 @@ final class InGamePieceSet extends _$InGamePieceSet {
   void initPieceSet() {
     /// 상태보드 초기화
     initStatusBoard();
+
+    selectedPieceModel = null;
+    lastTurnPiece = null;
 
     /// 한나라 포진 설정
     switch (lineup) {
@@ -148,6 +152,9 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
 
     initStatusBoardWithSavedData(inGameSave!.inGameSaveDataList);
+
+    selectedPieceModel = null;
+    lastTurnPiece = null;
 
     Map<PieceType, int> numOfPieceInit = {
       PieceType.king: 0,

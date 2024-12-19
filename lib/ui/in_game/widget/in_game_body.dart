@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
@@ -38,11 +36,9 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       if (widget.gameHadSaved) {
         /// 기물 저장된 데이터로 초기화
         ref.read(inGamePieceSetProvider.notifier).initPieceWithSavedData();
-        log("initPieceWithSavedData");
       } else {
         /// 기물 초기화
         ref.read(inGamePieceSetProvider.notifier).initPieceSet();
-        log("initPieceSet");
 
         /// 기물 스폰 애니메이션 기다린 후 게임 시작
         Future.delayed(const Duration(seconds: 1), () {
