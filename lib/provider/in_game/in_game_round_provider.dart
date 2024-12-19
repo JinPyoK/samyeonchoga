@@ -12,4 +12,8 @@ final class InGameRound extends _$InGameRound {
   void nextRound() {
     state = state + 1;
   }
+
+  void setRound(int round) {
+    state = round;
+  }
 }

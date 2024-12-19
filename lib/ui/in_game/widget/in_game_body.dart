@@ -9,7 +9,9 @@ import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
 class InGameBody extends ConsumerStatefulWidget {
-  const InGameBody({super.key});
+  const InGameBody({super.key, required this.gameHadSaved});
+
+  final bool gameHadSaved;
 
   @override
   ConsumerState<InGameBody> createState() => _InGameBodyState();
@@ -31,13 +33,18 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       /// 장기판 사이즈에 따른 값 초기화
       initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
 
-      /// 기물 초기화
-      ref.read(inGamePieceSetProvider.notifier).initPieceSet();
+      if (widget.gameHadSaved) {
+        /// 기물 저장된 데이터로 초기화
+        ref.read(inGamePieceSetProvider.notifier).initPieceWithSavedData();
+      } else {
+        /// 기물 초기화
+        ref.read(inGamePieceSetProvider.notifier).initPieceSet();
 
-      /// 기물 스폰 애니메이션 기다린 후 게임 시작
-      Future.delayed(const Duration(seconds: 1), () {
-        ref.read(inGameTurnProvider.notifier).changeTurn();
-      });
+        /// 기물 스폰 애니메이션 기다린 후 게임 시작
+        Future.delayed(const Duration(seconds: 1), () {
+          ref.read(inGameTurnProvider.notifier).changeTurn();
+        });
+      }
     });
   }
 

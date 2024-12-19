@@ -13,10 +13,11 @@ final class SoundSetting {
     this.volume = volume;
   }
 
-  /// 앱 첫 실행시 한 번 호출 할듯
+  /// 앱 첫 실행시 한 번 호출
   Future<void> readSoundVolume() async {
     final result = await Isarbase.read(this);
     if (result == null) return;
+
     final mySoundVolume = result as SoundSetting;
     volume = mySoundVolume.volume;
   }

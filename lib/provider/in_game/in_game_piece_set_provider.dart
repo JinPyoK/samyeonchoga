@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:math' hide log;
 
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,7 +19,10 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
@@ -138,6 +141,45 @@ final class InGamePieceSet extends _$InGamePieceSet {
     }
 
     state = List.from(state);
+  }
+
+  void initPieceWithSavedData() {
+    ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
+    ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
+
+    initStatusBoardWithSavedData(inGameSave!.inGameSaveDataList);
+
+    Map<PieceType, int> numOfPieceInit = {
+      PieceType.king: 0,
+      PieceType.cha: 0,
+      PieceType.po: 0,
+      PieceType.ma: 0,
+      PieceType.sang: 0,
+      PieceType.sa: 0,
+      PieceType.byung: 0,
+    };
+
+    _numOfPiece = numOfPieceInit;
+
+    final statusBoard = getWholeStatus();
+
+    for (List<PieceOrJustActionable> statusList in statusBoard) {
+      for (PieceOrJustActionable status in statusList) {
+        if (status is PieceBaseModel) {
+          spawnPiece(status, true);
+
+          if (status.team == Team.red) {
+            _numOfPiece[status.pieceType] = _numOfPiece[status.pieceType]! + 1;
+          }
+        }
+      }
+    }
+
+    state = List.from(state);
+
+    Future.delayed(const Duration(seconds: 1), () {
+      ref.read(inGameTurnProvider.notifier).determineIfJanggoon();
+    });
   }
 
   /// 기물 부활

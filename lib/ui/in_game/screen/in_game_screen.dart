@@ -6,7 +6,9 @@ import 'package:samyeonchoga/ui/in_game/widget/in_game_body.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_footer.dart';
 
 class InGameScreen extends ConsumerWidget {
-  const InGameScreen({super.key});
+  const InGameScreen({super.key, required this.gameHadSaved});
+
+  final bool gameHadSaved;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,16 +16,16 @@ class InGameScreen extends ConsumerWidget {
       onTap: () {
         ref.read(inGameNavigatorProvider.notifier).clearNavigator();
       },
-      child: const Scaffold(
-        appBar: InGameAppBar(),
+      child: Scaffold(
+        appBar: const InGameAppBar(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               flex: 2,
-              child: InGameBody(),
+              child: InGameBody(gameHadSaved: gameHadSaved),
             ),
-            Expanded(
+            const Expanded(
               flex: 1,
               child: InGameFooter(),
             ),

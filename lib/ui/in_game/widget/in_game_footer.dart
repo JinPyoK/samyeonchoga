@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
+import 'package:samyeonchoga/repository/in_game/in_game_save_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -115,7 +121,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     }
 
     final isMyTurn = ref.watch(inGameTurnProvider);
-    final roundStart = ref.read(inGameRoundProvider) == 0;
+    final roundStart = ref.watch(inGameRoundProvider) == 0;
 
     final buttonOn = isMyTurn && !roundStart;
 
@@ -163,7 +169,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
   Widget build(BuildContext context) {
     final selectedSpawnPiece = ref.watch(inGameFooterSpawnPieceProvider);
     final isMyTurn = ref.watch(inGameTurnProvider);
-    final roundStart = ref.read(inGameRoundProvider) == 0;
+    final roundStart = ref.watch(inGameRoundProvider) == 0;
 
     final buttonOn = isMyTurn && !roundStart;
 
@@ -204,9 +210,29 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                       ),
                                       const SizedBox(height: 30),
                                       ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
+                                          onPressed: () async {
+                                            inGameSave = InGameSaveRepository();
+
+                                            final inGameGold =
+                                                ref.read(inGameGoldProvider);
+                                            final round =
+                                                ref.read(inGameRoundProvider);
+                                            final inGameSaveDataList =
+                                                refinePieceModelForSave();
+
+                                            inGameSave!.backupInGameData(
+                                              round: round,
+                                              inGameGold: inGameGold,
+                                              inGameSaveDataList:
+                                                  inGameSaveDataList,
+                                            );
+
+                                            await inGameSave!.writeInGameSave();
+
+                                            if (context.mounted) {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            }
                                           },
                                           child: const Text("게임 저장 후 종료")),
                                       const SizedBox(height: 15),
@@ -214,9 +240,23 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: Colors.redAccent,
                                           ),
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
+                                          onPressed: () async {
+                                            final inGameGold =
+                                                ref.read(inGameGoldProvider);
+
+                                            myGold.addGold(inGameGold);
+
+                                            await myGold.writeGold();
+
+                                            await inGameSave
+                                                ?.deleteInGameSave();
+
+                                            if (context.mounted) {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            }
+
+                                            setStateGold!(() {});
                                           },
                                           child: const Text("저장하지 않고 종료")),
                                     ],
