@@ -17,6 +17,9 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   /// 기물의 이미지 프로바이더 (precached)
   final ImageProvider imageProvider;
 
+  /// 기물이 방금 착수했는지 -> UI 표시
+  bool justTurn = false;
+
   /// 기물의 현재 좌표
   int x;
   int y;

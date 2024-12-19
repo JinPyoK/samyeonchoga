@@ -54,7 +54,6 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
       _callJanggoon = bluePieceModel.isTargetingKing;
     }
-
     super.setState(fn);
   }
 
@@ -79,10 +78,10 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
               child: ShaderMask(
                 shaderCallback: (rect) {
                   return RadialGradient(
-                    colors: _callJanggoon
+                    colors: widget.pieceModel.justTurn
                         ? [
                             whiteColor,
-                            Colors.blueAccent,
+                            Colors.blue,
                           ]
                         : [
                             whiteColor,

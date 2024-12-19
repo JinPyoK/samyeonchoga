@@ -67,6 +67,15 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       changeStatus(widget.pieceActionable.targetX,
           widget.pieceActionable.targetY, selectedPieceModel!);
 
+      /// 기물 착수 ui 구현 위해서
+      if (lastTurnPiece != null) {
+        lastTurnPiece!.justTurn = false;
+        lastTurnPiece!.setStateThisPiece!(() {});
+      }
+
+      lastTurnPiece = selectedPieceModel;
+      lastTurnPiece!.justTurn = true;
+
       /// 기물 착수
       selectedPieceModel!.x = widget.pieceActionable.targetX;
       selectedPieceModel!.y = widget.pieceActionable.targetY;

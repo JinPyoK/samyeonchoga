@@ -12,6 +12,7 @@ import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 
 part 'in_game_turn_provider.g.dart';
@@ -175,6 +176,15 @@ final class InGameTurn extends _$InGameTurn {
 
     final piece = minimaxResult[0] as PieceBaseModel;
     final pieceActionable = minimaxResult[1] as PieceActionableModel;
+
+    /// 기물 착수 ui 구현 위해서
+    if (lastTurnPiece != null) {
+      lastTurnPiece!.justTurn = false;
+      lastTurnPiece!.setStateThisPiece!(() {});
+    }
+
+    lastTurnPiece = piece;
+    piece.justTurn = true;
 
     /// 보드 상태 변경
     changeStatus(
