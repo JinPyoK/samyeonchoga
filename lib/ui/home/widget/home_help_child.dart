@@ -34,7 +34,7 @@ class HomeHelpChild extends StatelessWidget {
             '한나라의 왕이 초나라의 기물로부터 취해져서 게임이 종료되었을 때, 유저의 최종 Round 기록을 랭크에 등록하실 수 있습니다. 랭크는 최대 100위까지 기록되며, 아래 Rank 탭에서 확인하실 수 있습니다.'),
         _renderTitle('9. 애셋 출처'),
         _renderDescription(
-            '장기판, 기물은 제가 직접 그렸습니다.\n효과음: Pixabay -> freesound_community, TanwerAman'),
+            '장기판, 기물은 제가 직접 그렸습니다.\n효과음: Pixabay -> freesound_community, TanwerAman\n폰트: 나눔고딕체, 송명체'),
       ],
     );
   }
