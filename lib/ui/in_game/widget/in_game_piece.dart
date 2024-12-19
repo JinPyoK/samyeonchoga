@@ -36,6 +36,27 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     }
   }
 
+  List<Color> justTurnPieceColor() {
+    if (widget.pieceModel.justTurn) {
+      if (widget.pieceModel.team == Team.red) {
+        return [
+          whiteColor,
+          redColor,
+        ];
+      } else {
+        return [
+          whiteColor,
+          Colors.blueAccent,
+        ];
+      }
+    } else {
+      return [
+        whiteColor,
+        whiteColor,
+      ];
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,17 +98,8 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
               onTap: _onPieceTaped,
               child: ShaderMask(
                 shaderCallback: (rect) {
-                  return RadialGradient(
-                    colors: widget.pieceModel.justTurn
-                        ? [
-                            whiteColor,
-                            Colors.blue,
-                          ]
-                        : [
-                            whiteColor,
-                            whiteColor,
-                          ],
-                  ).createShader(rect);
+                  return RadialGradient(colors: justTurnPieceColor())
+                      .createShader(rect);
                 },
                 child: Image(
                   image: widget.pieceModel.imageProvider,
