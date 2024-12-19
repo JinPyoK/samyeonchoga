@@ -1,6 +1,6 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:samyeonchoga/repository/gold/gold_storage.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/repository/sound/sound_setting.dart';
 
 sealed class Isarbase {
@@ -13,7 +13,7 @@ sealed class Isarbase {
 
     Isarbase._isar = await Isar.open(
       [
-        GoldStorageSchema,
+        GoldRepositorySchema,
         SoundSettingSchema,
       ],
       directory: path.path,
@@ -23,8 +23,8 @@ sealed class Isarbase {
   static Future<void> write(Object data) async {
     await Isarbase._isar!.writeTxn(() async {
       switch (data.runtimeType.toString()) {
-        case 'GoldStorage':
-          await Isarbase._isar!.goldStorages.put(data as GoldStorage);
+        case 'GoldRepository':
+          await Isarbase._isar!.goldRepositorys.put(data as GoldRepository);
         case 'SoundSetting':
           await Isarbase._isar!.soundSettings.put(data as SoundSetting);
         default:
@@ -37,8 +37,8 @@ sealed class Isarbase {
     Object? result;
 
     switch (data.runtimeType.toString()) {
-      case 'GoldStorage':
-        result = await Isarbase._isar!.goldStorages.get(Isarbase.fixedId);
+      case 'GoldRepository':
+        result = await Isarbase._isar!.goldRepositorys.get(Isarbase.fixedId);
       case 'SoundSetting':
         result = await Isarbase._isar!.soundSettings.get(Isarbase.fixedId);
       default:

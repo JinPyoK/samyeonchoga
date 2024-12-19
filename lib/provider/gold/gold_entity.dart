@@ -1,3 +1,3 @@
-import 'package:samyeonchoga/repository/gold/gold_storage.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 
-final myGold = GoldStorage();
+final myGold = GoldRepository();

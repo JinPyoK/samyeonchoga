@@ -1,26 +1,29 @@
 import 'package:isar/isar.dart';
 import 'package:samyeonchoga/core/local_database/isar_base.dart';
 
-part 'gold_storage.g.dart';
+part 'gold_repository.g.dart';
 
 @collection
-final class GoldStorage {
+final class GoldRepository {
   Id id = Isarbase.fixedId;
 
-  int gold = 1352;
+  int gold = 5000;
 
   void addGold(int gold) {
     this.gold += gold;
   }
 
-  /// 앱 첫 실행시 한 번 호출 할듯
+  /// 앱 첫 실행시 한 번 호출
   Future<void> readGold() async {
     final result = await Isarbase.read(this);
     if (result == null) return;
-    final myGold = result as GoldStorage;
+    final myGold = result as GoldRepository;
     gold = myGold.gold;
   }
 
+  /// 1. 게임 시작
+  /// 2. 게임 외통 및 종료 또는 게임 저장하지 않고 종료
+  /// 3. 광고 시청 후 골드 보상
   Future<void> writeGold() async {
     await Isarbase.write(this);
   }
