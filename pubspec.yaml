@@ -58,6 +58,9 @@ dependencies:
   # Google AdMob
   google_mobile_ads: ^5.2.0
 
+  # Audio
+  audioplayers: ^6.1.0
+
   # Util
   easy_debounce:
   path_provider: # 이자르 로컬 데이터베이스
