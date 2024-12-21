@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/ui/ad/screen/ad_screen.dart';
+import 'package:samyeonchoga/ui/common/controller/compare_store_version.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
@@ -24,6 +25,8 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
   void initState() {
     super.initState();
     setStateGold = setState;
+
+    compareStoreVersionAndShowDialog(context);
   }
 
   @override
