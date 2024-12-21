@@ -84,6 +84,9 @@ class _AdRewardState extends State<AdReward> {
                     setStateGold!(() {});
                   }
                   unawaited(myGold.writeGold());
+
+                  /// 이미지가 메모리에서 없어져서 다시 로드
+                  unawaited(imagePreload(context));
                 },
               );
             } catch (_) {
