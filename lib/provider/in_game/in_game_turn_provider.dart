@@ -14,6 +14,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
+import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 
 part 'in_game_turn_provider.g.dart';
 
@@ -211,6 +212,8 @@ final class InGameTurn extends _$InGameTurn {
     piece.x = pieceActionable.targetX;
     piece.y = pieceActionable.targetY;
     piece.setStateThisPiece!(() {});
+
+    makePieceMoveSound();
   }
 
   void determineIfJanggoon() {
