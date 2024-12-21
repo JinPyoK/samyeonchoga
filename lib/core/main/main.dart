@@ -64,8 +64,6 @@ Future<void> _initGame() async {
 
   /// 앱 시작시 오디오 로드 및 볼륨 설정
   await initAudio();
-
-  await changeAudioVolume(soundSetting.volume);
 }
 
 final _customTheme = ThemeData(

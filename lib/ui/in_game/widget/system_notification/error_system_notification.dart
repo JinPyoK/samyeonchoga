@@ -23,7 +23,7 @@ class ErrorSystemNotification extends StatelessWidget {
       child: IgnorePointer(
         child: Container(
           decoration: BoxDecoration(
-            color: inGameBlackColor.withOpacity(0.8),
+            color: inGameBlackColor.withValues(alpha: 0.8),
             borderRadius: BorderRadius.circular(8),
           ),
           padding: EdgeInsets.symmetric(

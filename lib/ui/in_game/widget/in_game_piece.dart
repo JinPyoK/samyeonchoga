@@ -95,7 +95,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
         children: [
           AnimatedOpacity(
             opacity: _spawnOpacity,
-            duration: const Duration(seconds: 1),
+            duration: const Duration(seconds: 3),
             curve: Curves.easeOut,
             child: GestureDetector(
               onTap: _onPieceTaped,

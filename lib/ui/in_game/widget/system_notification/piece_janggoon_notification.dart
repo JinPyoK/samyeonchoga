@@ -10,7 +10,7 @@ class PieceJanggoonNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: inGameBlackColor.withOpacity(0.8),
+        color: inGameBlackColor.withValues(alpha: 0.8),
         borderRadius: BorderRadius.circular(8),
       ),
       padding: const EdgeInsets.all(8),

@@ -1,49 +1,50 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/sound/sound_setting.dart';
 
 part 'sound_configure.dart';
 
 Future<void> makePieceSpawnSound(PieceType pieceType) async {
   switch (pieceType) {
     case PieceType.cha:
-      await _spawnChaAudio.resume();
+      await _makeSound(soundSpawnChaPath);
     case PieceType.po:
-      await _spawnPoAudio.resume();
+      await _makeSound(soundSpawnPoPath);
     case PieceType.ma:
-      await _spawnMaAudio.resume();
+      await _makeSound(soundSpawnMaPath);
     case PieceType.sang:
-      await _spawnSangAudio.resume();
+      await _makeSound(soundSpawnSangPath);
     default:
-      await _spawnByungOrZolAudio.resume();
+      await _makeSound(soundSpawnZolPath);
   }
 }
 
 Future<void> makePieceKilledSound(Team team) async {
   switch (team) {
     case Team.blue:
-      await _blueKilledAudio.resume();
+      await _makeSound(soundBlueKilledPath);
     default:
-      await _redKilledAudio.resume();
+      await _makeSound(soundRedKilledPath);
   }
 }
 
 Future<void> makeGameStartSound() async {
-  await _gameStartAudio.resume();
+  await _makeSound(soundGameStartPath);
 }
 
 Future<void> makePieceTapSound() async {
-  await _pieceTapAudio.resume();
+  await _makeSound(soundPieceTapPath);
 }
 
 Future<void> makePieceMoveSound() async {
-  await _pieceMoveAudio.resume();
+  await _makeSound(soundPieceMovePath);
 }
 
 Future<void> makeSystemErrorSound() async {
-  await _redKilledAudio.resume();
+  await _makeSound(soundRedKilledPath);
 }
 
 Future<void> makeExecuteOrJanggoonSound() async {
-  await _executeOrJanggoonAudio.resume();
+  await _makeSound(soundExecuteJanggoonPath);
 }
