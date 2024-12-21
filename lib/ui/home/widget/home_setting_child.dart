@@ -2,6 +2,7 @@ import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
+import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 
 class HomeSettingChild extends StatefulWidget {
   const HomeSettingChild({super.key});
@@ -25,9 +26,9 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
         ),
         Slider(
           value: soundSetting.volume,
-          min: 0,
-          max: 9,
-          divisions: 9,
+          min: 0.0,
+          max: 1.0,
+          divisions: 10,
           activeColor: woodColor,
           inactiveColor: Colors.black45,
           onChanged: (value) {
@@ -36,7 +37,11 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
 
             EasyDebounce.debounce('soundSetting', const Duration(seconds: 1),
                 () async {
+              /// 기기에 소리 저장 볼륨값 저장
               await soundSetting.writSoundVolume();
+
+              /// 오디오 소리 볼륨 변경
+              await changeAudioVolume(soundSetting.volume);
             });
           },
         )

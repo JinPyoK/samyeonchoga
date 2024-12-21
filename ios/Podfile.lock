@@ -1,4 +1,6 @@
 PODS:
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - Firebase/CoreOnly (11.4.0):
     - FirebaseCore (= 11.4.0)
   - Firebase/Database (11.4.0):
@@ -57,6 +59,7 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
@@ -80,6 +83,8 @@ SPEC REPOS:
     - leveldb-library
 
 EXTERNAL SOURCES:
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_database:
@@ -98,6 +103,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
   firebase_core: 418aed674e9a0b8b6088aec16cde82a811f6261f
   firebase_database: eaa98d5fd998bd2b76318df35b1ebe5dd12449b5

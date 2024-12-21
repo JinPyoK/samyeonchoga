@@ -25,6 +25,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart'
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
+import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
@@ -145,6 +146,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
     }
 
     state = List.from(state);
+    makeGameStartSound();
   }
 
   void initPieceWithSavedData() {
@@ -183,6 +185,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
     }
 
     state = List.from(state);
+
+    makeGameStartSound();
 
     Future.delayed(const Duration(seconds: 1), () {
       ref.read(inGameTurnProvider.notifier).determineIfJanggoon();
@@ -248,6 +252,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
       final newState = state;
       newState.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
       state = newState;
+
+      makePieceSpawnSound(pieceModel.pieceType);
     }
   }
 
@@ -273,6 +279,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
       ref
           .read(getGoldNotificationWidgetProvider.notifier)
           .showGoldNotification(false, 300);
+
+      makeExecuteOrJanggoonSound();
     } else {
       /// 처형이 아닌 단순 기물 공격, 한이 초 기물을 취함
       if (targetPieceModel is PieceBaseModel) {
@@ -286,6 +294,10 @@ final class InGamePieceSet extends _$InGamePieceSet {
           ref
               .read(getGoldNotificationWidgetProvider.notifier)
               .showGoldNotification(true, targetPieceModel.value);
+
+          makePieceKilledSound(Team.blue);
+        } else {
+          makePieceKilledSound(Team.red);
         }
       }
     }

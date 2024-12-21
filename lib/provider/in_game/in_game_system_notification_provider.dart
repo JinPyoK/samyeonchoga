@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/blue_upgrade_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/error_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/janggoon_system_notification.dart';
@@ -18,6 +19,7 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
       ...state,
       JanggoonSystemNotification(key: GlobalKey()),
     ];
+    makeExecuteOrJanggoonSound();
   }
 
   void notifyBlueUpgrade(int level) {
@@ -25,6 +27,7 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
       ...state,
       BlueUpgradeSystemNotification(key: GlobalKey(), level: level),
     ];
+    makeGameStartSound();
   }
 
   void notifySystemError(String errorMessage) {
@@ -32,6 +35,7 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
       ...state,
       ErrorSystemNotification(key: GlobalKey(), errorMessage: errorMessage),
     ];
+    makeSystemErrorSound();
   }
 
   void clearNotificationList() {

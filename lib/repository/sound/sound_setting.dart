@@ -7,7 +7,7 @@ part 'sound_setting.g.dart';
 final class SoundSetting {
   Id id = Isarbase.fixedId;
 
-  double volume = 5;
+  double volume = 0.5;
 
   void changeVolume(double volume) {
     this.volume = volume;
