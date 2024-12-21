@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 
 class HomeHelpChild extends StatelessWidget {
@@ -9,6 +10,8 @@ class HomeHelpChild extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Image.asset(imageAppLogoPath),
+        const SizedBox(height: 30),
         _renderTitle('1. 사면초가'),
         _renderDescription(
             '사면초가는 사방에서 초나라 노래가 흘러나온다는 뜻으로, 사면이 모두 적에게 포위되거나, 누구의 지지나 도움도 받을 수 없어 고립된 상태를 이르는 말입니다. 이 게임은 초나라의 기물이 계속해서 부활하며 한나라(유저)의 왕을 노릴 것입니다. 유저는 끊임없이 쏟아져 나오는 초나라 병사들을 막아야 하며, 끝내 버티지 못하고 사면초가의 상황을 맞이할 것입니다. 골드를 이용하여 기물을 부활 및 처형할 수 있습니다. 최대한 오래 버티세요!'),
@@ -34,7 +37,7 @@ class HomeHelpChild extends StatelessWidget {
             '한나라의 왕이 초나라의 기물로부터 취해져서 게임이 종료되었을 때, 유저의 최종 Round 기록을 랭크에 등록하실 수 있습니다. 랭크는 최대 100위까지 기록되며, 아래 Rank 탭에서 확인하실 수 있습니다.'),
         _renderTitle('9. 애셋 출처'),
         _renderDescription(
-            '장기판, 기물은 제가 직접 그렸습니다.\n효과음: Pixabay -> freesound_community, TanwerAman\n폰트: 나눔고딕체, 송명체'),
+            '장기판, 기물은 제가 직접 그렸습니다.\n효과음: Pixabay -> freesound_community, TanwerAman\n폰트: 나눔고딕체, 송명체\n앱 로고: AI 이미지'),
       ],
     );
   }

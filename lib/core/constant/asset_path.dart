@@ -1,3 +1,5 @@
+const imageAppLogoPath = 'assets/image/app_logo.png';
+
 const imageBoardPath = 'assets/image/board.png';
 const imageRedKingPath = 'assets/image/red_king.png';
 const imageRedChaPath = 'assets/image/red_cha.png';
