@@ -20,12 +20,6 @@ class _AdRewardState extends State<AdReward> {
   RewardedAd? _rewardedAd;
 
   @override
-  void initState() {
-    super.initState();
-    _loadAd();
-  }
-
-  @override
   void dispose() {
     _rewardedAd?.dispose();
     super.dispose();
@@ -65,8 +59,8 @@ class _AdRewardState extends State<AdReward> {
             _rewardedAd = ad;
           },
           // Called when an ad request failed.
-          onAdFailedToLoad: (LoadAdError error) {
-            debugPrint('RewardedAd failed to load: $error');
+          onAdFailedToLoad: (_) {
+            showCustomSnackBar(context, '광고 로드 실패');
           },
         ));
   }
@@ -77,18 +71,24 @@ class _AdRewardState extends State<AdReward> {
       padding: EdgeInsets.symmetric(horizontal: 10 * wu),
       child: ElevatedButton(
         onPressed: () {
+          _loadAd();
+
           if (_rewardedAd == null) {
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
           } else {
-            _rewardedAd!.show(
-              onUserEarnedReward: (_, __) {
-                myGold.gold += 1000;
-                if (setStateGold != null) {
-                  setStateGold!(() {});
-                }
-                unawaited(myGold.writeGold());
-              },
-            );
+            try {
+              _rewardedAd!.show(
+                onUserEarnedReward: (_, __) {
+                  myGold.gold += 1000;
+                  if (setStateGold != null) {
+                    setStateGold!(() {});
+                  }
+                  unawaited(myGold.writeGold());
+                },
+              );
+            } catch (_) {
+              showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
+            }
           }
         },
         child: const Text("광고 시청 후 1000골드 획득"),
