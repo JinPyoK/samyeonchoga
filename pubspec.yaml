@@ -83,8 +83,16 @@ dev_dependencies:
   # Isar
   isar_generator: ^3.1.0+1
 
+  # Icon
+  flutter_launcher_icons: ^0.14.2
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/image/app_logo.png"
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -96,6 +104,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/image/app_logo.png
+
     - assets/image/board.png
     - assets/image/red_king.png
     - assets/image/red_cha.png
