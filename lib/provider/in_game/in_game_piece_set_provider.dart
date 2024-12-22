@@ -50,7 +50,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
   void initPieceSet() {
     /// 상태보드 초기화
-    initStatusBoard();
+    inGameBoardStatus.initStatusBoard();
 
     selectedPieceModel = null;
     lastTurnPiece = null;
@@ -151,7 +151,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
     ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
 
-    initStatusBoardWithSavedData(inGameSave!.inGameSaveDataList);
+    inGameBoardStatus
+        .initStatusBoardWithSavedData(inGameSave!.inGameSaveDataList);
 
     selectedPieceModel = null;
     lastTurnPiece = null;
@@ -168,7 +169,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
     _numOfPiece = numOfPieceInit;
 
-    final statusBoard = getWholeStatus();
+    final statusBoard = inGameBoardStatus.boardStatus;
 
     for (List<PieceOrJustActionable> statusList in statusBoard) {
       for (PieceOrJustActionable status in statusList) {
@@ -199,7 +200,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ///
     /// 그럼에도 불구하고 코드 분기처리하여 안전하게 작성하기
     if (isInit) {
-      changeStatus(pieceModel.x, pieceModel.y, pieceModel);
+      inGameBoardStatus.changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       state.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
     } else {
       if (pieceModel.team == Team.red) {
@@ -246,7 +247,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
       }
 
       /// 상태 변경
-      changeStatus(pieceModel.x, pieceModel.y, pieceModel);
+      inGameBoardStatus.changeStatus(pieceModel.x, pieceModel.y, pieceModel);
       final newState = state;
       newState.add(InGamePiece(key: GlobalKey(), pieceModel: pieceModel));
       state = newState;
@@ -259,8 +260,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
   void removePiece(PieceActionableModel pieceActionable,
       [bool isExecute = false]) {
     final gold = ref.read(inGameGoldProvider);
-    final targetPieceModel =
-        getStatus(pieceActionable.targetX, pieceActionable.targetY);
+    final targetPieceModel = inGameBoardStatus.getStatus(
+        pieceActionable.targetX, pieceActionable.targetY);
 
     if (isExecute) {
       if (gold < 300) {
@@ -308,7 +309,7 @@ final class InGamePieceSet extends _$InGamePieceSet {
       }
     }
 
-    changeStatus(
+    inGameBoardStatus.changeStatus(
       pieceActionable.targetX,
       pieceActionable.targetY,
       PieceActionableModel(

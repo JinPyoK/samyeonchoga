@@ -23,7 +23,7 @@ final class RedMaModel extends RedPieceBaseModel {
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
     /// 0: 아무것도 없음, 1: 한나라의 기물이 있음, 2: 초나라의 기물이 있음
     List<dynamic> redMaStatusProcessing(int x, int y) {
-      final status = getStatus(x, y);
+      final status = inGameBoardStatus.getStatus(x, y);
       if (status is PieceBaseModel) {
         if (status.team == Team.red) {
           return [1, status];

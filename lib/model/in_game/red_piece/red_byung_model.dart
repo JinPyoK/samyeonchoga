@@ -24,36 +24,36 @@ final class RedByungModel extends RedPieceBaseModel {
 
     /// 왼쪽
     if (x > 0) {
-      final status = getStatus(x - 1, y);
+      final status = inGameBoardStatus.getStatus(x - 1, y);
       findRedActions(status, pieceActionable);
     }
 
     /// 위
     if (y > 0) {
-      final status = getStatus(x, y - 1);
+      final status = inGameBoardStatus.getStatus(x, y - 1);
       findRedActions(status, pieceActionable);
     }
 
     /// 오른쪽
     if (x < 8) {
-      final status = getStatus(x + 1, y);
+      final status = inGameBoardStatus.getStatus(x + 1, y);
       findRedActions(status, pieceActionable);
     }
 
     /// 병이 궁성 내부에 있을 때
     if (x == 3 && y == 9) {
-      final status = getStatus(x + 1, y - 1);
+      final status = inGameBoardStatus.getStatus(x + 1, y - 1);
       findRedActions(status, pieceActionable);
     }
 
     if (x == 5 && y == 9) {
-      final status = getStatus(x - 1, y - 1);
+      final status = inGameBoardStatus.getStatus(x - 1, y - 1);
       findRedActions(status, pieceActionable);
     }
 
     if (x == 4 && y == 8) {
-      final status1 = getStatus(x - 1, y - 1);
-      final status2 = getStatus(x + 1, y - 1);
+      final status1 = inGameBoardStatus.getStatus(x - 1, y - 1);
+      final status2 = inGameBoardStatus.getStatus(x + 1, y - 1);
 
       findRedActions(status1, pieceActionable);
       findRedActions(status2, pieceActionable);

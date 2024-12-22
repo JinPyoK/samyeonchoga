@@ -23,7 +23,7 @@ final class RedChaModel extends RedPieceBaseModel {
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
     /// for문 break를 원할 시 true 반환
     bool redChaStatusProcessing(int x, int y) {
-      final status = getStatus(x, y);
+      final status = inGameBoardStatus.getStatus(x, y);
       if (status is PieceBaseModel) {
         if (status.team == Team.red) {
           return true;
@@ -73,10 +73,10 @@ final class RedChaModel extends RedPieceBaseModel {
         if (breakNow) break;
       }
     } else if (x == 4 && y == 8) {
-      findRedActions(getStatus(3, 7), pieceActionable);
-      findRedActions(getStatus(5, 7), pieceActionable);
-      findRedActions(getStatus(3, 9), pieceActionable);
-      findRedActions(getStatus(5, 9), pieceActionable);
+      findRedActions(inGameBoardStatus.getStatus(3, 7), pieceActionable);
+      findRedActions(inGameBoardStatus.getStatus(5, 7), pieceActionable);
+      findRedActions(inGameBoardStatus.getStatus(3, 9), pieceActionable);
+      findRedActions(inGameBoardStatus.getStatus(5, 9), pieceActionable);
     } else if (x == 3 && y == 9) {
       for (int i = x + 1, j = y - 1; i <= 5 && j >= 7; i++, j--) {
         final breakNow = redChaStatusProcessing(i, j);

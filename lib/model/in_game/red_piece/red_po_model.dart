@@ -26,7 +26,7 @@ final class RedPoModel extends RedPieceBaseModel {
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
     /// for문 break를 원할 시 true 반환
     bool redPoStatusProcessing(int x, int y) {
-      final status = getStatus(x, y);
+      final status = inGameBoardStatus.getStatus(x, y);
 
       if (bridge) {
         if (status is PieceBaseModel) {

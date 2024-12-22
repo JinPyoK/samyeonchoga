@@ -41,7 +41,7 @@ final class InGameNavigator extends _$InGameNavigator {
     if (pieceType == PieceType.sa) {
       for (int i = 3; i < 6; i++) {
         for (int j = 7; j < 10; j++) {
-          final pieceModel = getStatus(i, j);
+          final pieceModel = inGameBoardStatus.getStatus(i, j);
           if (pieceModel is PieceActionableModel) {
             navigatorBoxList.add(
               InGameNavigatorBox(
@@ -56,7 +56,7 @@ final class InGameNavigator extends _$InGameNavigator {
     } else {
       for (int i = 0; i < 9; i++) {
         for (int j = 6; j < 10; j++) {
-          final pieceModel = getStatus(i, j);
+          final pieceModel = inGameBoardStatus.getStatus(i, j);
           if (pieceModel is PieceActionableModel) {
             navigatorBoxList.add(
               InGameNavigatorBox(
@@ -79,7 +79,7 @@ final class InGameNavigator extends _$InGameNavigator {
 
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 10; j++) {
-        final pieceModel = getStatus(i, j);
+        final pieceModel = inGameBoardStatus.getStatus(i, j);
         if (pieceModel is PieceBaseModel) {
           if (pieceModel.pieceType != PieceType.king) {
             navigatorBoxList.add(

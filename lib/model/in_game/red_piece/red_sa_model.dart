@@ -31,78 +31,78 @@ final class RedSaModel extends RedPieceBaseModel {
 
     if (x == 3 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(3, 8),
-        getStatus(4, 9),
-        getStatus(4, 8),
+        inGameBoardStatus.getStatus(3, 8),
+        inGameBoardStatus.getStatus(4, 9),
+        inGameBoardStatus.getStatus(4, 8),
       ];
 
       findSaActions(statusList);
     } else if (x == 4 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(3, 9),
-        getStatus(4, 8),
-        getStatus(5, 9),
+        inGameBoardStatus.getStatus(3, 9),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(5, 9),
       ];
 
       findSaActions(statusList);
     } else if (x == 5 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(4, 9),
-        getStatus(4, 8),
-        getStatus(5, 8),
+        inGameBoardStatus.getStatus(4, 9),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(5, 8),
       ];
 
       findSaActions(statusList);
     } else if (x == 3 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(3, 7),
-        getStatus(4, 8),
-        getStatus(3, 9),
+        inGameBoardStatus.getStatus(3, 7),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(3, 9),
       ];
 
       findSaActions(statusList);
     } else if (x == 4 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(3, 7),
-        getStatus(4, 7),
-        getStatus(5, 7),
-        getStatus(3, 8),
-        getStatus(5, 8),
-        getStatus(3, 9),
-        getStatus(4, 9),
-        getStatus(5, 9),
+        inGameBoardStatus.getStatus(3, 7),
+        inGameBoardStatus.getStatus(4, 7),
+        inGameBoardStatus.getStatus(5, 7),
+        inGameBoardStatus.getStatus(3, 8),
+        inGameBoardStatus.getStatus(5, 8),
+        inGameBoardStatus.getStatus(3, 9),
+        inGameBoardStatus.getStatus(4, 9),
+        inGameBoardStatus.getStatus(5, 9),
       ];
 
       findSaActions(statusList);
     } else if (x == 5 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(5, 7),
-        getStatus(4, 8),
-        getStatus(5, 9),
+        inGameBoardStatus.getStatus(5, 7),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(5, 9),
       ];
 
       findSaActions(statusList);
     } else if (x == 3 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(4, 7),
-        getStatus(4, 8),
-        getStatus(3, 8),
+        inGameBoardStatus.getStatus(4, 7),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(3, 8),
       ];
 
       findSaActions(statusList);
     } else if (x == 4 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(3, 7),
-        getStatus(4, 8),
-        getStatus(5, 7),
+        inGameBoardStatus.getStatus(3, 7),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(5, 7),
       ];
 
       findSaActions(statusList);
     } else if (x == 5 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        getStatus(4, 7),
-        getStatus(4, 8),
-        getStatus(5, 8),
+        inGameBoardStatus.getStatus(4, 7),
+        inGameBoardStatus.getStatus(4, 8),
+        inGameBoardStatus.getStatus(5, 8),
       ];
 
       findSaActions(statusList);

@@ -44,7 +44,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       ref.read(inGameNavigatorProvider.notifier).clearNavigator();
 
       /// 보드 상태 변경
-      changeStatus(
+      inGameBoardStatus.changeStatus(
         selectedPieceModel!.x,
         selectedPieceModel!.y,
         PieceActionableModel(
@@ -55,7 +55,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       );
 
       /// 움직인 자리에 초나라 기물이 있다면 제거하기
-      final status = getStatus(
+      final status = inGameBoardStatus.getStatus(
           widget.pieceActionable.targetX, widget.pieceActionable.targetY);
       if (status is PieceBaseModel) {
         if (status.team == Team.blue) {
@@ -65,7 +65,7 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
         }
       }
 
-      changeStatus(widget.pieceActionable.targetX,
+      inGameBoardStatus.changeStatus(widget.pieceActionable.targetX,
           widget.pieceActionable.targetY, selectedPieceModel!);
 
       /// 최근 기물 착수 ui 구현 위해서

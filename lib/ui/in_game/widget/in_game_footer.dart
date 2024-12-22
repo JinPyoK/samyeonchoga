@@ -218,7 +218,8 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                             final round =
                                                 ref.read(inGameRoundProvider);
                                             final inGameSaveDataList =
-                                                refinePieceModelForSave();
+                                                inGameBoardStatus
+                                                    .refinePieceModelForSave();
 
                                             inGameSave!.backupInGameData(
                                               round: round,

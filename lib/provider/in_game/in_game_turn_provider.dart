@@ -132,7 +132,7 @@ final class InGameTurn extends _$InGameTurn {
     /// 초나라 기물 부활 자리 찾기
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 4; j++) {
-        final bluePlace = getStatus(i, j);
+        final bluePlace = inGameBoardStatus.getStatus(i, j);
         if (bluePlace is PieceActionableModel) {
           blueSpawnPositionList.add(bluePlace);
         }
@@ -204,7 +204,7 @@ final class InGameTurn extends _$InGameTurn {
     piece.justTurn = true;
 
     /// 보드 상태 변경
-    changeStatus(
+    inGameBoardStatus.changeStatus(
       piece.x,
       piece.y,
       PieceActionableModel(
@@ -215,14 +215,16 @@ final class InGameTurn extends _$InGameTurn {
     );
 
     /// 움직인 자리에 한나라 기물이 있다면 제거하기
-    final status = getStatus(pieceActionable.targetX, pieceActionable.targetY);
+    final status = inGameBoardStatus.getStatus(
+        pieceActionable.targetX, pieceActionable.targetY);
     if (status is PieceBaseModel) {
       if (status.team == Team.red) {
         ref.read(inGamePieceSetProvider.notifier).removePiece(pieceActionable);
       }
     }
 
-    changeStatus(pieceActionable.targetX, pieceActionable.targetY, piece);
+    inGameBoardStatus.changeStatus(
+        pieceActionable.targetX, pieceActionable.targetY, piece);
 
     /// 기물 착수
     piece.x = pieceActionable.targetX;
@@ -238,7 +240,7 @@ final class InGameTurn extends _$InGameTurn {
     bool targetKing = false;
 
     /// 초나라의 기물 모두 조사
-    final blueList = getBlueAll();
+    final blueList = inGameBoardStatus.getBlueAll();
 
     for (PieceBaseModel piece in blueList) {
       final bluePiece = piece as BluePieceBaseModel;
@@ -260,7 +262,7 @@ final class InGameTurn extends _$InGameTurn {
 
   /// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
   List<dynamic> _minimax(int depth) {
-    final blueList = getBlueAll();
+    final blueList = inGameBoardStatus.getBlueAll();
 
     if (blueList.isEmpty) {
       return [];
