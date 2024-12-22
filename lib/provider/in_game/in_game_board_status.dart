@@ -120,7 +120,7 @@ final class InGameBoardStatus {
 
   /// 미니맥스 Isolate 데이터 전달 목적
   List<Map<String, dynamic>> boardStatusToJsonList() {
-    final inGameSaveDataList = <Map<String, dynamic>>[];
+    final boardStatusJsonList = <Map<String, dynamic>>[];
 
     for (List<PieceOrJustActionable> statusList in boardStatus) {
       for (PieceOrJustActionable status in statusList) {
@@ -132,12 +132,12 @@ final class InGameBoardStatus {
             'y': status.y,
           };
 
-          inGameSaveDataList.add(refineData);
+          boardStatusJsonList.add(refineData);
         }
       }
     }
 
-    return inGameSaveDataList;
+    return boardStatusJsonList;
   }
 
   /// 저장된 게임 데이터로 초기화

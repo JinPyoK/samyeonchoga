@@ -16,14 +16,14 @@ final class BlueSangModel extends BluePieceBaseModel {
         );
 
   @override
-  void searchActionable() {
+  void searchActionable(InGameBoardStatus statusBoard) {
     /// 현재 액션 가능한 리스트를 비워준다.
     pieceActionable.clear();
 
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
-    /// 0: 아무것도 없음, 1: 한나라의 기물이 있음, 2: 초나라의 기물이 있음
+    /// 0: 아무것도 없음, 1: 초나라의 기물이 있음, 2: 한나라의 기물이 있음
     List<dynamic> blueSangStatusProcessing(int x, int y) {
-      final status = inGameBoardStatus.getStatus(x, y);
+      final status = statusBoard.getStatus(x, y);
       if (status is PieceBaseModel) {
         if (status.team == Team.blue) {
           return [1, status];

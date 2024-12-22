@@ -16,14 +16,14 @@ final class BlueChaModel extends BluePieceBaseModel {
         );
 
   @override
-  void searchActionable() {
+  void searchActionable(InGameBoardStatus statusBoard) {
     /// 현재 액션 가능한 리스트를 비워준다.
     pieceActionable.clear();
 
     /// 기물이 갈 수 있는 길을 찾아서 리스트에 넣는다.
     /// for문 break를 원할 시 true 반환
     bool blueChaStatusProcessing(int x, int y) {
-      final status = inGameBoardStatus.getStatus(x, y);
+      final status = statusBoard.getStatus(x, y);
       if (status is PieceBaseModel) {
         if (status.team == Team.blue) {
           return true;
@@ -73,10 +73,10 @@ final class BlueChaModel extends BluePieceBaseModel {
         if (breakNow) break;
       }
     } else if (x == 4 && y == 8) {
-      findBlueActions(inGameBoardStatus.getStatus(3, 7), pieceActionable);
-      findBlueActions(inGameBoardStatus.getStatus(5, 7), pieceActionable);
-      findBlueActions(inGameBoardStatus.getStatus(3, 9), pieceActionable);
-      findBlueActions(inGameBoardStatus.getStatus(5, 9), pieceActionable);
+      findBlueActions(statusBoard.getStatus(3, 7), pieceActionable);
+      findBlueActions(statusBoard.getStatus(5, 7), pieceActionable);
+      findBlueActions(statusBoard.getStatus(3, 9), pieceActionable);
+      findBlueActions(statusBoard.getStatus(5, 9), pieceActionable);
     } else if (x == 3 && y == 9) {
       for (int i = x + 1, j = y - 1; i <= 5 && j >= 7; i++, j--) {
         final breakNow = blueChaStatusProcessing(i, j);

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
@@ -30,7 +31,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     final justGameStart = ref.read(inGameRoundProvider) == 0;
     if (widget.pieceModel.team == Team.red && isMyTurn && !justGameStart) {
       selectedPieceModel = widget.pieceModel;
-      widget.pieceModel.searchActionable();
+      widget.pieceModel.searchActionable(inGameBoardStatus);
       ref
           .read(inGameNavigatorProvider.notifier)
           .showPieceNavigator(widget.pieceModel.pieceActionable);

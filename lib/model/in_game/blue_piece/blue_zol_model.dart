@@ -16,7 +16,7 @@ final class BlueZolModel extends BluePieceBaseModel {
         );
 
   @override
-  void searchActionable() {
+  void searchActionable(InGameBoardStatus statusBoard) {
     /// 현재 액션 가능한 리스트를 비워준다.
     pieceActionable.clear();
 
@@ -24,36 +24,36 @@ final class BlueZolModel extends BluePieceBaseModel {
 
     /// 왼쪽
     if (x > 0) {
-      final status = inGameBoardStatus.getStatus(x - 1, y);
+      final status = statusBoard.getStatus(x - 1, y);
       findBlueActions(status, pieceActionable);
     }
 
     /// 아래
     if (y < 9) {
-      final status = inGameBoardStatus.getStatus(x, y + 1);
+      final status = statusBoard.getStatus(x, y + 1);
       findBlueActions(status, pieceActionable);
     }
 
     /// 오른쪽
     if (x < 8) {
-      final status = inGameBoardStatus.getStatus(x + 1, y);
+      final status = statusBoard.getStatus(x + 1, y);
       findBlueActions(status, pieceActionable);
     }
 
     /// 졸이 궁성 내부에 있을 때
     if (x == 3 && y == 7) {
-      final status = inGameBoardStatus.getStatus(x + 1, y + 1);
+      final status = statusBoard.getStatus(x + 1, y + 1);
       findBlueActions(status, pieceActionable);
     }
 
     if (x == 5 && y == 7) {
-      final status = inGameBoardStatus.getStatus(x - 1, y + 1);
+      final status = statusBoard.getStatus(x - 1, y + 1);
       findBlueActions(status, pieceActionable);
     }
 
     if (x == 4 && y == 8) {
-      final status1 = inGameBoardStatus.getStatus(x - 1, y + 1);
-      final status2 = inGameBoardStatus.getStatus(x + 1, y + 1);
+      final status1 = statusBoard.getStatus(x - 1, y + 1);
+      final status2 = statusBoard.getStatus(x + 1, y + 1);
 
       findBlueActions(status1, pieceActionable);
       findBlueActions(status2, pieceActionable);

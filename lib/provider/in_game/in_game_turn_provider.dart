@@ -45,6 +45,7 @@ final class InGameTurn extends _$InGameTurn {
       _blueSpawn();
 
       /// 초나라 착수
+      await Future.delayed(const Duration(seconds: 1), () {});
       final PieceActionableModel? targetPieceActionable = await _blueAction();
 
       /// 만약 초나라가 왕을 먹었다면 게임 종료
@@ -198,6 +199,7 @@ final class InGameTurn extends _$InGameTurn {
     final targetValue = minimaxResult[4];
 
     final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
+
     final pieceActionable = PieceActionableModel(
         targetX: targetX, targetY: targetY, targetValue: targetValue);
 
@@ -252,7 +254,7 @@ final class InGameTurn extends _$InGameTurn {
     for (PieceBaseModel piece in blueList) {
       final bluePiece = piece as BluePieceBaseModel;
 
-      bluePiece.searchActionable();
+      bluePiece.searchActionable(inGameBoardStatus);
       bluePiece.doesThisPieceCallJanggoon();
 
       bluePiece.setStateThisPiece!(() {});
@@ -297,7 +299,7 @@ List<int> _minimax(List<dynamic> params) {
   }
 
   for (PieceBaseModel piece in blueList) {
-    piece.searchActionable();
+    piece.searchActionable(minimaxBoardStatus);
     if (piece.pieceActionable.isNotEmpty) {
       return [
         piece.x,

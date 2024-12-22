@@ -16,7 +16,7 @@ final class RedKingModel extends RedPieceBaseModel {
         );
 
   @override
-  void searchActionable() {
+  void searchActionable(InGameBoardStatus statusBoard) {
     /// 현재 액션 가능한 리스트를 비워준다.
     pieceActionable.clear();
 
@@ -31,78 +31,78 @@ final class RedKingModel extends RedPieceBaseModel {
 
     if (x == 3 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(3, 8),
-        inGameBoardStatus.getStatus(4, 9),
-        inGameBoardStatus.getStatus(4, 8),
+        statusBoard.getStatus(3, 8),
+        statusBoard.getStatus(4, 9),
+        statusBoard.getStatus(4, 8),
       ];
 
       findKingActions(statusList);
     } else if (x == 4 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(3, 9),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(5, 9),
+        statusBoard.getStatus(3, 9),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(5, 9),
       ];
 
       findKingActions(statusList);
     } else if (x == 5 && y == 9) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(4, 9),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(5, 8),
+        statusBoard.getStatus(4, 9),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(5, 8),
       ];
 
       findKingActions(statusList);
     } else if (x == 3 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(3, 7),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(3, 9),
+        statusBoard.getStatus(3, 7),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(3, 9),
       ];
 
       findKingActions(statusList);
     } else if (x == 4 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(3, 7),
-        inGameBoardStatus.getStatus(4, 7),
-        inGameBoardStatus.getStatus(5, 7),
-        inGameBoardStatus.getStatus(3, 8),
-        inGameBoardStatus.getStatus(5, 8),
-        inGameBoardStatus.getStatus(3, 9),
-        inGameBoardStatus.getStatus(4, 9),
-        inGameBoardStatus.getStatus(5, 9),
+        statusBoard.getStatus(3, 7),
+        statusBoard.getStatus(4, 7),
+        statusBoard.getStatus(5, 7),
+        statusBoard.getStatus(3, 8),
+        statusBoard.getStatus(5, 8),
+        statusBoard.getStatus(3, 9),
+        statusBoard.getStatus(4, 9),
+        statusBoard.getStatus(5, 9),
       ];
 
       findKingActions(statusList);
     } else if (x == 5 && y == 8) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(5, 7),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(5, 9),
+        statusBoard.getStatus(5, 7),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(5, 9),
       ];
 
       findKingActions(statusList);
     } else if (x == 3 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(4, 7),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(3, 8),
+        statusBoard.getStatus(4, 7),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(3, 8),
       ];
 
       findKingActions(statusList);
     } else if (x == 4 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(3, 7),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(5, 7),
+        statusBoard.getStatus(3, 7),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(5, 7),
       ];
 
       findKingActions(statusList);
     } else if (x == 5 && y == 7) {
       final statusList = <PieceOrJustActionable>[
-        inGameBoardStatus.getStatus(4, 7),
-        inGameBoardStatus.getStatus(4, 8),
-        inGameBoardStatus.getStatus(5, 8),
+        statusBoard.getStatus(4, 7),
+        statusBoard.getStatus(4, 8),
+        statusBoard.getStatus(5, 8),
       ];
 
       findKingActions(statusList);

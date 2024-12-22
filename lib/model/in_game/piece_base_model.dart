@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 
 abstract base class PieceOrJustActionable {}
 
@@ -40,7 +41,7 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   });
 
   /// 기물 길 찾기 함수
-  void searchActionable() {}
+  void searchActionable(InGameBoardStatus statusBoard) {}
 }
 
 abstract base class RedPieceBaseModel extends PieceBaseModel {
