@@ -11,7 +11,7 @@ final class RedKingModel extends RedPieceBaseModel {
   }) : super(
           team: Team.red,
           pieceType: PieceType.king,
-          value: 999999999,
+          value: 1000,
           imageProvider: imageRedKing,
         );
 

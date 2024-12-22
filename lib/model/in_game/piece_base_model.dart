@@ -63,7 +63,7 @@ abstract base class BluePieceBaseModel extends PieceBaseModel {
     isTargetingKing = false;
 
     for (PieceActionableModel actionable in pieceActionable) {
-      if (actionable.targetValue == 999999999) {
+      if (actionable.targetValue == 1000) {
         isTargetingKing = true;
         break;
       }

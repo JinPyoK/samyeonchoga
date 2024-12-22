@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/ui/ad/screen/ad_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/compare_store_version.dart';
@@ -25,6 +26,8 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
   void initState() {
     super.initState();
     setStateGold = setState;
+
+    globalContext = context;
 
     compareStoreVersionAndShowDialog(context);
   }

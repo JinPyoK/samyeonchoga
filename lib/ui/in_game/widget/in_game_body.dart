@@ -42,7 +42,9 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
 
         /// 기물 스폰 애니메이션 기다린 후 게임 시작
         Future.delayed(const Duration(seconds: 1), () {
-          ref.read(inGameTurnProvider.notifier).changeTurn();
+          if (mounted) {
+            ref.read(inGameTurnProvider.notifier).changeTurn();
+          }
         });
       }
     });

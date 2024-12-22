@@ -9,12 +9,15 @@ import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
+import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_turn_provider.g.dart';
 
@@ -41,9 +44,22 @@ final class InGameTurn extends _$InGameTurn {
       _blueSpawn();
 
       /// 초나라 착수
-      await Future.delayed(const Duration(seconds: 1), () {
-        _blueAction();
-      });
+      await Future.delayed(const Duration(seconds: 1), () {});
+      final PieceActionableModel? targetPieceActionable = _blueAction();
+
+      /// 만약 초나라가 왕을 먹었다면 게임 종료
+      if (targetPieceActionable != null) {
+        if (targetPieceActionable.targetValue == 1000) {
+          if (globalContext!.mounted) {
+            showCustomDialog(
+              globalContext!,
+              const InGameResult(),
+              defaultAction: false,
+            );
+          }
+          return;
+        }
+      }
 
       /// 초나라 착수 후 장군 체크
       determineIfJanggoon();
@@ -168,11 +184,11 @@ final class InGameTurn extends _$InGameTurn {
     ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnBluePiece);
   }
 
-  void _blueAction() {
+  PieceActionableModel? _blueAction() {
     final minimaxResult = _minimax(100);
 
     if (minimaxResult.isEmpty) {
-      return;
+      return null;
     }
 
     final piece = minimaxResult[0] as PieceBaseModel;
@@ -214,6 +230,8 @@ final class InGameTurn extends _$InGameTurn {
     piece.setStateThisPiece!(() {});
 
     makePieceMoveSound();
+
+    return pieceActionable;
   }
 
   void determineIfJanggoon() {

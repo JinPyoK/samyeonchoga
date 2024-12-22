@@ -1,22 +1,10 @@
-import 'dart:math' hide log;
-
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
@@ -24,7 +12,6 @@ import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
-import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
@@ -55,93 +42,95 @@ final class InGamePieceSet extends _$InGamePieceSet {
     selectedPieceModel = null;
     lastTurnPiece = null;
 
-    /// 한나라 포진 설정
-    switch (lineup) {
-      case Lineup.maSangMaSang:
-        spawnPiece(RedMaModel(x: 1, y: 9), true);
-        spawnPiece(RedSangModel(x: 2, y: 9), true);
-        spawnPiece(RedMaModel(x: 6, y: 9), true);
-        spawnPiece(RedSangModel(x: 7, y: 9), true);
-        break;
-      case Lineup.sangMaSangMa:
-        spawnPiece(RedSangModel(x: 1, y: 9), true);
-        spawnPiece(RedMaModel(x: 2, y: 9), true);
-        spawnPiece(RedSangModel(x: 6, y: 9), true);
-        spawnPiece(RedMaModel(x: 7, y: 9), true);
-        break;
-      case Lineup.maSangSangMa:
-        spawnPiece(RedMaModel(x: 1, y: 9), true);
-        spawnPiece(RedSangModel(x: 2, y: 9), true);
-        spawnPiece(RedSangModel(x: 6, y: 9), true);
-        spawnPiece(RedMaModel(x: 7, y: 9), true);
-        break;
-      default:
-        spawnPiece(RedSangModel(x: 1, y: 9), true);
-        spawnPiece(RedMaModel(x: 2, y: 9), true);
-        spawnPiece(RedMaModel(x: 6, y: 9), true);
-        spawnPiece(RedSangModel(x: 7, y: 9), true);
-        break;
-    }
+    // /// 한나라 포진 설정
+    // switch (lineup) {
+    //   case Lineup.maSangMaSang:
+    //     spawnPiece(RedMaModel(x: 1, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 2, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 6, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 7, y: 9), true);
+    //     break;
+    //   case Lineup.sangMaSangMa:
+    //     spawnPiece(RedSangModel(x: 1, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 2, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 6, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 7, y: 9), true);
+    //     break;
+    //   case Lineup.maSangSangMa:
+    //     spawnPiece(RedMaModel(x: 1, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 2, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 6, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 7, y: 9), true);
+    //     break;
+    //   default:
+    //     spawnPiece(RedSangModel(x: 1, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 2, y: 9), true);
+    //     spawnPiece(RedMaModel(x: 6, y: 9), true);
+    //     spawnPiece(RedSangModel(x: 7, y: 9), true);
+    //     break;
+    // }
 
     /// 한나라 기물 세팅
-    spawnPiece(RedKingModel(x: 4, y: 8), true);
-    spawnPiece(RedSaModel(x: 3, y: 9), true);
-    spawnPiece(RedSaModel(x: 5, y: 9), true);
+    spawnPiece(RedKingModel(x: 3, y: 7), true);
+    // spawnPiece(RedSaModel(x: 3, y: 9), true);
+    // spawnPiece(RedSaModel(x: 5, y: 9), true);
+    //
+    // spawnPiece(RedChaModel(x: 0, y: 9), true);
+    // spawnPiece(RedChaModel(x: 8, y: 9), true);
+    //
+    // spawnPiece(RedPoModel(x: 1, y: 7), true);
+    // spawnPiece(RedPoModel(x: 7, y: 7), true);
+    //
+    // spawnPiece(RedByungModel(x: 0, y: 6), true);
+    // spawnPiece(RedByungModel(x: 2, y: 6), true);
+    // spawnPiece(RedByungModel(x: 4, y: 6), true);
+    // spawnPiece(RedByungModel(x: 6, y: 6), true);
+    // spawnPiece(RedByungModel(x: 8, y: 6), true);
+    //
+    // /// 초나라 기물 세팅
+    // spawnPiece(BlueZolModel(x: 0, y: 3), true);
+    // spawnPiece(BlueZolModel(x: 2, y: 3), true);
+    // spawnPiece(BlueZolModel(x: 4, y: 3), true);
+    // spawnPiece(BlueZolModel(x: 6, y: 3), true);
+    // spawnPiece(BlueZolModel(x: 8, y: 3), true);
+    //
+    // spawnPiece(BluePoModel(x: 1, y: 2), true);
+    // spawnPiece(BluePoModel(x: 7, y: 2), true);
+    //
+    // spawnPiece(BlueChaModel(x: 0, y: 0), true);
+    // spawnPiece(BlueChaModel(x: 8, y: 0), true);
 
-    spawnPiece(RedChaModel(x: 0, y: 9), true);
-    spawnPiece(RedChaModel(x: 8, y: 9), true);
+    spawnPiece(BlueChaModel(x: 4, y: 9), true);
 
-    spawnPiece(RedPoModel(x: 1, y: 7), true);
-    spawnPiece(RedPoModel(x: 7, y: 7), true);
-
-    spawnPiece(RedByungModel(x: 0, y: 6), true);
-    spawnPiece(RedByungModel(x: 2, y: 6), true);
-    spawnPiece(RedByungModel(x: 4, y: 6), true);
-    spawnPiece(RedByungModel(x: 6, y: 6), true);
-    spawnPiece(RedByungModel(x: 8, y: 6), true);
-
-    /// 초나라 기물 세팅
-    spawnPiece(BlueZolModel(x: 0, y: 3), true);
-    spawnPiece(BlueZolModel(x: 2, y: 3), true);
-    spawnPiece(BlueZolModel(x: 4, y: 3), true);
-    spawnPiece(BlueZolModel(x: 6, y: 3), true);
-    spawnPiece(BlueZolModel(x: 8, y: 3), true);
-
-    spawnPiece(BluePoModel(x: 1, y: 2), true);
-    spawnPiece(BluePoModel(x: 7, y: 2), true);
-
-    spawnPiece(BlueChaModel(x: 0, y: 0), true);
-    spawnPiece(BlueChaModel(x: 8, y: 0), true);
-
-    final randomNumber = Random().nextInt(4);
-
-    /// 초나라 포진 설정
-    switch (randomNumber) {
-      case 0:
-        spawnPiece(BlueMaModel(x: 1, y: 0), true);
-        spawnPiece(BlueSangModel(x: 2, y: 0), true);
-        spawnPiece(BlueMaModel(x: 6, y: 0), true);
-        spawnPiece(BlueSangModel(x: 7, y: 0), true);
-        break;
-      case 1:
-        spawnPiece(BlueSangModel(x: 1, y: 0), true);
-        spawnPiece(BlueMaModel(x: 2, y: 0), true);
-        spawnPiece(BlueSangModel(x: 6, y: 0), true);
-        spawnPiece(BlueMaModel(x: 7, y: 0), true);
-        break;
-      case 2:
-        spawnPiece(BlueMaModel(x: 1, y: 0), true);
-        spawnPiece(BlueSangModel(x: 2, y: 0), true);
-        spawnPiece(BlueSangModel(x: 6, y: 0), true);
-        spawnPiece(BlueMaModel(x: 7, y: 0), true);
-        break;
-      default:
-        spawnPiece(BlueSangModel(x: 1, y: 0), true);
-        spawnPiece(BlueMaModel(x: 2, y: 0), true);
-        spawnPiece(BlueMaModel(x: 6, y: 0), true);
-        spawnPiece(BlueSangModel(x: 7, y: 0), true);
-        break;
-    }
+    // final randomNumber = Random().nextInt(4);
+    //
+    // /// 초나라 포진 설정
+    // switch (randomNumber) {
+    //   case 0:
+    //     spawnPiece(BlueMaModel(x: 1, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 2, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 6, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 7, y: 0), true);
+    //     break;
+    //   case 1:
+    //     spawnPiece(BlueSangModel(x: 1, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 2, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 6, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 7, y: 0), true);
+    //     break;
+    //   case 2:
+    //     spawnPiece(BlueMaModel(x: 1, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 2, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 6, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 7, y: 0), true);
+    //     break;
+    //   default:
+    //     spawnPiece(BlueSangModel(x: 1, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 2, y: 0), true);
+    //     spawnPiece(BlueMaModel(x: 6, y: 0), true);
+    //     spawnPiece(BlueSangModel(x: 7, y: 0), true);
+    //     break;
+    // }
 
     state = List.from(state);
     makeGameStartSound();
