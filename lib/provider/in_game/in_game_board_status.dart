@@ -117,6 +117,84 @@ final class InGameBoardStatus {
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
     }
   }
+
+  /// 미니맥스 Isolate 데이터 전달 목적
+  List<Map<String, dynamic>> boardStatusToJsonList() {
+    final inGameSaveDataList = <Map<String, dynamic>>[];
+
+    for (List<PieceOrJustActionable> statusList in boardStatus) {
+      for (PieceOrJustActionable status in statusList) {
+        if (status is PieceBaseModel) {
+          final refineData = {
+            'team': status.team.name,
+            'pieceType': status.pieceType.name,
+            'x': status.x,
+            'y': status.y,
+          };
+
+          inGameSaveDataList.add(refineData);
+        }
+      }
+    }
+
+    return inGameSaveDataList;
+  }
+
+  /// 저장된 게임 데이터로 초기화
+  void boardStatusFromJsonList(List<Map<String, dynamic>> boardStatusJsonList) {
+    initStatusBoard();
+
+    for (Map<String, dynamic> boardStatusJson in boardStatusJsonList) {
+      late PieceBaseModel pieceModel;
+
+      /// 한나라
+      if (boardStatusJson['team'] == Team.red.name) {
+        if (boardStatusJson['pieceType'] == PieceType.king.name) {
+          pieceModel =
+              RedKingModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.sa.name) {
+          pieceModel =
+              RedSaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.cha.name) {
+          pieceModel =
+              RedChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
+          pieceModel =
+              RedPoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
+          pieceModel =
+              RedMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
+          pieceModel =
+              RedSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else {
+          pieceModel =
+              RedByungModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        }
+      }
+
+      /// 초나라
+      else {
+        if (boardStatusJson['pieceType'] == PieceType.cha.name) {
+          pieceModel =
+              BlueChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
+          pieceModel =
+              BluePoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
+          pieceModel =
+              BlueMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
+          pieceModel =
+              BlueSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else {
+          pieceModel =
+              BlueZolModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        }
+      }
+      changeStatus(pieceModel.x, pieceModel.y, pieceModel);
+    }
+  }
 }
 
 InGameBoardStatus inGameBoardStatus = InGameBoardStatus();

@@ -1,5 +1,6 @@
 import 'dart:math' hide log;
 
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
@@ -44,8 +45,7 @@ final class InGameTurn extends _$InGameTurn {
       _blueSpawn();
 
       /// 초나라 착수
-      await Future.delayed(const Duration(seconds: 1), () {});
-      final PieceActionableModel? targetPieceActionable = _blueAction();
+      final PieceActionableModel? targetPieceActionable = await _blueAction();
 
       /// 만약 초나라가 왕을 먹었다면 게임 종료
       if (targetPieceActionable != null) {
@@ -184,15 +184,22 @@ final class InGameTurn extends _$InGameTurn {
     ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnBluePiece);
   }
 
-  PieceActionableModel? _blueAction() {
-    final minimaxResult = _minimax(100);
+  Future<PieceActionableModel?> _blueAction() async {
+    final minimaxResult = await _minimaxIsolate(100);
 
     if (minimaxResult.isEmpty) {
       return null;
     }
 
-    final piece = minimaxResult[0] as PieceBaseModel;
-    final pieceActionable = minimaxResult[1] as PieceActionableModel;
+    final pieceX = minimaxResult[0];
+    final pieceY = minimaxResult[1];
+    final targetX = minimaxResult[2];
+    final targetY = minimaxResult[3];
+    final targetValue = minimaxResult[4];
+
+    final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
+    final pieceActionable = PieceActionableModel(
+        targetX: targetX, targetY: targetY, targetValue: targetValue);
 
     /// 기물 착수 ui 구현 위해서
     if (lastTurnPiece != null) {
@@ -260,21 +267,39 @@ final class InGameTurn extends _$InGameTurn {
     }
   }
 
-  /// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
-  List<dynamic> _minimax(int depth) {
-    final blueList = inGameBoardStatus.getBlueAll();
+  Future<List<int>> _minimaxIsolate(int treeDepth) async {
+    return await compute(
+        _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList()]);
+  }
+}
 
-    if (blueList.isEmpty) {
-      return [];
-    }
+/// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
+/// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
+List<int> _minimax(List<dynamic> params) {
+  final treeDepth = params[0] as int;
+  final statusJsonList = params[1] as List<Map<String, dynamic>>;
 
-    for (PieceBaseModel piece in blueList) {
-      piece.searchActionable();
-      if (piece.pieceActionable.isNotEmpty) {
-        return [piece, piece.pieceActionable[0]];
-      }
-    }
+  final minimaxBoardStatus = InGameBoardStatus()
+    ..boardStatusFromJsonList(statusJsonList);
 
+  final blueList = minimaxBoardStatus.getBlueAll();
+
+  if (blueList.isEmpty) {
     return [];
   }
+
+  for (PieceBaseModel piece in blueList) {
+    piece.searchActionable();
+    if (piece.pieceActionable.isNotEmpty) {
+      return [
+        piece.x,
+        piece.y,
+        piece.pieceActionable[0].targetX,
+        piece.pieceActionable[0].targetY,
+        piece.pieceActionable[0].targetValue,
+      ];
+    }
+  }
+
+  return [];
 }
