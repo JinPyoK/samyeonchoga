@@ -269,19 +269,27 @@ final class InGameTurn extends _$InGameTurn {
 
   Future<List<int>> _minimaxIsolate(int treeDepth) async {
     return await compute(
-        _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList()]);
+        _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
   }
 }
 
 /// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
 /// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
 List<int> _minimax(List<dynamic> params) {
+  /// 트리의 최종 깊이
   final treeDepth = params[0] as int;
+
+  /// 상태 보드 Json 직렬화된 상태
   final statusJsonList = params[1] as List<Map<String, dynamic>>;
 
+  /// 현재 노드의 깊이
+  final nodeDepth = params[2] as int;
+
+  /// Json을 다시 역직렬화 하여 상태 보드 만들기
   final minimaxBoardStatus = InGameBoardStatus()
     ..boardStatusFromJsonList(statusJsonList);
 
+  /// 노드의 깊이가 홀수이면 한, 짝수이면 초 기물들 조사
   final blueList = minimaxBoardStatus.getBlueAll();
 
   if (blueList.isEmpty) {
