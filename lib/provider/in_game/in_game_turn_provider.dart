@@ -7,6 +7,7 @@ import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
+import 'package:samyeonchoga/model/in_game/minimax_node_tree.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
@@ -270,6 +271,7 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<List<int>> _minimaxIsolate(int treeDepth) async {
+    _minimaxNodeTree.nodesListClear();
     return await compute(
         _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
   }
@@ -313,3 +315,5 @@ List<int> _minimax(List<dynamic> params) {
 
   return [];
 }
+
+final _minimaxNodeTree = MinimaxNodeTree();
