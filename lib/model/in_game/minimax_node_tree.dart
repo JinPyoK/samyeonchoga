@@ -1,7 +1,7 @@
 /// 초나라 미니맥스 트리
 final class MinimaxNodeTree {
-  /// 전위 순회 방식에서 깊이 우선 탐색(DFS)을 수행하면서 리프 노드에서 작업을 처리한 후 제거하는 방식이라면,
-  /// 특정 시점에 트리의 특정 깊이에 해당하는 노드 하나만 리스트에 남게 됨
+  /// 전위 순회 방식에서 깊이 우선 탐색(DFS)을 수행하면서 리프 노드에서 작업을 처리한 후 노드를 제거하는 방식이라면,
+  /// 특정 시점에 트리의 특정 깊이에는 노드 하나만 존재한다.
   /// 루트 노드: minimaxNodes[0]
   /// 자식 노드: minimaxNodes[nodeDepth or lastIndex]
   /// 자식 노드의 부모: minimaxNodes[nodeDepth - 1 or lastIndex - 1]
