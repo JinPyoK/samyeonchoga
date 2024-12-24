@@ -24,7 +24,7 @@ import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_turn_provider.g.dart';
 
-int minimaxTreeDepth = 10;
+int minimaxTreeDepth = 3;
 
 @Riverpod()
 final class InGameTurn extends _$InGameTurn {
@@ -354,12 +354,8 @@ List<int?> _blueMinimax(List<dynamic> params) {
   final minimaxStatusBoard = InGameBoardStatus()
     ..boardStatusFromJsonList(statusJsonList);
 
-  /// 노드를 생성한 후 트리에 추가
-  final node = MinimaxNode(nodeDepth: nodeDepth);
-  _minimaxNodeTree.addNode(node);
-
   /// 노드가 max이면 초, min이면 한 기물들 조사
-  final pieceList = node.nodeType == MinimaxNodeType.max
+  final pieceList = (nodeDepth + 1) % 2 == 1
       ? minimaxStatusBoard.getBlueAll()
       : minimaxStatusBoard.getRedAll();
 
@@ -376,6 +372,10 @@ List<int?> _blueMinimax(List<dynamic> params) {
       allPiecesHaveEmptyActionable = false;
 
       for (PieceActionableModel pieceActionable in piece.pieceActionable) {
+        /// 노드를 생성한 후 트리에 추가
+        final node = MinimaxNode(nodeDepth: nodeDepth);
+        _minimaxNodeTree.addNode(node);
+
         /// 노드에 값 대입하기
         node.pieceX = piece.x;
         node.pieceY = piece.y;
@@ -439,9 +439,12 @@ List<int?> _blueMinimax(List<dynamic> params) {
   /// 기물이 없거나 기물은 있는데 취할 액션이 없을경우
   if (allPiecesHaveEmptyActionable == true) {
     if (nodeDepth + 1 >= treeDepth) {
-      _minimaxNodeTree.removeLeafNode();
       return [];
     } else {
+      /// 노드를 생성한 후 트리에 추가
+      final node = MinimaxNode(nodeDepth: nodeDepth);
+      _minimaxNodeTree.addNode(node);
+
       final result = _blueMinimax([
         treeDepth,
         minimaxStatusBoard.boardStatusToJsonList(),
@@ -462,8 +465,6 @@ List<int?> _blueMinimax(List<dynamic> params) {
 }
 
 List<int?> _computeParentChild(MinimaxNode node) {
-  log(node.nodeDepth.toString(), name: 'nodeDepth');
-  log(_minimaxNodeTree.minimaxNodes.length.toString(), name: 'length');
   final parentNode = _minimaxNodeTree.getParentNode(node.nodeDepth);
 
   /// 자식 노드의 미니맥스 밸류가 존재, 없다면 비교할 필요가 없다.
