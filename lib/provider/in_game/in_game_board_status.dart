@@ -35,7 +35,7 @@ final class InGameBoardStatus {
   void changeStatus(int x, int y, PieceOrJustActionable pieceModel) =>
       boardStatus[x][y] = pieceModel;
 
-  /// 초나라의 행마 조사를 하기 위함
+  /// 초나라의 행마 조사 (미니맥스, 장군 체크)
   List<PieceBaseModel> getBlueAll() {
     final blueList = <PieceBaseModel>[];
 
@@ -50,6 +50,23 @@ final class InGameBoardStatus {
     }
 
     return blueList;
+  }
+
+  /// 한나라의 행마 조사 (미니맥스)
+  List<PieceBaseModel> getRedAll() {
+    final redList = <PieceBaseModel>[];
+
+    for (List<PieceOrJustActionable> pieceList in boardStatus) {
+      for (PieceOrJustActionable piece in pieceList) {
+        if (piece is PieceBaseModel) {
+          if (piece.team == Team.red) {
+            redList.add(piece);
+          }
+        }
+      }
+    }
+
+    return redList;
   }
 
   /// 게임 저장 데이터 수집

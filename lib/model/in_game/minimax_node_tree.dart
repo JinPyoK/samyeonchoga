@@ -1,4 +1,5 @@
 /// 초나라 미니맥스 트리
+/// 미니맥스 도중에는 초나라 기물이 부활하지 않음
 final class MinimaxNodeTree {
   /// 전위 순회 방식의 깊이 우선 탐색(DFS)을 수행하면서 리프 노드에서 작업을 처리한 후 해당 리프 노드를 제거하는 방식이라면,
   /// 특정 시점에 트리의 특정 깊이에는 노드 하나만 존재한다.
@@ -16,6 +17,14 @@ final class MinimaxNodeTree {
   MinimaxNode? getParentNode(nodeDepth) {
     if (nodeDepth > 0) {
       return minimaxNodes[nodeDepth - 1];
+    } else {
+      return null;
+    }
+  }
+
+  MinimaxNode? getLeafNode() {
+    if (minimaxNodes.isNotEmpty) {
+      return minimaxNodes.last;
     } else {
       return null;
     }

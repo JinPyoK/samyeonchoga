@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:math' hide log;
 
 import 'package:flutter/foundation.dart';
@@ -22,6 +23,8 @@ import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_turn_provider.g.dart';
+
+int minimaxTreeDepth = 10;
 
 @Riverpod()
 final class InGameTurn extends _$InGameTurn {
@@ -75,14 +78,19 @@ final class InGameTurn extends _$InGameTurn {
 
     /// 초나라 알고리즘 강화
     if (round == 10) {
+      minimaxTreeDepth = 100;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(1);
     } else if (round == 20) {
+      minimaxTreeDepth = 200;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(2);
     } else if (round == 30) {
+      minimaxTreeDepth = 300;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(3);
     } else if (round == 40) {
+      minimaxTreeDepth = 300;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(4);
     } else if (round == 50) {
+      minimaxTreeDepth = 500;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(5);
     }
 
@@ -187,7 +195,7 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<PieceActionableModel?> _blueAction() async {
-    final minimaxResult = await _minimaxIsolate(100);
+    final minimaxResult = await _minimaxIsolate(minimaxTreeDepth);
 
     if (minimaxResult.isEmpty) {
       return null;
@@ -198,6 +206,14 @@ final class InGameTurn extends _$InGameTurn {
     final targetX = minimaxResult[2];
     final targetY = minimaxResult[3];
     final targetValue = minimaxResult[4];
+
+    if (pieceX == null ||
+        pieceY == null ||
+        targetX == null ||
+        targetY == null ||
+        targetValue == null) {
+      return null;
+    }
 
     final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
 
@@ -270,16 +286,16 @@ final class InGameTurn extends _$InGameTurn {
     }
   }
 
-  Future<List<int>> _minimaxIsolate(int treeDepth) async {
+  Future<List<int?>> _minimaxIsolate(int treeDepth) async {
     _minimaxNodeTree.nodesListClear();
-    return await compute(
-        _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
+    return await compute(_blueMinimax,
+        [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
   }
 }
 
 /// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
 /// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
-List<int> _minimax(List<dynamic> params) {
+List<int?> _minimax(List<dynamic> params) {
   /// 트리의 최종 깊이
   final treeDepth = params[0] as int;
 
@@ -314,6 +330,236 @@ List<int> _minimax(List<dynamic> params) {
   }
 
   return [];
+}
+
+/// 초나라 미니맥스 알고리즘 params: List[treeDepth, boardStatusFromJsonList(), nodeDepth]
+/// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
+List<int?> _blueMinimax(List<dynamic> params) {
+  /// 가지 치기
+  if (_alphaBetaPruning()) {
+    log("_alphaBetaPruning");
+    return [];
+  }
+
+  /// 트리의 최종 깊이
+  final treeDepth = params[0] as int;
+
+  /// 상태 보드 Json 직렬화된 상태
+  final statusJsonList = params[1] as List<Map<String, dynamic>>;
+
+  /// 현재 노드의 깊이
+  final nodeDepth = params[2] as int;
+
+  /// Json을 다시 역직렬화 하여 상태 보드 만들기
+  final minimaxStatusBoard = InGameBoardStatus()
+    ..boardStatusFromJsonList(statusJsonList);
+
+  /// 노드를 생성한 후 트리에 추가
+  final node = MinimaxNode(nodeDepth: nodeDepth);
+  _minimaxNodeTree.addNode(node);
+
+  /// 노드가 max이면 초, min이면 한 기물들 조사
+  final pieceList = node.nodeType == MinimaxNodeType.max
+      ? minimaxStatusBoard.getBlueAll()
+      : minimaxStatusBoard.getRedAll();
+
+  List<int?> minimaxResult = [];
+
+  bool allPiecesHaveEmptyActionable = true;
+
+  /// 기물과 그 기물에 대한 행마에 대하여 미니맥스 수행
+  for (PieceBaseModel piece in pieceList) {
+    /// 기물의 행마 조사
+    piece.searchActionable(minimaxStatusBoard);
+
+    if (piece.pieceActionable.isNotEmpty) {
+      allPiecesHaveEmptyActionable = false;
+
+      for (PieceActionableModel pieceActionable in piece.pieceActionable) {
+        /// 노드에 값 대입하기
+        node.pieceX = piece.x;
+        node.pieceY = piece.y;
+        node.targetX = pieceActionable.targetX;
+        node.targetY = pieceActionable.targetY;
+        node.targetValue = pieceActionable.targetValue;
+
+        /// 트리의 마지막 -> 값을 정해야 하는 구간
+        if (nodeDepth + 1 >= treeDepth) {
+          node.minimaxValue = node.targetValue;
+          final computeResult = _computeParentChild(node);
+          if (computeResult.isNotEmpty) {
+            minimaxResult = computeResult;
+          }
+        }
+
+        /// 트리를 순회 중
+        else {
+          /// 기물 행마에 대한 각각의 새로운 상태 보드 생성
+          final statusBoardAboutPieceActionable = InGameBoardStatus()
+            ..boardStatusFromJsonList(statusJsonList);
+
+          /// 상태 변경
+          statusBoardAboutPieceActionable.changeStatus(
+            piece.x,
+            piece.y,
+            PieceActionableModel(
+              targetX: piece.x,
+              targetY: piece.y,
+              targetValue: 0,
+            ),
+          );
+
+          statusBoardAboutPieceActionable.changeStatus(
+            pieceActionable.targetX,
+            pieceActionable.targetY,
+            piece,
+          );
+
+          /// 상태 변경 후 미니맥스 진행
+          final result = _blueMinimax([
+            treeDepth,
+            statusBoardAboutPieceActionable.boardStatusToJsonList(),
+            nodeDepth + 1,
+          ]);
+
+          if (result.isNotEmpty) {
+            minimaxResult = result;
+          }
+
+          final computeResult = _computeParentChild(node);
+
+          if (computeResult.isNotEmpty) {
+            minimaxResult = computeResult;
+          }
+        }
+      }
+    }
+  }
+
+  /// 기물이 없거나 기물은 있는데 취할 액션이 없을경우
+  if (allPiecesHaveEmptyActionable == true) {
+    if (nodeDepth + 1 >= treeDepth) {
+      _minimaxNodeTree.removeLeafNode();
+      return [];
+    } else {
+      final result = _blueMinimax([
+        treeDepth,
+        minimaxStatusBoard.boardStatusToJsonList(),
+        nodeDepth + 1
+      ]);
+      if (result.isNotEmpty) {
+        minimaxResult = result;
+      }
+      final computeResult = _computeParentChild(node);
+      if (computeResult.isNotEmpty) {
+        minimaxResult = computeResult;
+      }
+      return minimaxResult;
+    }
+  }
+
+  return minimaxResult;
+}
+
+List<int?> _computeParentChild(MinimaxNode node) {
+  log(node.nodeDepth.toString(), name: 'nodeDepth');
+  log(_minimaxNodeTree.minimaxNodes.length.toString(), name: 'length');
+  final parentNode = _minimaxNodeTree.getParentNode(node.nodeDepth);
+
+  /// 자식 노드의 미니맥스 밸류가 존재, 없다면 비교할 필요가 없다.
+  if (node.minimaxValue != null) {
+    /// 부모 노드가 존재
+    if (parentNode != null) {
+      /// 부모 노드의 미니맥스 밸류가 존재
+      if (parentNode.minimaxValue != null) {
+        /// 부모 노드가 max 노드
+        if (parentNode.nodeType == MinimaxNodeType.max) {
+          if (parentNode.minimaxValue! > node.minimaxValue!) {
+            parentNode.minimaxValue = node.minimaxValue!;
+            _minimaxNodeTree.removeLeafNode();
+            return [
+              parentNode.pieceX,
+              parentNode.pieceY,
+              parentNode.targetX,
+              parentNode.targetY,
+              parentNode.targetValue,
+            ];
+          }
+        }
+
+        /// 부모 노드가 min 노드
+        else {
+          if (parentNode.minimaxValue! < node.minimaxValue!) {
+            parentNode.minimaxValue = node.minimaxValue!;
+            _minimaxNodeTree.removeLeafNode();
+            return [
+              parentNode.pieceX,
+              parentNode.pieceY,
+              parentNode.targetX,
+              parentNode.targetY,
+              parentNode.targetValue,
+            ];
+          }
+        }
+      }
+
+      /// 부모 노드가 값이 정해져 있지 않을 경우
+      /// pieceX, pieceY, target X, Y, Value값도 null
+      else {
+        parentNode.minimaxValue = node.minimaxValue;
+        _minimaxNodeTree.removeLeafNode();
+        return [
+          parentNode.pieceX,
+          parentNode.pieceY,
+          parentNode.targetX,
+          parentNode.targetY,
+          parentNode.targetValue,
+        ];
+      }
+    }
+  }
+
+  _minimaxNodeTree.removeLeafNode();
+  return [];
+}
+
+/// 가지 치기가 가능하면 true
+bool _alphaBetaPruning() {
+  final leafNode = _minimaxNodeTree.getLeafNode();
+  MinimaxNode? parentNode;
+
+  if (leafNode != null) {
+    parentNode = _minimaxNodeTree.getParentNode(leafNode.nodeDepth);
+  } else {
+    return false;
+  }
+
+  /// 널 체크
+  if (leafNode.minimaxValue != null) {
+    if (parentNode != null) {
+      if (parentNode.minimaxValue != null) {
+        /// 알파 가지치기
+        /// MIN노드의 현재 값이 부모 노드(즉, MAX노드)가 현재 가지고 있는 값보다 작거나 같다면,
+        /// MIN노드의 자식 노드들을 탐색해 볼 필요가 없다.
+        if (leafNode.nodeType == MinimaxNodeType.min) {
+          if (leafNode.minimaxValue! <= parentNode.minimaxValue!) {
+            return true;
+          }
+        }
+
+        /// 베타 가지치기
+        /// MAX노드의 현재 값이 부모 노드(즉, MIN노드)의 값보다 크거나 같다면,
+        /// 부모 노드의 값을 줄일 가능성이 전혀 없기 때문에 마찬가지 이유로 자식 노드를 더 이상 탐색해볼 필요가 없다.
+        else {
+          if (leafNode.minimaxValue! >= parentNode.minimaxValue!) {
+            return true;
+          }
+        }
+      }
+    }
+  }
+
+  return false;
 }
 
 final _minimaxNodeTree = MinimaxNodeTree();
