@@ -140,6 +140,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
   Widget build(BuildContext context) {
     final inGameGold = ref.watch(inGameGoldProvider);
 
+    if (inGameGold > 3000) {
+      ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

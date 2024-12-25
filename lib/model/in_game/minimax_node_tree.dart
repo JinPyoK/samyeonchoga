@@ -47,17 +47,18 @@ final class MinimaxNode {
   /// 노드의 트리 깊이
   final int nodeDepth;
 
-  /// 미니맥스 밸류
-  int? minimaxValue;
+  /// 미니맥스 밸류 -> 착수할 것이 없거나 아무것도 취하지 않는 행마
+  int minimaxValue = 0;
 
-  /// 노드가 선정한 기물의 x, y 좌표 -> 최종적으로 inGameBoardStatus에서 getStatus()를 통해 기물 정보 가져오기
+  /// 노드가 선정한 기물의 x, y 좌표 -> 최종
+  /// 적으로 inGameBoardStatus에서 getStatus()를 통해 기물 정보 가져오기
   int? pieceX;
   int? pieceY;
 
   /// 가치가 가장 높거나 낮은 액셔너블의 값
   int? targetX;
   int? targetY;
-  int? targetValue;
+  int targetValue = 0;
 
   MinimaxNode({
     required this.nodeDepth,

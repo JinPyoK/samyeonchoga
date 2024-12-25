@@ -152,11 +152,11 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
 
     if (inGameSave!.round >= 20) {
-      minimaxTreeDepth = 200;
-    } else if (inGameSave!.round >= 30) {
-      minimaxTreeDepth = 300;
+      minimaxTreeDepth = 5;
+    } else if (inGameSave!.round >= 40) {
+      minimaxTreeDepth = 7;
     } else if (inGameSave!.round >= 50) {
-      minimaxTreeDepth = 500;
+      minimaxTreeDepth = 10;
     }
 
     inGameBoardStatus
