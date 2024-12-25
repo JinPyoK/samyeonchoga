@@ -22,14 +22,6 @@ final class MinimaxNodeTree {
     }
   }
 
-  MinimaxNode? getLeafNode() {
-    if (minimaxNodes.isNotEmpty) {
-      return minimaxNodes.last;
-    } else {
-      return null;
-    }
-  }
-
   void removeLeafNode() {
     minimaxNodes.removeLast();
   }
@@ -47,8 +39,11 @@ final class MinimaxNode {
   /// 노드의 트리 깊이
   final int nodeDepth;
 
-  /// 미니맥스 밸류 -> 착수할 것이 없거나 아무것도 취하지 않는 행마
-  int minimaxValue = 0;
+  /// 미니맥스 밸류 -> 최종 기물 선택 판단 값
+  int? minimaxValue;
+
+  /// 미니맥스 평가 밸류 -> 기물이 임의의 행마를 하였을 시점으로부터의 총 값
+  int evaluationValue = 0;
 
   /// 노드가 선정한 기물의 x, y 좌표 -> 최종
   /// 적으로 inGameBoardStatus에서 getStatus()를 통해 기물 정보 가져오기

@@ -79,16 +79,16 @@ final class InGameTurn extends _$InGameTurn {
       minimaxTreeDepth = 3;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(1);
     } else if (round == 20) {
-      minimaxTreeDepth = 5;
+      minimaxTreeDepth = 3;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(2);
     } else if (round == 30) {
       minimaxTreeDepth = 5;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(3);
     } else if (round == 40) {
-      minimaxTreeDepth = 7;
+      minimaxTreeDepth = 5;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(4);
     } else if (round == 50) {
-      minimaxTreeDepth = 10;
+      minimaxTreeDepth = 7;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(5);
     }
 
@@ -334,12 +334,6 @@ List<int?> _minimax(List<dynamic> params) {
 /// 초나라 미니맥스 알고리즘 params: List[treeDepth, boardStatusFromJsonList(), nodeDepth]
 /// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
 List<int?> _blueMinimax(List<dynamic> params) {
-  // /// 가지 치기
-  // if (_alphaBetaPruning()) {
-  //   log("_alphaBetaPruning");
-  //   return [];
-  // }
-
   /// 트리의 최종 깊이
   final treeDepth = params[0] as int;
 
@@ -379,25 +373,22 @@ List<int?> _blueMinimax(List<dynamic> params) {
         node.targetX = pieceActionable.targetX;
         node.targetY = pieceActionable.targetY;
         node.targetValue = pieceActionable.targetValue;
-        node.minimaxValue = node.targetValue;
+        node.evaluationValue = node.targetValue;
 
         if (nodeDepth == 0) {
           _minimaxResult.add(node);
-          // node.minimaxValue = node.targetValue;
         } else {
-          // final parentNode = _minimaxNodeTree.getParentNode(nodeDepth);
-          //
-          // node.minimaxValue = (node.nodeType == MinimaxNodeType.max)
-          //     ? parentNode!.minimaxValue + node.targetValue
-          //     : parentNode!.minimaxValue - node.targetValue;
-        }
+          final parentNode = _minimaxNodeTree.getParentNode(nodeDepth);
 
-        // if (node.minimaxValue != 0) {
-        //   log('${node.nodeType.name} minimaxValue: ${node.minimaxValue} nodeDepth: ${node.nodeDepth}');
-        // }
+          /// 부모 노드의 평가값 +- 현재 노드의 평가값
+          node.evaluationValue = (node.nodeType == MinimaxNodeType.max)
+              ? parentNode!.evaluationValue + node.evaluationValue
+              : parentNode!.evaluationValue - node.evaluationValue;
+        }
 
         /// 트리의 마지막 -> 값을 정해야 하는 구간
         if (nodeDepth + 1 >= treeDepth) {
+          node.minimaxValue = node.evaluationValue;
           _computeParentChild(node);
         }
 
@@ -431,6 +422,12 @@ List<int?> _blueMinimax(List<dynamic> params) {
             nodeDepth + 1,
           ]);
           _computeParentChild(node);
+          if (node.nodeDepth > 1) {
+            if (_alphaBetaPruning(
+                _minimaxNodeTree.getParentNode(node.nodeDepth)!)) {
+              return [];
+            }
+          }
         }
       }
     }
@@ -446,13 +443,13 @@ List<int?> _blueMinimax(List<dynamic> params) {
       _minimaxNodeTree.addNode(node);
       if (nodeDepth == 0) {
         _minimaxResult.add(node);
-        // node.minimaxValue = node.targetValue;
       } else {
-        // final parentNode = _minimaxNodeTree.getParentNode(nodeDepth);
-        //
-        // node.minimaxValue = parentNode!.minimaxValue;
+        final parentNode = _minimaxNodeTree.getParentNode(nodeDepth);
+
+        node.evaluationValue = parentNode!.evaluationValue;
       }
       node.minimaxValue = 0;
+
       _blueMinimax([
         treeDepth,
         minimaxStatusBoard.boardStatusToJsonList(),
@@ -474,11 +471,9 @@ List<int?> _blueMinimax(List<dynamic> params) {
     }
 
     final firstNode = _minimaxResult[0];
-    List<int?> minimaxResultNodes = [];
 
-    int minimaxResultValue = firstNode.minimaxValue;
-
-    minimaxResultNodes = [
+    int minimaxResultValue = firstNode.minimaxValue!;
+    List<int?> minimaxResultNodes = [
       firstNode.pieceX,
       firstNode.pieceY,
       firstNode.targetX,
@@ -488,8 +483,9 @@ List<int?> _blueMinimax(List<dynamic> params) {
 
     for (MinimaxNode resultNode in _minimaxResult) {
       log('pieceX: ${resultNode.pieceX} pieceY: ${resultNode.pieceY} targetX: ${resultNode.targetX} targetY: ${resultNode.targetY} targetValue: ${resultNode.targetValue} minimaxValue: ${resultNode.minimaxValue}');
-      if (minimaxResultValue < resultNode.minimaxValue) {
-        minimaxResultValue = resultNode.minimaxValue;
+
+      if (minimaxResultValue < resultNode.minimaxValue!) {
+        minimaxResultValue = resultNode.minimaxValue!;
         minimaxResultNodes = [
           resultNode.pieceX,
           resultNode.pieceY,
@@ -511,57 +507,44 @@ void _computeParentChild(MinimaxNode node) {
 
   /// 부모 노드가 존재
   if (parentNode != null) {
+    if (parentNode.minimaxValue == null) {
+      parentNode.minimaxValue = node.minimaxValue;
+    }
+
     /// 부모 노드의 미니맥스 밸류가 존재
-    // /// 부모 노드가 max 노드
-    // if (parentNode.nodeType == MinimaxNodeType.max) {
-    //   if (parentNode.minimaxValue < node.minimaxValue) {
-    //     parentNode.minimaxValue = node.minimaxValue;
-    //   }
-    // }
-    //
-    // /// 부모 노드가 min 노드
-    // else {
-    //   if (parentNode.minimaxValue > node.minimaxValue) {
-    //     parentNode.minimaxValue = node.minimaxValue;
-    //   }
-    // }
-
-    /// 부모 노드가 max 노드
-    if (parentNode.nodeType == MinimaxNodeType.max) {
-      parentNode.minimaxValue = parentNode.minimaxValue - node.minimaxValue;
-    }
-
-    /// 부모 노드가 min 노드
     else {
-      parentNode.minimaxValue = parentNode.minimaxValue + node.minimaxValue;
-    }
+      /// 부모 노드가 max 노드
+      if (parentNode.nodeType == MinimaxNodeType.max) {
+        if (parentNode.minimaxValue! < node.minimaxValue!) {
+          parentNode.minimaxValue = node.minimaxValue;
+        }
+      }
 
-    // if (parentNode.minimaxValue < node.minimaxValue) {
-    //   parentNode.minimaxValue = node.minimaxValue;
-    // }
+      /// 부모 노드가 min 노드
+      else {
+        if (parentNode.minimaxValue! > node.minimaxValue!) {
+          parentNode.minimaxValue = node.minimaxValue;
+        }
+      }
+    }
   }
 
   _minimaxNodeTree.removeLeafNode();
 }
 
 /// 가지 치기가 가능하면 true
-bool _alphaBetaPruning() {
-  final leafNode = _minimaxNodeTree.getLeafNode();
-  MinimaxNode? parentNode;
-
-  if (leafNode != null) {
-    parentNode = _minimaxNodeTree.getParentNode(leafNode.nodeDepth);
-  } else {
-    return false;
-  }
+bool _alphaBetaPruning(MinimaxNode node) {
+  final parentNode = _minimaxNodeTree.getParentNode(node.nodeDepth);
 
   /// 널 체크
-  if (parentNode != null) {
+  if (parentNode != null &&
+      parentNode.minimaxValue != null &&
+      node.minimaxValue != null) {
     /// 알파 가지치기
     /// MIN노드의 현재 값이 부모 노드(즉, MAX노드)가 현재 가지고 있는 값보다 작거나 같다면,
     /// MIN노드의 자식 노드들을 탐색해 볼 필요가 없다.
-    if (leafNode.nodeType == MinimaxNodeType.min) {
-      if (leafNode.minimaxValue <= parentNode.minimaxValue) {
+    if (node.nodeType == MinimaxNodeType.min) {
+      if (node.minimaxValue! <= parentNode.minimaxValue!) {
         return true;
       }
     }
@@ -570,7 +553,7 @@ bool _alphaBetaPruning() {
     /// MAX노드의 현재 값이 부모 노드(즉, MIN노드)의 값보다 크거나 같다면,
     /// 부모 노드의 값을 줄일 가능성이 전혀 없기 때문에 마찬가지 이유로 자식 노드를 더 이상 탐색해볼 필요가 없다.
     else {
-      if (leafNode.minimaxValue >= parentNode.minimaxValue) {
+      if (node.minimaxValue! >= parentNode.minimaxValue!) {
         return true;
       }
     }
@@ -579,7 +562,7 @@ bool _alphaBetaPruning() {
   return false;
 }
 
-int minimaxTreeDepth = 3;
+int minimaxTreeDepth = 5;
 
 final _minimaxNodeTree = MinimaxNodeTree();
 
