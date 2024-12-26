@@ -213,9 +213,6 @@ final class InGameTurn extends _$InGameTurn {
       return null;
     }
 
-    log(pieceX.toString(), name: 'pieceX');
-    log(pieceY.toString(), name: 'pieceY');
-
     final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
 
     final pieceActionable = PieceActionableModel(
