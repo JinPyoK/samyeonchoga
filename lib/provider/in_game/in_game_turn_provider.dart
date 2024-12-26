@@ -54,11 +54,13 @@ final class InGameTurn extends _$InGameTurn {
       if (targetPieceActionable != null) {
         if (targetPieceActionable.targetValue == 1000) {
           if (globalContext!.mounted) {
-            showCustomDialog(
-              globalContext!,
-              const InGameResult(),
-              defaultAction: false,
-            );
+            Future.delayed(const Duration(seconds: 1), () {
+              showCustomDialog(
+                globalContext!,
+                const InGameResult(),
+                defaultAction: false,
+              );
+            });
           }
           return;
         }
@@ -287,6 +289,7 @@ final class InGameTurn extends _$InGameTurn {
   Future<List<int?>> _minimaxIsolate(int treeDepth) async {
     _minimaxNodeTree.nodesListClear();
     _minimaxResult.clear();
+    log(DateTime.now().toLocal().toString());
     return await compute(_blueMinimax,
         [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
   }
@@ -342,7 +345,7 @@ List<int?> _blueMinimax(List<dynamic> params) {
           final parentNode = _minimaxNodeTree.getParentNode(nodeDepth);
 
           /// 부모 노드의 평가값 +- 현재 노드의 평가값
-          node.evaluationValue = (node.nodeType == MinimaxNodeType.max)
+          node.evaluationValue = (node.nodeType == MinimaxNodeType.min)
               ? parentNode!.evaluationValue + node.evaluationValue
               : parentNode!.evaluationValue - node.evaluationValue;
         }
@@ -388,12 +391,12 @@ List<int?> _blueMinimax(List<dynamic> params) {
             nodeDepth + 1,
           ]);
           _computeParentChild(node);
-          // if (node.nodeDepth > 1) {
-          //   if (_alphaBetaPruning(
-          //       _minimaxNodeTree.getParentNode(node.nodeDepth)!)) {
-          //     return [];
-          //   }
-          // }
+          if (node.nodeDepth > 1) {
+            if (_alphaBetaPruning(
+                _minimaxNodeTree.getParentNode(node.nodeDepth)!)) {
+              return [];
+            }
+          }
         }
       }
     }
@@ -443,7 +446,7 @@ List<int?> _blueMinimax(List<dynamic> params) {
       firstNode.targetY,
       firstNode.targetValue,
     ];
-
+    log("\n@@@@@@@@@@@@@@@결과@@@@@@@@@@@@@@@");
     for (MinimaxNode resultNode in _minimaxResult) {
       log('pieceX: ${resultNode.pieceX} pieceY: ${resultNode.pieceY} targetX: ${resultNode.targetX} targetY: ${resultNode.targetY} targetValue: ${resultNode.targetValue} minimaxValue: ${resultNode.minimaxValue}');
 
@@ -459,6 +462,7 @@ List<int?> _blueMinimax(List<dynamic> params) {
       }
     }
 
+    log(DateTime.now().toLocal().toString());
     return minimaxResultNodes;
   }
 
@@ -499,10 +503,6 @@ void _computeParentChild(MinimaxNode node) {
             parentNode.minimaxValue = node.minimaxValue;
           }
         }
-
-        // if (parentNode.minimaxValue! < node.minimaxValue!) {
-        //   parentNode.minimaxValue = node.minimaxValue;
-        // }
       }
     }
   }
@@ -544,7 +544,7 @@ bool _alphaBetaPruning(MinimaxNode node) {
   return false;
 }
 
-int minimaxTreeDepth = 3;
+int minimaxTreeDepth = 10;
 
 final _minimaxNodeTree = MinimaxNodeTree();
 

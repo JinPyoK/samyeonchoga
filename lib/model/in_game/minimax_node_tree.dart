@@ -1,5 +1,14 @@
 /// 초나라 미니맥스 트리
 /// 미니맥스 도중에는 초나라 기물이 부활하지 않음
+///
+/// 초나라의 초기 기물들을 백업하고, 그 중에서 최대의 값을 뽑는다. (Max 과정)
+/// 그 과정이 곧 Max의 과정이며 첫 노드는 min 노드를 갖는다.
+/// min노드에서 초나라의 행마에 대한 조사를 시작하고 한나라의 행마 중 가장 적은 값이 올라온다.
+/// 그에 대한 미니맥스 밸류 값이 한나라의 행마 중 가장 이득을 덜 볼 수 있는 값이다.
+/// 최종적으로 가장 높은 미니맥스 밸류 값을 갖는 기물을 택하여 진행한다.
+///
+/// 최종 결정: Max
+/// 순서: Min -> Max -> Min -> Max ...
 final class MinimaxNodeTree {
   /// 전위 순회 방식의 깊이 우선 탐색(DFS)을 수행하면서 리프 노드에서 작업을 처리한 후 해당 리프 노드를 제거하는 방식이라면,
   /// 특정 시점에 트리의 특정 깊이에는 노드 하나만 존재한다.
@@ -59,7 +68,7 @@ final class MinimaxNode {
     required this.nodeDepth,
   }) {
     nodeType =
-        (nodeDepth + 1) % 2 == 1 ? MinimaxNodeType.max : MinimaxNodeType.min;
+        (nodeDepth + 1) % 2 == 1 ? MinimaxNodeType.min : MinimaxNodeType.max;
   }
 }
 
