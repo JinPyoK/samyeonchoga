@@ -81,51 +81,44 @@ final class InGameTurn extends _$InGameTurn {
       minimaxTreeDepth = 3;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(1);
     } else if (round == 20) {
-      minimaxTreeDepth = 3;
+      minimaxTreeDepth = 4;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(2);
     } else if (round == 30) {
-      minimaxTreeDepth = 5;
+      minimaxTreeDepth = 4;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(3);
     } else if (round == 40) {
       minimaxTreeDepth = 5;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(4);
     } else if (round == 50) {
-      minimaxTreeDepth = 7;
+      minimaxTreeDepth = 5;
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(5);
     }
 
     /// 라운드 구간별 3 라운드 또는 5라운드 마다 초나라 기물 부활
-    /// 1 ~ 9라운드
-    if (round < 10) {
+    /// 1 ~ 19 라운드
+    if (round < 20) {
       if (round % 3 != 0) {
-        return;
-      }
-    }
-
-    /// 10 ~ 19 라운드
-    else if (round <= 20) {
-      if (round % 5 != 0) {
         return;
       }
     }
 
     /// 20 ~ 29 라운드
     else if (round < 30) {
-      if (round % 3 != 0) {
+      if (round % 5 != 0) {
         return;
       }
     }
 
     /// 30 ~ 39 라운드
     else if (round <= 40) {
-      if (round % 5 != 0) {
+      if (round % 3 != 0) {
         return;
       }
     }
 
     /// 40 ~ 49 라운드
     else if (round < 50) {
-      if (round % 3 != 0) {
+      if (round % 5 != 0) {
         return;
       }
     }
@@ -473,7 +466,7 @@ void _computeParentChild(MinimaxNode node) {
   final parentNode = _minimaxNodeTree.getParentNode(node.nodeDepth);
 
   /// 부모 노드가 존재
-  if (parentNode != null) {
+  if (parentNode != null && node.minimaxValue != null) {
     if (parentNode.minimaxValue == null) {
       parentNode.minimaxValue = node.minimaxValue;
     }
@@ -544,7 +537,7 @@ bool _alphaBetaPruning(MinimaxNode node) {
   return false;
 }
 
-int minimaxTreeDepth = 10;
+int minimaxTreeDepth = 3;
 
 final _minimaxNodeTree = MinimaxNodeTree();
 
