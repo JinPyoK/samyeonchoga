@@ -213,6 +213,9 @@ final class InGameTurn extends _$InGameTurn {
       return null;
     }
 
+    log(pieceX.toString(), name: 'pieceX');
+    log(pieceY.toString(), name: 'pieceY');
+
     final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
 
     final pieceActionable = PieceActionableModel(
@@ -292,45 +295,6 @@ final class InGameTurn extends _$InGameTurn {
   }
 }
 
-/// 미니맥스 알고리즘으로 교체해야 하나, 지금은 랜덤으로 하기
-/// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
-List<int?> _minimax(List<dynamic> params) {
-  /// 트리의 최종 깊이
-  final treeDepth = params[0] as int;
-
-  /// 상태 보드 Json 직렬화된 상태
-  final statusJsonList = params[1] as List<Map<String, dynamic>>;
-
-  /// 현재 노드의 깊이
-  final nodeDepth = params[2] as int;
-
-  /// Json을 다시 역직렬화 하여 상태 보드 만들기
-  final minimaxBoardStatus = InGameBoardStatus()
-    ..boardStatusFromJsonList(statusJsonList);
-
-  /// 노드의 깊이가 홀수이면 한, 짝수이면 초 기물들 조사
-  final blueList = minimaxBoardStatus.getBlueAll();
-
-  if (blueList.isEmpty) {
-    return [];
-  }
-
-  for (PieceBaseModel piece in blueList) {
-    piece.searchActionable(minimaxBoardStatus);
-    if (piece.pieceActionable.isNotEmpty) {
-      return [
-        piece.x,
-        piece.y,
-        piece.pieceActionable[0].targetX,
-        piece.pieceActionable[0].targetY,
-        piece.pieceActionable[0].targetValue,
-      ];
-    }
-  }
-
-  return [];
-}
-
 /// 초나라 미니맥스 알고리즘 params: List[treeDepth, boardStatusFromJsonList(), nodeDepth]
 /// return List[선정 기물 모델x, y, 액셔너블x, y, 타겟밸류]
 List<int?> _blueMinimax(List<dynamic> params) {
@@ -392,7 +356,7 @@ List<int?> _blueMinimax(List<dynamic> params) {
           _computeParentChild(node);
         }
 
-        /// 트리를 순회 중
+        /// 트리 순회 중
         else {
           /// 기물 행마에 대한 각각의 새로운 상태 보드 생성
           final statusBoardAboutPieceActionable = InGameBoardStatus()
@@ -409,10 +373,15 @@ List<int?> _blueMinimax(List<dynamic> params) {
             ),
           );
 
+          final newPiece = piece.getNewPieceInstance();
+
+          newPiece.x = pieceActionable.targetX;
+          newPiece.y = pieceActionable.targetY;
+
           statusBoardAboutPieceActionable.changeStatus(
             pieceActionable.targetX,
             pieceActionable.targetY,
-            piece,
+            newPiece,
           );
 
           /// 상태 변경 후 미니맥스 진행
@@ -422,12 +391,12 @@ List<int?> _blueMinimax(List<dynamic> params) {
             nodeDepth + 1,
           ]);
           _computeParentChild(node);
-          if (node.nodeDepth > 1) {
-            if (_alphaBetaPruning(
-                _minimaxNodeTree.getParentNode(node.nodeDepth)!)) {
-              return [];
-            }
-          }
+          // if (node.nodeDepth > 1) {
+          //   if (_alphaBetaPruning(
+          //       _minimaxNodeTree.getParentNode(node.nodeDepth)!)) {
+          //     return [];
+          //   }
+          // }
         }
       }
     }
@@ -463,9 +432,6 @@ List<int?> _blueMinimax(List<dynamic> params) {
   }
 
   if (nodeDepth == 0) {
-    log(_minimaxNodeTree.minimaxNodes.length.toString());
-    log(_minimaxResult.length.toString());
-
     if (_minimaxResult.isEmpty) {
       return [];
     }
@@ -513,18 +479,33 @@ void _computeParentChild(MinimaxNode node) {
 
     /// 부모 노드의 미니맥스 밸류가 존재
     else {
-      /// 부모 노드가 max 노드
-      if (parentNode.nodeType == MinimaxNodeType.max) {
-        if (parentNode.minimaxValue! < node.minimaxValue!) {
-          parentNode.minimaxValue = node.minimaxValue;
-        }
+      /// 0이 아닌 수가 하나라도 있을 경우 기물 변화에 대한 정보가 있기 때문에 그 수를 올려보내야 한다.
+      /// 부모 노드의 미니맥스 밸류가 0인데 자식 노드의 미니맥스 밸류가 0이 아니면 그 수가 선택되지 않는다.
+      /// 0이 다른 값보다 크거나 작기 때문이다.
+      /// 트리의 해당 깊이에서 값들이 모두 0이라면 0을 올려보내고, 다른 값이 있다면 다른 값을 우선 보낸다.
+      if (parentNode.minimaxValue == 0 && node.minimaxValue != 0) {
+        parentNode.minimaxValue = node.minimaxValue;
       }
 
-      /// 부모 노드가 min 노드
-      else {
-        if (parentNode.minimaxValue! > node.minimaxValue!) {
-          parentNode.minimaxValue = node.minimaxValue;
+      /// 부모 노드의 미니맥스 밸류와 자식 노드의 미니맥스 밸류가 모두 0이 아닐 시에만 비교한다.
+      else if (parentNode.minimaxValue != 0 && node.minimaxValue != 0) {
+        /// 부모 노드가 max 노드
+        if (parentNode.nodeType == MinimaxNodeType.max) {
+          if (parentNode.minimaxValue! < node.minimaxValue!) {
+            parentNode.minimaxValue = node.minimaxValue;
+          }
         }
+
+        /// 부모 노드가 min 노드
+        else {
+          if (parentNode.minimaxValue! > node.minimaxValue!) {
+            parentNode.minimaxValue = node.minimaxValue;
+          }
+        }
+
+        // if (parentNode.minimaxValue! < node.minimaxValue!) {
+        //   parentNode.minimaxValue = node.minimaxValue;
+        // }
       }
     }
   }
@@ -540,21 +521,25 @@ bool _alphaBetaPruning(MinimaxNode node) {
   if (parentNode != null &&
       parentNode.minimaxValue != null &&
       node.minimaxValue != null) {
-    /// 알파 가지치기
-    /// MIN노드의 현재 값이 부모 노드(즉, MAX노드)가 현재 가지고 있는 값보다 작거나 같다면,
-    /// MIN노드의 자식 노드들을 탐색해 볼 필요가 없다.
-    if (node.nodeType == MinimaxNodeType.min) {
-      if (node.minimaxValue! <= parentNode.minimaxValue!) {
-        return true;
+    /// 부모의 노드와 자식 노드의 값이 둘다 0이 아닌 경우에만 가지치기를 수행한다.
+    /// 둘 중 하나라도 0인 경우 다른 유효한 값이 있을 수 있기 때문이다.
+    if (parentNode.minimaxValue != 0 && node.minimaxValue != 0) {
+      /// 알파 가지치기
+      /// MIN노드의 현재 값이 부모 노드(즉, MAX노드)가 현재 가지고 있는 값보다 작거나 같다면,
+      /// MIN노드의 자식 노드들을 탐색해 볼 필요가 없다.
+      if (node.nodeType == MinimaxNodeType.min) {
+        if (node.minimaxValue! <= parentNode.minimaxValue!) {
+          return true;
+        }
       }
-    }
 
-    /// 베타 가지치기
-    /// MAX노드의 현재 값이 부모 노드(즉, MIN노드)의 값보다 크거나 같다면,
-    /// 부모 노드의 값을 줄일 가능성이 전혀 없기 때문에 마찬가지 이유로 자식 노드를 더 이상 탐색해볼 필요가 없다.
-    else {
-      if (node.minimaxValue! >= parentNode.minimaxValue!) {
-        return true;
+      /// 베타 가지치기
+      /// MAX노드의 현재 값이 부모 노드(즉, MIN노드)의 값보다 크거나 같다면,
+      /// 부모 노드의 값을 줄일 가능성이 전혀 없기 때문에 마찬가지 이유로 자식 노드를 더 이상 탐색해볼 필요가 없다.
+      else {
+        if (node.minimaxValue! >= parentNode.minimaxValue!) {
+          return true;
+        }
       }
     }
   }
@@ -562,7 +547,7 @@ bool _alphaBetaPruning(MinimaxNode node) {
   return false;
 }
 
-int minimaxTreeDepth = 5;
+int minimaxTreeDepth = 3;
 
 final _minimaxNodeTree = MinimaxNodeTree();
 

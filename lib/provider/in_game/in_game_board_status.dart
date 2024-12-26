@@ -184,7 +184,7 @@ final class InGameBoardStatus {
         } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
           pieceModel =
               RedSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else {
+        } else if (boardStatusJson['pieceType'] == PieceType.byung.name) {
           pieceModel =
               RedByungModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         }
@@ -204,7 +204,7 @@ final class InGameBoardStatus {
         } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
           pieceModel =
               BlueSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else {
+        } else if (boardStatusJson['pieceType'] == PieceType.zol.name) {
           pieceModel =
               BlueZolModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         }

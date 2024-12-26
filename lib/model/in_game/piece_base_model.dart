@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
+
+import 'blue_piece/blue_cha_model.dart';
+import 'blue_piece/blue_ma_model.dart';
+import 'blue_piece/blue_po_model.dart';
+import 'blue_piece/blue_sang_model.dart';
+import 'blue_piece/blue_zol_model.dart';
 
 abstract base class PieceOrJustActionable {}
 
@@ -28,9 +41,6 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   /// 이 기물이 취할 수 있는 액션
   List<PieceActionableModel> pieceActionable = [];
 
-  /// 기물의 움직임 애니메이션 setState
-  void Function(void Function())? setStateThisPiece;
-
   PieceBaseModel({
     required this.team,
     required this.pieceType,
@@ -39,6 +49,49 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
     required this.x,
     required this.y,
   });
+
+  PieceBaseModel getNewPieceInstance() {
+    late PieceBaseModel pieceModel;
+
+    /// 한나라
+    if (team == Team.red) {
+      if (pieceType == PieceType.king) {
+        pieceModel = RedKingModel(x: x, y: y);
+      } else if (pieceType == PieceType.sa) {
+        pieceModel = RedSaModel(x: x, y: y);
+      } else if (pieceType == PieceType.cha) {
+        pieceModel = RedChaModel(x: x, y: y);
+      } else if (pieceType == PieceType.po) {
+        pieceModel = RedPoModel(x: x, y: y);
+      } else if (pieceType == PieceType.ma) {
+        pieceModel = RedMaModel(x: x, y: y);
+      } else if (pieceType == PieceType.sang) {
+        pieceModel = RedSangModel(x: x, y: y);
+      } else {
+        pieceModel = RedByungModel(x: x, y: y);
+      }
+    }
+
+    /// 초나라
+    else {
+      if (pieceType == PieceType.cha) {
+        pieceModel = BlueChaModel(x: x, y: y);
+      } else if (pieceType == PieceType.po) {
+        pieceModel = BluePoModel(x: x, y: y);
+      } else if (pieceType == PieceType.ma) {
+        pieceModel = BlueMaModel(x: x, y: y);
+      } else if (pieceType == PieceType.sang) {
+        pieceModel = BlueSangModel(x: x, y: y);
+      } else {
+        pieceModel = BlueZolModel(x: x, y: y);
+      }
+    }
+
+    return pieceModel;
+  }
+
+  /// 기물의 움직임 애니메이션 setState
+  void Function(void Function())? setStateThisPiece;
 
   /// 기물 길 찾기 함수
   void searchActionable(InGameBoardStatus statusBoard) {}
