@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math' hide log;
 
 import 'package:flutter/foundation.dart';
@@ -282,7 +281,6 @@ final class InGameTurn extends _$InGameTurn {
   Future<List<int?>> _minimaxIsolate(int treeDepth) async {
     _minimaxNodeTree.nodesListClear();
     _minimaxResult.clear();
-    log(DateTime.now().toLocal().toString());
     return await compute(_blueMinimax,
         [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
   }
@@ -439,10 +437,7 @@ List<int?> _blueMinimax(List<dynamic> params) {
       firstNode.targetY,
       firstNode.targetValue,
     ];
-    log("\n@@@@@@@@@@@@@@@결과@@@@@@@@@@@@@@@");
     for (MinimaxNode resultNode in _minimaxResult) {
-      log('pieceX: ${resultNode.pieceX} pieceY: ${resultNode.pieceY} targetX: ${resultNode.targetX} targetY: ${resultNode.targetY} targetValue: ${resultNode.targetValue} minimaxValue: ${resultNode.minimaxValue}');
-
       if (minimaxResultValue < resultNode.minimaxValue!) {
         minimaxResultValue = resultNode.minimaxValue!;
         minimaxResultNodes = [
@@ -455,7 +450,6 @@ List<int?> _blueMinimax(List<dynamic> params) {
       }
     }
 
-    log(DateTime.now().toLocal().toString());
     return minimaxResultNodes;
   }
 
