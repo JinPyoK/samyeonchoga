@@ -295,6 +295,11 @@ final class InGamePieceSet extends _$InGamePieceSet {
           .read(getGoldNotificationWidgetProvider.notifier)
           .showGoldNotification(false, 300);
 
+      /// 처형 기물이 방금 움직인 기물
+      if (targetPieceModel == lastTurnPiece) {
+        lastTurnPiece = null;
+      }
+
       makeExecuteOrJanggoonSound();
     } else {
       /// 처형이 아닌 단순 기물 공격, 한이 초 기물을 취함

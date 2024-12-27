@@ -31,7 +31,7 @@ final class InGameTurn extends _$InGameTurn {
     return true;
   }
 
-  void changeTurn() async {
+  Future<void> changeTurn() async {
     state = !state;
 
     /// 초나라의 턴이라면 라운드를 증가시키고 초나라 착수
@@ -47,7 +47,6 @@ final class InGameTurn extends _$InGameTurn {
       _blueSpawn();
 
       /// 초나라 착수
-      await Future.delayed(const Duration(seconds: 1), () {});
       final PieceActionableModel? targetPieceActionable = await _blueAction();
 
       /// 만약 초나라가 왕을 먹었다면 게임 종료
