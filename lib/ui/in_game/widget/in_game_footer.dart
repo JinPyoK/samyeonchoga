@@ -306,7 +306,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                               );
                             }
                           : null,
-                      child: const Text("기물 부활")),
+                      child: const Text("기물 부활 목록")),
                 )),
                 Expanded(
                     child: Padding(

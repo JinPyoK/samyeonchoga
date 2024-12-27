@@ -20,6 +20,12 @@ class _AdRewardState extends State<AdReward> {
   RewardedAd? _rewardedAd;
 
   @override
+  void initState() {
+    super.initState();
+    _loadAd();
+  }
+
+  @override
   void dispose() {
     _rewardedAd?.dispose();
     super.dispose();
@@ -27,42 +33,43 @@ class _AdRewardState extends State<AdReward> {
 
   void _loadAd() {
     RewardedAd.load(
-        adUnitId: widget.adUnitId,
-        request: const AdRequest(),
-        rewardedAdLoadCallback: RewardedAdLoadCallback(
-          /// Called when an ad is successfully received.
-          onAdLoaded: (ad) {
-            ad.fullScreenContentCallback = FullScreenContentCallback(
+      adUnitId: widget.adUnitId,
+      request: const AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        /// Called when an ad is successfully received.
+        onAdLoaded: (ad) {
+          ad.fullScreenContentCallback = FullScreenContentCallback(
 
-                /// Called when the ad showed the full screen content.
-                onAdShowedFullScreenContent: (ad) {},
+              /// Called when the ad showed the full screen content.
+              onAdShowedFullScreenContent: (ad) {},
 
-                /// Called when an impression occurs on the ad.
-                onAdImpression: (ad) {},
+              /// Called when an impression occurs on the ad.
+              onAdImpression: (ad) {},
 
-                /// Called when the ad failed to show full screen content.
-                onAdFailedToShowFullScreenContent: (ad, err) {
-                  /// Dispose the ad here to free resources.
-                  ad.dispose();
-                },
+              /// Called when the ad failed to show full screen content.
+              onAdFailedToShowFullScreenContent: (ad, err) {
+                /// Dispose the ad here to free resources.
+                ad.dispose();
+              },
 
-                /// Called when the ad dismissed full screen content.
-                onAdDismissedFullScreenContent: (ad) {
-                  /// Dispose the ad here to free resources.
-                  ad.dispose();
-                },
+              /// Called when the ad dismissed full screen content.
+              onAdDismissedFullScreenContent: (ad) {
+                /// Dispose the ad here to free resources.
+                ad.dispose();
+              },
 
-                /// Called when a click is recorded for an ad.
-                onAdClicked: (ad) {});
+              /// Called when a click is recorded for an ad.
+              onAdClicked: (ad) {});
 
-            // Keep a reference to the ad so you can show it later.
-            _rewardedAd = ad;
-          },
-          // Called when an ad request failed.
-          onAdFailedToLoad: (_) {
-            showCustomSnackBar(context, '광고 로드 실패');
-          },
-        ));
+          // Keep a reference to the ad so you can show it later.
+          _rewardedAd = ad;
+        },
+        // Called when an ad request failed.
+        onAdFailedToLoad: (_) {
+          showCustomSnackBar(context, '광고 로드 실패');
+        },
+      ),
+    );
   }
 
   @override
@@ -71,9 +78,8 @@ class _AdRewardState extends State<AdReward> {
       padding: EdgeInsets.symmetric(horizontal: 10 * wu),
       child: ElevatedButton(
         onPressed: () {
-          _loadAd();
-
           if (_rewardedAd == null) {
+            _loadAd();
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
           } else {
             try {

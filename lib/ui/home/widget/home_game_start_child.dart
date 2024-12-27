@@ -137,12 +137,21 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final inGameGold = ref.read(inGameGoldProvider);
+
+      if (inGameGold > 3000) {
+        ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final inGameGold = ref.watch(inGameGoldProvider);
-
-    if (inGameGold > 3000) {
-      ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

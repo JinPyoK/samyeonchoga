@@ -151,12 +151,20 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
     ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
 
-    if (inGameSave!.round < 20) {
-      minimaxTreeDepth = 3;
+    if (inGameSave!.round < 10) {
+      upgradeBlue(0);
+    } else if (inGameSave!.round < 20) {
+      upgradeBlue(1);
+    } else if (inGameSave!.round < 30) {
+      upgradeBlue(2);
     } else if (inGameSave!.round < 40) {
-      minimaxTreeDepth = 4;
-    } else if (inGameSave!.round >= 40) {
-      minimaxTreeDepth = 5;
+      upgradeBlue(3);
+    } else if (inGameSave!.round < 50) {
+      upgradeBlue(4);
+    } else if (inGameSave!.round >= 50) {
+      upgradeBlue(5);
+    } else {
+      upgradeBlue(5);
     }
 
     inGameBoardStatus

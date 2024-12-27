@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/rank/rank_model.dart';
+import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
@@ -126,7 +127,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
                   await inGameSave?.deleteInGameSave();
 
                   if (context.mounted) {
-                    Navigator.pop(context);
+                    Navigator.pop(globalContext!);
                     Navigator.pop(context);
                   }
 
