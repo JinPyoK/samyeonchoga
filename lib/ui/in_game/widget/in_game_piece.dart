@@ -23,6 +23,7 @@ class InGamePiece extends ConsumerStatefulWidget {
 
 class _InGamePieceState extends ConsumerState<InGamePiece> {
   double _spawnOpacity = 0;
+  double _spawnScale = 1;
 
   bool _callJanggoon = false;
 
@@ -68,7 +69,13 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     widget.pieceModel.setStateThisPiece = setState;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _spawnOpacity = 1;
+      _spawnScale = 1.5;
       setState(() {});
+
+      Future.delayed(const Duration(milliseconds: 500), () {
+        _spawnScale = 1;
+        setState(() {});
+      });
     });
   }
 
@@ -94,20 +101,25 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: [
-          AnimatedOpacity(
-            opacity: _spawnOpacity,
-            duration: const Duration(seconds: 2),
-            curve: Curves.easeOut,
-            child: GestureDetector(
-              onTap: _onPieceTaped,
-              child: ShaderMask(
-                shaderCallback: (rect) {
-                  return RadialGradient(colors: justTurnPieceColor())
-                      .createShader(rect);
-                },
-                child: Image(
-                  image: widget.pieceModel.imageProvider,
-                  width: pieceSize,
+          AnimatedScale(
+            scale: _spawnScale,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.bounceInOut,
+            child: AnimatedOpacity(
+              opacity: _spawnOpacity,
+              duration: const Duration(seconds: 2),
+              curve: Curves.easeOut,
+              child: GestureDetector(
+                onTap: _onPieceTaped,
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return RadialGradient(colors: justTurnPieceColor())
+                        .createShader(rect);
+                  },
+                  child: Image(
+                    image: widget.pieceModel.imageProvider,
+                    width: pieceSize,
+                  ),
                 ),
               ),
             ),
