@@ -79,7 +79,6 @@ class _AdRewardState extends State<AdReward> {
       child: ElevatedButton(
         onPressed: () {
           if (_rewardedAd == null) {
-            _loadAd();
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
           } else {
             try {
@@ -93,6 +92,8 @@ class _AdRewardState extends State<AdReward> {
 
                   /// 이미지가 메모리에서 없어져서 다시 로드
                   unawaited(imagePreload(context));
+
+                  _loadAd();
                 },
               );
             } catch (_) {
