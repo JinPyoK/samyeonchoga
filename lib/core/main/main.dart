@@ -50,7 +50,6 @@ Future<void> _initGame() async {
   /// 기기 세로 모드 고정
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
   ]);
 
   /// 파이어베이스
