@@ -52,6 +52,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
     /// 상태보드 초기화
     inGameBoardStatus.initStatusBoard();
 
+    upgradeBlue(0);
+
     selectedPieceModel = null;
     lastTurnPiece = null;
 
