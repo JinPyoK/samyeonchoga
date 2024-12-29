@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
 
     return ProviderScope(
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: _customTheme,
         title: 'samyeonchoga',
         home: const HomeNavigationScreen(),
