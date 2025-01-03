@@ -10,7 +10,7 @@ final bannerPlatformId1 = Platform.isAndroid ? aosBannerId1 : iosBannerId1;
 final bannerPlatformId2 = Platform.isAndroid ? aosBannerId2 : iosBannerId2;
 final bannerPlatformId3 = Platform.isAndroid ? aosBannerId3 : iosBannerId3;
 
-/// 플랫폼별 배너 아이디
+/// 플랫폼별 리워드 아이디
 final rewardPlatformTestId =
     Platform.isAndroid ? aosRewardTestId : iosRewardTestId;
 final rewardPlatformId1 = Platform.isAndroid ? aosRewardId1 : iosRewardId1;
