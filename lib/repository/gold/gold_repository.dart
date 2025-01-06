@@ -18,7 +18,12 @@ final class GoldRepository {
     final result = await Isarbase.read(this);
     if (result == null) return;
     final myGold = result as GoldRepository;
-    gold = myGold.gold;
+
+    if (myGold.gold < 0) {
+      gold = 0;
+    } else {
+      gold = myGold.gold;
+    }
   }
 
   /// 1. 게임 시작
