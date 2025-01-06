@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/ui/ad/controller/ad_id.dart';
-import 'package:samyeonchoga/ui/ad/widget/ad_banner.dart';
 import 'package:samyeonchoga/ui/ad/widget/ad_reward.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
 
@@ -21,7 +19,7 @@ class _AdScreenState extends State<AdScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
@@ -34,19 +32,21 @@ class _AdScreenState extends State<AdScreen>
             ),
           ),
         ),
-        AdBanner(
-          adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
-          adUnitId: bannerId1,
-        ),
-        AdBanner(
-          adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
-          adUnitId: bannerId2,
-        ),
-        AdBanner(
-          adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
-          adUnitId: bannerId3,
-        ),
+        SizedBox(height: 30 * hu),
+        // AdBanner(
+        //   adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+        //   adUnitId: bannerId1,
+        // ),
+        // AdBanner(
+        //   adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+        //   adUnitId: bannerId2,
+        // ),
+        // AdBanner(
+        //   adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
+        //   adUnitId: bannerId3,
+        // ),
         AdReward(adUnitId: rewardId1),
+        const SizedBox(height: 10),
         _renderCaution("광고를 올바르게 시청하지 않은 경우 보상이 주어지지 않을 수 있습니다."),
       ],
     );
