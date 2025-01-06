@@ -145,6 +145,8 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
 
       if (inGameGold > 3000) {
         ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
+      } else if (inGameGold < 0) {
+        ref.read(inGameGoldProvider.notifier).setInGameGold(0);
       }
     });
   }
