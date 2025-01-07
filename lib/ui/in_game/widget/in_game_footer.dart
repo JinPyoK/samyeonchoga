@@ -16,7 +16,6 @@ import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
-import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
 class InGameFooter extends ConsumerStatefulWidget {
   const InGameFooter({super.key});
@@ -174,9 +173,6 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
     final buttonOn = isMyTurn && !roundStart;
 
-    /// inGameScreen 뒤로가기
-    canPopNow = buttonOn;
-
     return ColoredBox(
       color: inGameBlackColor,
       child: Padding(
@@ -215,8 +211,6 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                       const SizedBox(height: 30),
                                       ElevatedButton(
                                           onPressed: () async {
-                                            canPopNow = false;
-
                                             inGameSave = InGameSaveRepository();
 
                                             final inGameGold =
@@ -248,8 +242,6 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                             backgroundColor: Colors.redAccent,
                                           ),
                                           onPressed: () async {
-                                            canPopNow = false;
-
                                             final inGameGold =
                                                 ref.read(inGameGoldProvider);
 

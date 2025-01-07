@@ -6,7 +6,6 @@ import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
-import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
@@ -18,6 +17,8 @@ class HomeGameStartChild extends ConsumerStatefulWidget {
 }
 
 class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
+  int _startGold = 0;
+
   GestureDetector _renderLineup(Lineup selectedLineup) {
     late ImageProvider lineup1;
     late ImageProvider lineup2;
@@ -140,19 +141,17 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
   void initState() {
     super.initState();
 
+    /// 게임 시작을 누르면 addPostFrameCallback이 또 한번 실행됨
+    /// 이유를 아직 모르겠음
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (myGold.gold > 3000) {
-        ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
-      } else {
-        ref.read(inGameGoldProvider.notifier).setInGameGold(myGold.gold);
-      }
+      myGold.gold > 3000 ? _startGold = 3000 : _startGold = myGold.gold;
+
+      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final inGameGold = ref.watch(inGameGoldProvider);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -169,7 +168,7 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
               ),
               padding: EdgeInsets.all(10 * hu),
               child: Text(
-                inGameGold.toString(),
+                _startGold.toString(),
                 style: TextStyle(fontSize: 25 * hu),
               ),
             ),
@@ -188,54 +187,39 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
               children: [
                 OutlinedButton(
                     onPressed: () {
-                      ref.read(inGameGoldProvider.notifier).setInGameGold(0);
+                      _startGold = 0;
+                      setState(() {});
                     },
                     child: const Text("최소")),
                 const SizedBox(width: 10),
                 OutlinedButton(
                     onPressed: () {
-                      if (inGameGold <= 100) {
-                        ref.read(inGameGoldProvider.notifier).setInGameGold(0);
-                      } else {
-                        ref
-                            .read(inGameGoldProvider.notifier)
-                            .setInGameGold(inGameGold - 100);
-                      }
+                      _startGold <= 100 ? _startGold = 0 : _startGold -= 100;
                       setState(() {});
                     },
                     child: const Text("-100")),
                 const SizedBox(width: 10),
                 OutlinedButton(
                     onPressed: () {
-                      if (inGameGold + 100 >= myGold.gold) {
-                        ref
-                            .read(inGameGoldProvider.notifier)
-                            .setInGameGold(myGold.gold);
+                      if (_startGold + 100 >= myGold.gold) {
+                        _startGold = myGold.gold;
                       } else {
-                        if (inGameGold >= 2900) {
-                          ref
-                              .read(inGameGoldProvider.notifier)
-                              .setInGameGold(3000);
-                        } else {
-                          ref
-                              .read(inGameGoldProvider.notifier)
-                              .setInGameGold(inGameGold + 100);
-                        }
+                        _startGold >= 2900
+                            ? _startGold = 3000
+                            : _startGold += 100;
                       }
+
+                      setState(() {});
                     },
                     child: const Text("+100")),
                 const SizedBox(width: 10),
                 OutlinedButton(
                     onPressed: () {
-                      if (myGold.gold <= 3000) {
-                        ref
-                            .read(inGameGoldProvider.notifier)
-                            .setInGameGold(myGold.gold);
-                      } else {
-                        ref
-                            .read(inGameGoldProvider.notifier)
-                            .setInGameGold(3000);
-                      }
+                      myGold.gold <= 3000
+                          ? _startGold = myGold.gold
+                          : _startGold = 3000;
+
+                      setState(() {});
                     },
                     child: const Text("최대")),
               ],
@@ -268,9 +252,13 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                 child: const Text("취소")),
             ElevatedButton(
                 onPressed: () async {
-                  myGold.addGold(-inGameGold);
+                  myGold.addGold(-_startGold);
 
                   await myGold.writeGold();
+
+                  ref
+                      .read(inGameGoldProvider.notifier)
+                      .setInGameGold(_startGold);
 
                   if (context.mounted) {
                     Navigator.of(context, rootNavigator: true).pop();
@@ -281,8 +269,6 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                             builder: (_) =>
                                 const InGameScreen(gameHadSaved: false)));
                   }
-
-                  setStateGold!(() {});
                 },
                 child: const Text("게임 시작")),
           ],
