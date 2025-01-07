@@ -141,12 +141,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final inGameGold = ref.read(inGameGoldProvider);
-
-      if (inGameGold > 3000) {
+      if (myGold.gold > 3000) {
         ref.read(inGameGoldProvider.notifier).setInGameGold(3000);
-      } else if (inGameGold < 0) {
-        ref.read(inGameGoldProvider.notifier).setInGameGold(0);
+      } else {
+        ref.read(inGameGoldProvider.notifier).setInGameGold(myGold.gold);
       }
     });
   }

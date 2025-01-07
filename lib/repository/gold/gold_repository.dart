@@ -19,6 +19,7 @@ final class GoldRepository {
     if (result == null) return;
     final myGold = result as GoldRepository;
 
+    /// 업데이트 할 때 골드가 -1000골드로 되어있었음. Isar 버그?
     if (myGold.gold < 0) {
       gold = 0;
     } else {
