@@ -21,11 +21,11 @@ void main() async {
 
   await _initGame();
 
-  runApp(const MyApp());
+  runApp(const Samyeonchoga());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Samyeonchoga extends StatelessWidget {
+  const Samyeonchoga({super.key});
 
   @override
   Widget build(BuildContext context) {
