@@ -5,7 +5,6 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
@@ -29,8 +28,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   void _onPieceTaped() {
     final isMyTurn = ref.read(inGameTurnProvider);
-    final justGameStart = ref.read(inGameRoundProvider) == 0;
-    if (widget.pieceModel.team == Team.red && isMyTurn && !justGameStart) {
+    if (widget.pieceModel.team == Team.red && isMyTurn) {
       selectedPieceModel = widget.pieceModel;
       widget.pieceModel.searchActionable(inGameBoardStatus);
       ref

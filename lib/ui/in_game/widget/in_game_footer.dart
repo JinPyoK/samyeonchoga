@@ -169,9 +169,6 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
   Widget build(BuildContext context) {
     final selectedSpawnPiece = ref.watch(inGameFooterSpawnPieceProvider);
     final isMyTurn = ref.watch(inGameTurnProvider);
-    final roundStart = ref.watch(inGameRoundProvider) == 0;
-
-    final buttonOn = isMyTurn && !roundStart;
 
     return ColoredBox(
       color: inGameBlackColor,
@@ -192,7 +189,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: redColor,
                         ),
-                        onPressed: buttonOn
+                        onPressed: isMyTurn
                             ? () {
                                 showCustomDialog(
                                   context,
@@ -278,7 +275,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: buttonOn
+                      onPressed: isMyTurn
                           ? () {
                               showCustomDialog(
                                 context,
@@ -312,7 +309,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: ElevatedButton(
-                      onPressed: buttonOn
+                      onPressed: isMyTurn
                           ? () {
                               ref
                                   .read(inGameNavigatorProvider.notifier)

@@ -32,12 +32,12 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<void> changeTurn() async {
+    ref.read(inGameRoundProvider.notifier).nextRound();
+
     state = !state;
 
-    /// 초나라의 턴이라면 라운드를 증가시키고 초나라 착수
+    /// 초나라 착수
     if (state == false) {
-      ref.read(inGameRoundProvider.notifier).nextRound();
-
       /// 시스템 노티피케이션 리스트 비워주기
       ref
           .read(inGameSystemNotificationProvider.notifier)
@@ -68,7 +68,7 @@ final class InGameTurn extends _$InGameTurn {
       /// 초나라 착수 후 장군 체크
       determineIfJanggoon();
 
-      state = true;
+      changeTurn();
     }
   }
 
