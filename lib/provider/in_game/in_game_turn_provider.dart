@@ -22,7 +22,6 @@ import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_blue_minimax.dart';
-
 part 'in_game_turn_provider.g.dart';
 
 @Riverpod()
@@ -47,6 +46,20 @@ final class InGameTurn extends _$InGameTurn {
       /// 초나라 기물 부활
       _blueSpawn();
 
+      /// 초나라 기물의 수가 70을 넘으면 게임 종료
+      if (inGameBoardStatus.getNumOfBlue() > 70) {
+        if (globalContext!.mounted) {
+          Future.delayed(const Duration(seconds: 1), () {
+            showCustomDialog(
+              globalContext!,
+              const InGameResult(reason: 1),
+              defaultAction: false,
+            );
+          });
+        }
+        return;
+      }
+
       /// 초나라 착수
       final PieceActionableModel? targetPieceActionable = await _blueAction();
 
@@ -57,7 +70,7 @@ final class InGameTurn extends _$InGameTurn {
             Future.delayed(const Duration(seconds: 1), () {
               showCustomDialog(
                 globalContext!,
-                const InGameResult(),
+                const InGameResult(reason: 0),
                 defaultAction: false,
               );
             });
@@ -111,7 +124,19 @@ final class InGameTurn extends _$InGameTurn {
       }
     }
 
-    /// 부활할 자리가 없으면 함수 종료
+    /// 초나라 진영에 부활할 자리가 없으면 한나라 진영 포함 나머지 구역 조사
+    if (blueSpawnPositionList.isEmpty) {
+      for (int i = 0; i < 9; i++) {
+        for (int j = 4; j < 10; j++) {
+          final bluePlace = inGameBoardStatus.getStatus(i, j);
+          if (bluePlace is PieceActionableModel) {
+            blueSpawnPositionList.add(bluePlace);
+          }
+        }
+      }
+    }
+
+    /// 그래도 없으면 함수 종료
     if (blueSpawnPositionList.isEmpty) {
       return;
     }

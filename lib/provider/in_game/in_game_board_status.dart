@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
@@ -50,6 +52,15 @@ final class InGameBoardStatus {
     }
 
     return blueList;
+  }
+
+  /// 초나라의 기물 개수 -> 초나라 기물이 70개 이상이면 게임 종료
+  /// 초나라가 공격을 안하고 무한 반복수 하는 경우를 방비
+  int getNumOfBlue() {
+    final blueList = getBlueAll();
+    log(blueList.length.toString());
+
+    return blueList.length;
   }
 
   /// 한나라의 행마 조사 (미니맥스)

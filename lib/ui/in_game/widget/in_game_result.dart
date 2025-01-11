@@ -13,7 +13,12 @@ import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 
 class InGameResult extends ConsumerStatefulWidget {
-  const InGameResult({super.key});
+  const InGameResult({
+    super.key,
+    required this.reason,
+  });
+
+  final int reason;
 
   @override
   ConsumerState<InGameResult> createState() => _InGameResultState();
@@ -44,6 +49,14 @@ class _InGameResultState extends ConsumerState<InGameResult> {
               fontWeight: FontWeight.bold,
               color: blackColor,
               fontSize: 16 * hu,
+            ),
+          ),
+          SizedBox(height: 5 * hu),
+          Text(
+            widget.reason == 0 ? '왕이 사망하였습니다.' : '한나라 기물의 수가 70을 초과하였습니다.',
+            style: TextStyle(
+              color: blackColor,
+              fontSize: 10 * hu,
             ),
           ),
           SizedBox(height: 20 * hu),
