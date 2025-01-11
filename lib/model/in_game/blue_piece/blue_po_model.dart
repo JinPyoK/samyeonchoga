@@ -12,7 +12,7 @@ final class BluePoModel extends BluePieceBaseModel {
           team: Team.blue,
           pieceType: PieceType.po,
           value: 7,
-          imageProvider: imageBluePo,
+          imageProvider: imageRedPo,
         );
 
   @override

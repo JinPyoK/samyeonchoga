@@ -12,7 +12,7 @@ final class BlueZolModel extends BluePieceBaseModel {
           team: Team.blue,
           pieceType: PieceType.zol,
           value: 2,
-          imageProvider: imageBlueZol,
+          imageProvider: imageRedByung,
         );
 
   @override

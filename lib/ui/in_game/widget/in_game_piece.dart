@@ -43,7 +43,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   List<Color> justTurnPieceColor() {
     if (widget.pieceModel.justTurn) {
-      if (widget.pieceModel.team == Team.red) {
+      if (widget.pieceModel.team == Team.blue) {
         return [
           whiteColor,
           redColor,

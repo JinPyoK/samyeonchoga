@@ -32,33 +32,33 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
     switch (piece) {
       case PieceType.cha:
-        imagePiece = imageRedCha;
+        imagePiece = imageBlueCha;
         label = '차';
         gold = 130;
         break;
       case PieceType.po:
-        imagePiece = imageRedPo;
+        imagePiece = imageBluePo;
         label = '포';
         gold = 70;
         break;
       case PieceType.ma:
-        imagePiece = imageRedMa;
+        imagePiece = imageBlueMa;
         label = '마';
         gold = 50;
         break;
       case PieceType.sang:
-        imagePiece = imageRedSang;
+        imagePiece = imageBlueSang;
         label = '상';
         gold = 30;
         break;
       case PieceType.sa:
-        imagePiece = imageRedSa;
+        imagePiece = imageBlueSa;
         label = '사';
         gold = 30;
         break;
       default:
-        imagePiece = imageRedByung;
-        label = '병';
+        imagePiece = imageBlueZol;
+        label = '졸';
         gold = 20;
         break;
     }
@@ -95,28 +95,28 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
     switch (piece) {
       case PieceType.cha:
-        imagePiece = imageRedCha;
+        imagePiece = imageBlueCha;
         label = '차';
         break;
       case PieceType.po:
-        imagePiece = imageRedPo;
+        imagePiece = imageBluePo;
         label = '포';
         break;
       case PieceType.ma:
-        imagePiece = imageRedMa;
+        imagePiece = imageBlueMa;
         label = '마';
         break;
       case PieceType.sang:
-        imagePiece = imageRedSang;
+        imagePiece = imageBlueSang;
         label = '상';
         break;
       case PieceType.sa:
-        imagePiece = imageRedSa;
+        imagePiece = imageBlueSa;
         label = '사';
         break;
       default:
-        imagePiece = imageRedByung;
-        label = '병';
+        imagePiece = imageBlueZol;
+        label = '졸';
         break;
     }
 

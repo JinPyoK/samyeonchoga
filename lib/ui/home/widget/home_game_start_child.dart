@@ -33,10 +33,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
 
     switch (selectedLineup) {
       case Lineup.maSangMaSang:
-        lineup1 = imageRedMa;
-        lineup2 = imageRedSang;
-        lineup3 = imageRedMa;
-        lineup4 = imageRedSang;
+        lineup1 = imageBlueMa;
+        lineup2 = imageBlueSang;
+        lineup3 = imageBlueMa;
+        lineup4 = imageBlueSang;
         label1 = '마';
         label2 = '상';
         label3 = '마';
@@ -44,10 +44,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
         break;
 
       case Lineup.sangMaSangMa:
-        lineup1 = imageRedSang;
-        lineup2 = imageRedMa;
-        lineup3 = imageRedSang;
-        lineup4 = imageRedMa;
+        lineup1 = imageBlueSang;
+        lineup2 = imageBlueMa;
+        lineup3 = imageBlueSang;
+        lineup4 = imageBlueMa;
         label1 = '상';
         label2 = '마';
         label3 = '상';
@@ -55,10 +55,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
         break;
 
       case Lineup.maSangSangMa:
-        lineup1 = imageRedMa;
-        lineup2 = imageRedSang;
-        lineup3 = imageRedSang;
-        lineup4 = imageRedMa;
+        lineup1 = imageBlueMa;
+        lineup2 = imageBlueSang;
+        lineup3 = imageBlueSang;
+        lineup4 = imageBlueMa;
         label1 = '마';
         label2 = '상';
         label3 = '상';
@@ -66,10 +66,10 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
         break;
 
       default:
-        lineup1 = imageRedSang;
-        lineup2 = imageRedMa;
-        lineup3 = imageRedMa;
-        lineup4 = imageRedSang;
+        lineup1 = imageBlueSang;
+        lineup2 = imageBlueMa;
+        lineup3 = imageBlueMa;
+        lineup4 = imageBlueSang;
         label1 = '상';
         label2 = '마';
         label3 = '마';

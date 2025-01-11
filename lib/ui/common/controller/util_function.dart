@@ -9,14 +9,14 @@ void Function(void Function())? setStateGold;
 Future<void> imagePreload(BuildContext context) async {
   context.mounted ? await precacheImage(imageBoard, context) : null;
 
-  context.mounted ? await precacheImage(imageRedKing, context) : null;
-  context.mounted ? await precacheImage(imageRedSa, context) : null;
   context.mounted ? await precacheImage(imageRedCha, context) : null;
   context.mounted ? await precacheImage(imageRedPo, context) : null;
   context.mounted ? await precacheImage(imageRedMa, context) : null;
   context.mounted ? await precacheImage(imageRedSang, context) : null;
   context.mounted ? await precacheImage(imageRedByung, context) : null;
 
+  context.mounted ? await precacheImage(imageBlueKing, context) : null;
+  context.mounted ? await precacheImage(imageBlueSa, context) : null;
   context.mounted ? await precacheImage(imageBlueCha, context) : null;
   context.mounted ? await precacheImage(imageBluePo, context) : null;
   context.mounted ? await precacheImage(imageBlueMa, context) : null;

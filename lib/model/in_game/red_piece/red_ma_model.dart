@@ -12,7 +12,7 @@ final class RedMaModel extends RedPieceBaseModel {
           team: Team.red,
           pieceType: PieceType.ma,
           value: 50,
-          imageProvider: imageRedMa,
+          imageProvider: imageBlueMa,
         );
 
   @override

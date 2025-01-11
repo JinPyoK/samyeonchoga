@@ -24,7 +24,7 @@ class BlueUpgradeSystemNotification extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              '초나라 알고리즘',
+              '한나라 알고리즘',
               style: GoogleFonts.songMyung(
                 color: whiteColor,
                 fontWeight: FontWeight.bold,

@@ -12,7 +12,7 @@ final class RedByungModel extends RedPieceBaseModel {
           team: Team.red,
           pieceType: PieceType.byung,
           value: 20,
-          imageProvider: imageRedByung,
+          imageProvider: imageBlueZol,
         );
 
   @override

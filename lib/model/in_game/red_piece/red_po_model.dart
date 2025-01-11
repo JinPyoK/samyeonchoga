@@ -12,7 +12,7 @@ final class RedPoModel extends RedPieceBaseModel {
           team: Team.red,
           pieceType: PieceType.po,
           value: 70,
-          imageProvider: imageRedPo,
+          imageProvider: imageBluePo,
         );
 
   @override

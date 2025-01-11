@@ -12,7 +12,7 @@ final class RedSaModel extends RedPieceBaseModel {
           team: Team.red,
           pieceType: PieceType.sa,
           value: 30,
-          imageProvider: imageRedSa,
+          imageProvider: imageBlueSa,
         );
 
   @override

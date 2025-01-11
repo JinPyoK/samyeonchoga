@@ -12,7 +12,7 @@ final class BlueSangModel extends BluePieceBaseModel {
           team: Team.blue,
           pieceType: PieceType.sang,
           value: 3,
-          imageProvider: imageBlueSang,
+          imageProvider: imageRedSang,
         );
 
   @override

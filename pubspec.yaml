@@ -114,13 +114,15 @@ flutter:
     - assets/image/app_logo.png
 
     - assets/image/board.png
-    - assets/image/red_king.png
+
     - assets/image/red_cha.png
     - assets/image/red_po.png
     - assets/image/red_ma.png
     - assets/image/red_sang.png
-    - assets/image/red_sa.png
     - assets/image/red_byung.png
+
+    - assets/image/blue_king.png
+    - assets/image/blue_sa.png
     - assets/image/blue_cha.png
     - assets/image/blue_po.png
     - assets/image/blue_ma.png

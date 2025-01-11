@@ -12,7 +12,7 @@ final class RedKingModel extends RedPieceBaseModel {
           team: Team.red,
           pieceType: PieceType.king,
           value: 1000,
-          imageProvider: imageRedKing,
+          imageProvider: imageBlueKing,
         );
 
   @override

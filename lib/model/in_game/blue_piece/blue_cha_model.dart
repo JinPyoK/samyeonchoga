@@ -12,7 +12,7 @@ final class BlueChaModel extends BluePieceBaseModel {
           team: Team.blue,
           pieceType: PieceType.cha,
           value: 13,
-          imageProvider: imageBlueCha,
+          imageProvider: imageRedCha,
         );
 
   @override
