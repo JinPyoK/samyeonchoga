@@ -1,18 +1,20 @@
-# samyeonchoga
-초나라가 무한히 공격해오는 장기 디펜스 게임입니다.
+# 사면초가
+무한히 공격해오는 한나라로부터 최대한 오래 버티는 장기 응용 디펜스 게임입니다.
  
  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;">
 
-  <img src="https://github.com/user-attachments/assets/7381dbea-cb7c-4e9d-a793-094be949ce4a" width="30%" style="margin-bottom: 10px;">
-  <img src="https://github.com/user-attachments/assets/6eb2f6d7-a1b2-49c0-bec3-13f4fb71e800" width="30%" style="margin-bottom: 10px;">
-  <img src="https://github.com/user-attachments/assets/c8b5b9f3-b7d8-4ae4-83ec-1fb127eaeee0" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/5468ab70-b9a9-4bf6-97dc-b1a1b23464e1" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/d3fac3bb-3fda-4686-936e-938daf33e90f" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/68b1477d-b9fa-4562-b945-483b65cad256" width="30%" style="margin-bottom: 10px;">
 
-  <img src="https://github.com/user-attachments/assets/e4c4c718-e28f-419e-bf1a-62929e3973f0" width="30%" style="margin-bottom: 10px;">
-  <img src="https://github.com/user-attachments/assets/116e4de4-62d2-4349-92f3-85e66cf28649" width="30%" style="margin-bottom: 10px;">
-  <img src="https://github.com/user-attachments/assets/e78eb0cf-a567-43af-b6ca-05f1f0daec70" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/7cee782d-8c84-4722-acb1-f8e423441d9f" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/0deb4ef2-2556-4152-b4bf-667760fe2bf6" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/1aa30836-e58e-4ffc-b158-2c3501413d36" width="30%" style="margin-bottom: 10px;">
 
 </div>
 
-
 ## 스토어
 구글 플레이스토어에서 심사 진행중입니다. 2025년 1월 중으로 배포 완료할 것 같습니다. IOS 앱스토어에는 등록하지 않았습니다.
+
+## 블로그
+https://jinpyoflutter.blogspot.com/
