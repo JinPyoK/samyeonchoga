@@ -22,6 +22,7 @@ import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_blue_minimax.dart';
+
 part 'in_game_turn_provider.g.dart';
 
 @Riverpod()
@@ -76,19 +77,19 @@ final class InGameTurn extends _$InGameTurn {
     final round = ref.read(inGameRoundProvider);
 
     /// 초나라 알고리즘 강화
-    if (round == 10) {
+    if (round == 20) {
       upgradeBlue(1);
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(1);
-    } else if (round == 20) {
+    } else if (round == 40) {
       upgradeBlue(2);
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(2);
-    } else if (round == 30) {
+    } else if (round == 60) {
       upgradeBlue(3);
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(3);
-    } else if (round == 40) {
+    } else if (round == 80) {
       upgradeBlue(4);
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(4);
-    } else if (round == 50) {
+    } else if (round == 100) {
       upgradeBlue(5);
       ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(5);
     }
@@ -245,7 +246,7 @@ final class InGameTurn extends _$InGameTurn {
   }
 }
 
-int _spawnRound = 3;
+int _spawnRound = 4;
 
 int _chaSpawnStartRange = 0;
 int _chaSpawnEndRange = 5;
@@ -264,7 +265,7 @@ void upgradeBlue(int level) {
     case 0:
       _minimaxTreeDepth = 3;
 
-      _spawnRound = 3;
+      _spawnRound = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -282,7 +283,7 @@ void upgradeBlue(int level) {
     case 1:
       _minimaxTreeDepth = 3;
 
-      _spawnRound = 3;
+      _spawnRound = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -300,7 +301,7 @@ void upgradeBlue(int level) {
     case 2:
       _minimaxTreeDepth = 4;
 
-      _spawnRound = 3;
+      _spawnRound = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -318,7 +319,7 @@ void upgradeBlue(int level) {
     case 3:
       _minimaxTreeDepth = 4;
 
-      _spawnRound = 3;
+      _spawnRound = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 10;
@@ -336,7 +337,7 @@ void upgradeBlue(int level) {
     case 4:
       _minimaxTreeDepth = 5;
 
-      _spawnRound = 2;
+      _spawnRound = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 15;
@@ -354,7 +355,7 @@ void upgradeBlue(int level) {
     default:
       _minimaxTreeDepth = 5;
 
-      _spawnRound = 2;
+      _spawnRound = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 25;

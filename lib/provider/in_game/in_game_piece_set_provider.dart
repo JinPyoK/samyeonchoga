@@ -57,6 +57,16 @@ final class InGamePieceSet extends _$InGamePieceSet {
     selectedPieceModel = null;
     lastTurnPiece = null;
 
+    _numOfPiece = {
+      PieceType.king: 1,
+      PieceType.cha: 2,
+      PieceType.po: 2,
+      PieceType.ma: 2,
+      PieceType.sang: 2,
+      PieceType.sa: 2,
+      PieceType.byung: 5,
+    };
+
     /// 한나라 포진 설정
     switch (lineup) {
       case Lineup.maSangMaSang:
@@ -153,18 +163,16 @@ final class InGamePieceSet extends _$InGamePieceSet {
     ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
     ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
 
-    if (inGameSave!.round < 10) {
+    if (inGameSave!.round < 20) {
       upgradeBlue(0);
-    } else if (inGameSave!.round < 20) {
-      upgradeBlue(1);
-    } else if (inGameSave!.round < 30) {
-      upgradeBlue(2);
     } else if (inGameSave!.round < 40) {
+      upgradeBlue(1);
+    } else if (inGameSave!.round < 60) {
+      upgradeBlue(2);
+    } else if (inGameSave!.round < 80) {
       upgradeBlue(3);
-    } else if (inGameSave!.round < 50) {
+    } else if (inGameSave!.round < 100) {
       upgradeBlue(4);
-    } else if (inGameSave!.round >= 50) {
-      upgradeBlue(5);
     } else {
       upgradeBlue(5);
     }
