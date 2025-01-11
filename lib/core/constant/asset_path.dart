@@ -19,7 +19,7 @@ const imageBlueZolPath = 'assets/image/blue_zol.png';
 
 /// 사운드
 const soundGameStartPath = 'game_start.mp3';
-const soundPieceMovePath = 'piece_move.m4a';
+const soundPieceMovePath = 'piece_move.mp3';
 const soundPieceTapPath = 'piece_tap.mp3';
 const soundBlueKilledPath = 'blue_killed.mp3';
 const soundRedKilledPath = 'red_killed.mp3';
