@@ -25,7 +25,7 @@ class HomeHelpChild extends StatelessWidget {
             '게임 시작 버튼을 누르신 후 포진을 자유롭게 선택하여 주시면 됩니다. 한나라의 포진은 랜덤입니다.'),
         _renderTitle('3. 대국'),
         _renderDescription(
-            '20 Round마다 한나라가 강해지며, 총 5단계까지 강화됩니다. 한나라가 강해질 수록 한나라의 알고리즘이 더욱 깊어지며, 부활 빈도가 증가합니다.'),
+            '20수 마다 한나라가 강해지며, 총 5단계까지 강화됩니다. 한나라가 강해질 수록 한나라의 알고리즘이 더욱 깊어지며, 부활 빈도가 증가합니다.'),
         _renderDescription(
             '대국 도중에 앱을 강제 종료 하지 마세요. 라운드, 골드 등 진행했던 내용이 모두 사라집니다.'),
         _renderTitle('4. 골드'),
@@ -48,7 +48,7 @@ class HomeHelpChild extends StatelessWidget {
         _renderDescription('골드와 마찬가지로, 앱을 삭제하면 저장했던 게임이 사라집니다.'),
         _renderTitle('8. 랭크'),
         _renderDescription(
-            '초나라의 왕이 한나라의 기물로부터 취해져서 게임이 종료되었을 때, 유저의 최종 Round 기록을 랭크에 등록하실 수 있습니다.'),
+            '초나라의 왕이 한나라의 기물로부터 취해져서 게임이 종료되었을 때, 유저의 최종 착수 횟수를 랭크에 등록하실 수 있습니다.'),
         _renderDescription('랭크는 최대 100위까지 기록되며, 아래 Rank 탭에서 확인하실 수 있습니다.'),
       ],
     );

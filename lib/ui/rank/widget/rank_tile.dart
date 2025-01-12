@@ -65,7 +65,7 @@ class RankTile extends StatelessWidget {
                   ),
                   SizedBox(width: 5 * wu),
                   Text(
-                    'round',
+                    '수',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 10 * wu),
                   ),
