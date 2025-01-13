@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/model/rank/rank_model.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class RankTile extends StatelessWidget {
   const RankTile({

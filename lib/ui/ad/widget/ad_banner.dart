@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class AdBanner extends StatefulWidget {
   const AdBanner({super.key, required this.adSize, required this.adUnitId});

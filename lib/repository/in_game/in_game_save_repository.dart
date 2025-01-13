@@ -25,7 +25,7 @@ final class InGameSaveRepository {
     this.inGameSaveDataList = inGameSaveDataList;
   }
 
-  /// 앱 첫 실행시 한 번 호출
+  /// 홈 스크린에서 게임 시작 버튼 누르면 호출
   Future<InGameSaveRepository?> readInGameSave() async {
     final result = await Isarbase.read(this);
 

@@ -11,7 +11,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/repository/in_game/in_game_save_repository.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
@@ -121,14 +121,11 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     }
 
     final isMyTurn = ref.watch(inGameTurnProvider);
-    final roundStart = ref.watch(inGameRoundProvider) == 0;
-
-    final buttonOn = isMyTurn && !roundStart;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: buttonOn
+        onTap: isMyTurn
             ? () {
                 ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
               }
@@ -294,7 +291,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                       const SizedBox(height: 10),
                                       _renderSpawnButton(PieceType.sa),
                                       const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.byung),
+                                      _renderSpawnButton(PieceType.zol),
                                     ],
                                   ),
                                 ),
@@ -326,7 +323,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                 )),
               ],
             ),
-            // dummy containers
+            // Dummy containers for spaceBetween in row
             Container(),
             Container(),
           ],

@@ -12,7 +12,7 @@ import 'package:samyeonchoga/core/local_database/isar_base.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 

@@ -28,7 +28,8 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   void _onPieceTaped() {
     final isMyTurn = ref.read(inGameTurnProvider);
-    if (widget.pieceModel.team == Team.red && isMyTurn) {
+
+    if (widget.pieceModel.team == Team.blue && isMyTurn) {
       selectedPieceModel = widget.pieceModel;
       widget.pieceModel.searchActionable(inGameBoardStatus);
       ref
@@ -41,7 +42,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   List<Color> justTurnPieceColor() {
     if (widget.pieceModel.justTurn) {
-      if (widget.pieceModel.team == Team.blue) {
+      if (widget.pieceModel.team == Team.red) {
         return [
           whiteColor,
           redColor,
@@ -79,10 +80,10 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   @override
   void setState(VoidCallback fn) {
-    if (widget.pieceModel is BluePieceBaseModel) {
-      final bluePieceModel = widget.pieceModel as BluePieceBaseModel;
+    if (widget.pieceModel is RedPieceBaseModel) {
+      final redPieceModel = widget.pieceModel as RedPieceBaseModel;
 
-      _callJanggoon = bluePieceModel.isTargetingKing;
+      _callJanggoon = redPieceModel.isTargetingKing;
     }
     super.setState(fn);
   }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class RankRefreshButton extends ConsumerStatefulWidget {
   const RankRefreshButton({super.key});

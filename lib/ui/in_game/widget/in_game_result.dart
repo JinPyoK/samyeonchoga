@@ -8,7 +8,7 @@ import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 

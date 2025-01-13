@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/home/widget/home_game_start_child.dart';
 import 'package:samyeonchoga/ui/home/widget/home_help_child.dart';

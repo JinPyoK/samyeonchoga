@@ -1,3 +1,3 @@
-enum Team { red, blue }
+enum Team { blue, red }
 
-enum PieceType { king, sa, cha, po, ma, sang, byung, zol }
+enum PieceType { king, sa, cha, po, ma, sang, zol, byung }

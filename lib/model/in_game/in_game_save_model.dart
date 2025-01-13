@@ -18,7 +18,7 @@ final class InGameSaveModel {
   final int y;
 
   const InGameSaveModel({
-    this.team = Team.red,
+    this.team = Team.blue,
     this.pieceType = PieceType.king,
     this.x = 4,
     this.y = 8,

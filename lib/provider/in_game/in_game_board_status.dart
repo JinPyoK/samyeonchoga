@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_king_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/in_game_save_model.dart';
@@ -11,10 +13,8 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 
 final class InGameBoardStatus {
@@ -37,33 +37,7 @@ final class InGameBoardStatus {
   void changeStatus(int x, int y, PieceOrJustActionable pieceModel) =>
       boardStatus[x][y] = pieceModel;
 
-  /// 초나라의 행마 조사 (미니맥스, 장군 체크)
-  List<PieceBaseModel> getBlueAll() {
-    final blueList = <PieceBaseModel>[];
-
-    for (List<PieceOrJustActionable> pieceList in boardStatus) {
-      for (PieceOrJustActionable piece in pieceList) {
-        if (piece is PieceBaseModel) {
-          if (piece.team == Team.blue) {
-            blueList.add(piece);
-          }
-        }
-      }
-    }
-
-    return blueList;
-  }
-
-  /// 초나라의 기물 개수 -> 초나라 기물이 70개 이상이면 게임 종료
-  /// 초나라가 공격을 안하고 무한 반복수 하는 경우를 방비
-  int getNumOfBlue() {
-    final blueList = getBlueAll();
-    log(blueList.length.toString());
-
-    return blueList.length;
-  }
-
-  /// 한나라의 행마 조사 (미니맥스)
+  /// 한나라의 행마 조사 (미니맥스, 장군 체크)
   List<PieceBaseModel> getRedAll() {
     final redList = <PieceBaseModel>[];
 
@@ -78,6 +52,32 @@ final class InGameBoardStatus {
     }
 
     return redList;
+  }
+
+  /// 한나라의 기물 개수 -> 한나라 기물이 70개 이상이면 게임 종료
+  /// 한나라가 공격을 안하고 무한 반복수 하는 경우를 방비
+  int getNumOfRed() {
+    final redList = getRedAll();
+    log(redList.length.toString());
+
+    return redList.length;
+  }
+
+  /// 초나라의 행마 조사 (미니맥스)
+  List<PieceBaseModel> getBlueAll() {
+    final blueList = <PieceBaseModel>[];
+
+    for (List<PieceOrJustActionable> pieceList in boardStatus) {
+      for (PieceOrJustActionable piece in pieceList) {
+        if (piece is PieceBaseModel) {
+          if (piece.team == Team.blue) {
+            blueList.add(piece);
+          }
+        }
+      }
+    }
+
+    return blueList;
   }
 
   /// 게임 저장 데이터 수집
@@ -109,28 +109,13 @@ final class InGameBoardStatus {
     for (InGameSaveModel inGameSaveData in savedData) {
       late PieceBaseModel pieceModel;
 
-      /// 한나라
-      if (inGameSaveData.team == Team.red) {
-        if (inGameSaveData.pieceType == PieceType.king) {
-          pieceModel = RedKingModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.sa) {
-          pieceModel = RedSaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.cha) {
-          pieceModel = RedChaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.po) {
-          pieceModel = RedPoModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.ma) {
-          pieceModel = RedMaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.sang) {
-          pieceModel = RedSangModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else {
-          pieceModel = RedByungModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        }
-      }
-
       /// 초나라
-      else {
-        if (inGameSaveData.pieceType == PieceType.cha) {
+      if (inGameSaveData.team == Team.blue) {
+        if (inGameSaveData.pieceType == PieceType.king) {
+          pieceModel = BlueKingModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else if (inGameSaveData.pieceType == PieceType.sa) {
+          pieceModel = BlueSaModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else if (inGameSaveData.pieceType == PieceType.cha) {
           pieceModel = BlueChaModel(x: inGameSaveData.x, y: inGameSaveData.y);
         } else if (inGameSaveData.pieceType == PieceType.po) {
           pieceModel = BluePoModel(x: inGameSaveData.x, y: inGameSaveData.y);
@@ -140,6 +125,21 @@ final class InGameBoardStatus {
           pieceModel = BlueSangModel(x: inGameSaveData.x, y: inGameSaveData.y);
         } else {
           pieceModel = BlueZolModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        }
+      }
+
+      /// 한나라
+      else {
+        if (inGameSaveData.pieceType == PieceType.cha) {
+          pieceModel = RedChaModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else if (inGameSaveData.pieceType == PieceType.po) {
+          pieceModel = RedPoModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else if (inGameSaveData.pieceType == PieceType.ma) {
+          pieceModel = RedMaModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else if (inGameSaveData.pieceType == PieceType.sang) {
+          pieceModel = RedSangModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        } else {
+          pieceModel = RedByungModel(x: inGameSaveData.x, y: inGameSaveData.y);
         }
       }
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
@@ -175,35 +175,15 @@ final class InGameBoardStatus {
     for (Map<String, dynamic> boardStatusJson in boardStatusJsonList) {
       late PieceBaseModel pieceModel;
 
-      /// 한나라
-      if (boardStatusJson['team'] == Team.red.name) {
+      /// 초나라
+      if (boardStatusJson['team'] == Team.blue.name) {
         if (boardStatusJson['pieceType'] == PieceType.king.name) {
           pieceModel =
-              RedKingModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+              BlueKingModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         } else if (boardStatusJson['pieceType'] == PieceType.sa.name) {
           pieceModel =
-              RedSaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+              BlueSaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         } else if (boardStatusJson['pieceType'] == PieceType.cha.name) {
-          pieceModel =
-              RedChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
-          pieceModel =
-              RedPoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
-          pieceModel =
-              RedMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
-          pieceModel =
-              RedSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        } else if (boardStatusJson['pieceType'] == PieceType.byung.name) {
-          pieceModel =
-              RedByungModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
-        }
-      }
-
-      /// 초나라
-      else {
-        if (boardStatusJson['pieceType'] == PieceType.cha.name) {
           pieceModel =
               BlueChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
@@ -218,6 +198,26 @@ final class InGameBoardStatus {
         } else if (boardStatusJson['pieceType'] == PieceType.zol.name) {
           pieceModel =
               BlueZolModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        }
+      }
+
+      /// 한나라
+      else {
+        if (boardStatusJson['pieceType'] == PieceType.cha.name) {
+          pieceModel =
+              RedChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
+          pieceModel =
+              RedPoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
+          pieceModel =
+              RedMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
+          pieceModel =
+              RedSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+        } else if (boardStatusJson['pieceType'] == PieceType.byung.name) {
+          pieceModel =
+              RedByungModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
         }
       }
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);

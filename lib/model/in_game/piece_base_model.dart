@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_king_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_king_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_sa_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 
-import 'blue_piece/blue_cha_model.dart';
-import 'blue_piece/blue_ma_model.dart';
-import 'blue_piece/blue_po_model.dart';
-import 'blue_piece/blue_sang_model.dart';
-import 'blue_piece/blue_zol_model.dart';
+import 'red_piece/red_cha_model.dart';
+import 'red_piece/red_ma_model.dart';
+import 'red_piece/red_po_model.dart';
+import 'red_piece/red_sang_model.dart';
+import 'red_piece/red_byung_model.dart';
 
 abstract base class PieceOrJustActionable {}
 
@@ -25,7 +25,7 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   /// 기물 타입
   final PieceType pieceType;
 
-  /// 기물의 가치 -> 한: 초나라의 미니맥스 알고리즘 가치 / 초: 초나라 기물을 취했을 때 얻는 골드
+  /// 기물의 가치 -> 봇 기물: 한나라의 미니맥스 알고리즘 가치 / 유저 기물: 한나라 기물을 취했을 때 얻는 골드
   final int value;
 
   /// 기물의 이미지 프로바이더 (precached)
@@ -54,27 +54,12 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
     late PieceBaseModel pieceModel;
 
     /// 한나라
-    if (team == Team.red) {
+    if (team == Team.blue) {
       if (pieceType == PieceType.king) {
-        pieceModel = RedKingModel(x: x, y: y);
+        pieceModel = BlueKingModel(x: x, y: y);
       } else if (pieceType == PieceType.sa) {
-        pieceModel = RedSaModel(x: x, y: y);
+        pieceModel = BlueSaModel(x: x, y: y);
       } else if (pieceType == PieceType.cha) {
-        pieceModel = RedChaModel(x: x, y: y);
-      } else if (pieceType == PieceType.po) {
-        pieceModel = RedPoModel(x: x, y: y);
-      } else if (pieceType == PieceType.ma) {
-        pieceModel = RedMaModel(x: x, y: y);
-      } else if (pieceType == PieceType.sang) {
-        pieceModel = RedSangModel(x: x, y: y);
-      } else {
-        pieceModel = RedByungModel(x: x, y: y);
-      }
-    }
-
-    /// 초나라
-    else {
-      if (pieceType == PieceType.cha) {
         pieceModel = BlueChaModel(x: x, y: y);
       } else if (pieceType == PieceType.po) {
         pieceModel = BluePoModel(x: x, y: y);
@@ -84,6 +69,21 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
         pieceModel = BlueSangModel(x: x, y: y);
       } else {
         pieceModel = BlueZolModel(x: x, y: y);
+      }
+    }
+
+    /// 초나라
+    else {
+      if (pieceType == PieceType.cha) {
+        pieceModel = RedChaModel(x: x, y: y);
+      } else if (pieceType == PieceType.po) {
+        pieceModel = RedPoModel(x: x, y: y);
+      } else if (pieceType == PieceType.ma) {
+        pieceModel = RedMaModel(x: x, y: y);
+      } else if (pieceType == PieceType.sang) {
+        pieceModel = RedSangModel(x: x, y: y);
+      } else {
+        pieceModel = RedByungModel(x: x, y: y);
       }
     }
 
@@ -97,8 +97,8 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   void searchActionable(InGameBoardStatus statusBoard) {}
 }
 
-abstract base class RedPieceBaseModel extends PieceBaseModel {
-  RedPieceBaseModel({
+abstract base class BluePieceBaseModel extends PieceBaseModel {
+  BluePieceBaseModel({
     required super.x,
     required super.y,
     required super.team,
@@ -108,8 +108,8 @@ abstract base class RedPieceBaseModel extends PieceBaseModel {
   }) : super();
 }
 
-abstract base class BluePieceBaseModel extends PieceBaseModel {
-  /// 현재 이 기물이 장군을 부르고 있는가? (초나라 기물만 해당)
+abstract base class RedPieceBaseModel extends PieceBaseModel {
+  /// 현재 이 기물이 장군을 부르고 있는가? (한나라 기물만 해당)
   bool isTargetingKing = false;
 
   /// 장군인지 파악
@@ -124,7 +124,7 @@ abstract base class BluePieceBaseModel extends PieceBaseModel {
     }
   }
 
-  BluePieceBaseModel({
+  RedPieceBaseModel({
     required super.x,
     required super.y,
     required super.team,

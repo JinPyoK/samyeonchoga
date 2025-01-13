@@ -1,6 +1,6 @@
-import 'package:samyeonchoga/model/in_game/blue_piece/find_blue_actions.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/find_blue_actions.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -11,8 +11,8 @@ final class BlueSangModel extends BluePieceBaseModel {
   }) : super(
           team: Team.blue,
           pieceType: PieceType.sang,
-          value: 3,
-          imageProvider: imageRedSang,
+          value: 30,
+          imageProvider: imageBlueSang,
         );
 
   @override

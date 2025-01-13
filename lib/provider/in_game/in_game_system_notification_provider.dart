@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
-import 'package:samyeonchoga/ui/in_game/widget/system_notification/blue_upgrade_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/error_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/janggoon_system_notification.dart';
+import 'package:samyeonchoga/ui/in_game/widget/system_notification/red_upgrade_system_notification.dart';
 
 part 'in_game_system_notification_provider.g.dart';
 
@@ -22,10 +22,10 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
     makeExecuteOrJanggoonSound();
   }
 
-  void notifyBlueUpgrade(int level) {
+  void notifyRedUpgrade(int level) {
     state = <Widget>[
       ...state,
-      BlueUpgradeSystemNotification(key: GlobalKey(), level: level),
+      RedUpgradeSystemNotification(key: GlobalKey(), level: level),
     ];
     makeGameStartSound();
   }

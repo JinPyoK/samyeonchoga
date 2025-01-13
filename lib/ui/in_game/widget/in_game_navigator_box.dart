@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_sa_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/navigator_type_enum.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sa_model.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
@@ -37,7 +37,7 @@ class InGameNavigatorBox extends ConsumerStatefulWidget {
 class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
   double _navigatorOpacity = 0;
 
-  /// 한나라, 즉 유저에게만 작용하는 함수
+  /// 초나라, 즉 유저에게만 작용하는 함수
   void _onNavigatorTaped() {
     if (widget.navigatorType == NavigatorType.pieceMove) {
       /// 네비게이터 삭제
@@ -54,11 +54,11 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
         ),
       );
 
-      /// 움직인 자리에 초나라 기물이 있다면 제거하기
+      /// 움직인 자리에 한나라 기물이 있다면 제거하기
       final status = inGameBoardStatus.getStatus(
           widget.pieceActionable.targetX, widget.pieceActionable.targetY);
       if (status is PieceBaseModel) {
-        if (status.team == Team.blue) {
+        if (status.team == Team.red) {
           ref
               .read(inGamePieceSetProvider.notifier)
               .removePiece(widget.pieceActionable);
@@ -89,32 +89,32 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       late PieceBaseModel spawnPieceModel;
       final pieceType = ref.read(inGameFooterSpawnPieceProvider);
       if (pieceType == PieceType.cha) {
-        spawnPieceModel = RedChaModel(
+        spawnPieceModel = BlueChaModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );
       } else if (pieceType == PieceType.po) {
-        spawnPieceModel = RedPoModel(
+        spawnPieceModel = BluePoModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );
       } else if (pieceType == PieceType.ma) {
-        spawnPieceModel = RedMaModel(
+        spawnPieceModel = BlueMaModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );
       } else if (pieceType == PieceType.sang) {
-        spawnPieceModel = RedSangModel(
+        spawnPieceModel = BlueSangModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );
       } else if (pieceType == PieceType.sa) {
-        spawnPieceModel = RedSaModel(
+        spawnPieceModel = BlueSaModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );
       } else {
-        spawnPieceModel = RedByungModel(
+        spawnPieceModel = BlueZolModel(
           x: widget.pieceActionable.targetX,
           y: widget.pieceActionable.targetY,
         );

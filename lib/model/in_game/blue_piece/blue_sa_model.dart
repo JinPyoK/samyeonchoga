@@ -1,15 +1,15 @@
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/find_red_actions.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/find_blue_actions.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
-final class RedSaModel extends RedPieceBaseModel {
-  RedSaModel({
+final class BlueSaModel extends BluePieceBaseModel {
+  BlueSaModel({
     required super.x,
     required super.y,
   }) : super(
-          team: Team.red,
+          team: Team.blue,
           pieceType: PieceType.sa,
           value: 30,
           imageProvider: imageBlueSa,
@@ -25,7 +25,7 @@ final class RedSaModel extends RedPieceBaseModel {
     /// 사 액션 탐색
     void findSaActions(List<PieceOrJustActionable> statusList) {
       for (PieceOrJustActionable status in statusList) {
-        findRedActions(status, pieceActionable);
+        findBlueActions(status, pieceActionable);
       }
     }
 

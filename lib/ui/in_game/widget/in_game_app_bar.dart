@@ -4,7 +4,7 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 

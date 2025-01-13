@@ -2,15 +2,15 @@ import 'dart:math' hide log;
 
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/minimax_node_tree.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_byung_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_cha_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_ma_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
+import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
@@ -21,7 +21,7 @@ import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
-part 'in_game_blue_minimax.dart';
+part 'in_game_red_minimax.dart';
 part 'in_game_turn_provider.g.dart';
 
 @Riverpod()
@@ -36,18 +36,18 @@ final class InGameTurn extends _$InGameTurn {
 
     state = !state;
 
-    /// 초나라 착수
+    /// 한나라 착수
     if (state == false) {
       /// 시스템 노티피케이션 리스트 비워주기
       ref
           .read(inGameSystemNotificationProvider.notifier)
           .clearNotificationList();
 
-      /// 초나라 기물 부활
-      _blueSpawn();
+      /// 한나라 기물 부활
+      _redSpawn();
 
-      /// 초나라 기물의 수가 70을 넘으면 게임 종료
-      if (inGameBoardStatus.getNumOfBlue() > 70) {
+      /// 한나라 기물의 수가 70을 넘으면 게임 종료
+      if (inGameBoardStatus.getNumOfRed() > 70) {
         if (globalContext!.mounted) {
           Future.delayed(const Duration(seconds: 1), () {
             showCustomDialog(
@@ -60,10 +60,10 @@ final class InGameTurn extends _$InGameTurn {
         return;
       }
 
-      /// 초나라 착수
-      final PieceActionableModel? targetPieceActionable = await _blueAction();
+      /// 한나라 착수
+      final PieceActionableModel? targetPieceActionable = await _redAction();
 
-      /// 만약 초나라가 왕을 먹었다면 게임 종료
+      /// 만약 한나라가 초나라의 왕을 먹었다면 게임 종료
       if (targetPieceActionable != null) {
         if (targetPieceActionable.targetValue == 1000) {
           if (globalContext!.mounted) {
@@ -79,32 +79,32 @@ final class InGameTurn extends _$InGameTurn {
         }
       }
 
-      /// 초나라 착수 후 장군 체크
+      /// 한나라 착수 후 장군 체크
       determineIfJanggoon();
 
       changeTurn();
     }
   }
 
-  void _blueSpawn() {
+  void _redSpawn() {
     final round = ref.read(inGameRoundProvider);
 
-    /// 초나라 알고리즘 강화
+    /// 한나라 알고리즘 강화
     if (round == 20) {
-      upgradeBlue(1);
-      ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(1);
+      upgradeRed(1);
+      ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(1);
     } else if (round == 40) {
-      upgradeBlue(2);
-      ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(2);
+      upgradeRed(2);
+      ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(2);
     } else if (round == 60) {
-      upgradeBlue(3);
-      ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(3);
+      upgradeRed(3);
+      ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(3);
     } else if (round == 80) {
-      upgradeBlue(4);
-      ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(4);
+      upgradeRed(4);
+      ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(4);
     } else if (round == 100) {
-      upgradeBlue(5);
-      ref.read(inGameSystemNotificationProvider.notifier).notifyBlueUpgrade(5);
+      upgradeRed(5);
+      ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(5);
     }
 
     /// spawnRound 마다 초나라 기물 부활
@@ -112,68 +112,68 @@ final class InGameTurn extends _$InGameTurn {
       return;
     }
 
-    final blueSpawnPositionList = <PieceActionableModel>[];
+    final redSpawnPositionList = <PieceActionableModel>[];
 
-    /// 초나라 기물 부활 자리 찾기
+    /// 한나라 기물 부활 자리 찾기
     for (int i = 0; i < 9; i++) {
       for (int j = 0; j < 4; j++) {
         final bluePlace = inGameBoardStatus.getStatus(i, j);
         if (bluePlace is PieceActionableModel) {
-          blueSpawnPositionList.add(bluePlace);
+          redSpawnPositionList.add(bluePlace);
         }
       }
     }
 
-    /// 초나라 진영에 부활할 자리가 없으면 한나라 진영 포함 나머지 구역 조사
-    if (blueSpawnPositionList.isEmpty) {
+    /// 한나라 진영에 부활할 자리가 없으면 초나라 진영 포함 나머지 구역 조사
+    if (redSpawnPositionList.isEmpty) {
       for (int i = 0; i < 9; i++) {
         for (int j = 4; j < 10; j++) {
           final bluePlace = inGameBoardStatus.getStatus(i, j);
           if (bluePlace is PieceActionableModel) {
-            blueSpawnPositionList.add(bluePlace);
+            redSpawnPositionList.add(bluePlace);
           }
         }
       }
     }
 
     /// 그래도 없으면 함수 종료
-    if (blueSpawnPositionList.isEmpty) {
+    if (redSpawnPositionList.isEmpty) {
       return;
     }
 
     final pieceTypeNumberRange = Random().nextInt(100);
-    final blueSpawnPositionNumber =
-        Random().nextInt(blueSpawnPositionList.length);
+    final redSpawnPositionNumber =
+        Random().nextInt(redSpawnPositionList.length);
 
-    late PieceBaseModel spawnBluePiece;
-    final bluePiecePlace = blueSpawnPositionList[blueSpawnPositionNumber];
+    late PieceBaseModel spawnRedPiece;
+    final redPiecePlace = redSpawnPositionList[redSpawnPositionNumber];
 
     /// 기물 부활 확률
     if (pieceTypeNumberRange >= _chaSpawnStartRange &&
         pieceTypeNumberRange < _chaSpawnEndRange) {
-      spawnBluePiece =
-          BlueChaModel(x: bluePiecePlace.targetX, y: bluePiecePlace.targetY);
+      spawnRedPiece =
+          RedChaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     } else if (pieceTypeNumberRange >= _poSpawnStartRange &&
         pieceTypeNumberRange < _poSpawnEndRange) {
-      spawnBluePiece =
-          BluePoModel(x: bluePiecePlace.targetX, y: bluePiecePlace.targetY);
+      spawnRedPiece =
+          RedPoModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     } else if (pieceTypeNumberRange >= _maSpawnStartRange &&
         pieceTypeNumberRange < _maSpawnEndRange) {
-      spawnBluePiece =
-          BlueMaModel(x: bluePiecePlace.targetX, y: bluePiecePlace.targetY);
+      spawnRedPiece =
+          RedMaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     } else if (pieceTypeNumberRange >= _sangSpawnStartRange &&
         pieceTypeNumberRange < _sangSpawnEndRange) {
-      spawnBluePiece =
-          BlueSangModel(x: bluePiecePlace.targetX, y: bluePiecePlace.targetY);
+      spawnRedPiece =
+          RedSangModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     } else {
-      spawnBluePiece =
-          BlueZolModel(x: bluePiecePlace.targetX, y: bluePiecePlace.targetY);
+      spawnRedPiece =
+          RedByungModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     }
 
-    ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnBluePiece);
+    ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnRedPiece);
   }
 
-  Future<PieceActionableModel?> _blueAction() async {
+  Future<PieceActionableModel?> _redAction() async {
     final minimaxResult = await _minimaxIsolate(_minimaxTreeDepth);
 
     if (minimaxResult.isEmpty) {
@@ -219,11 +219,11 @@ final class InGameTurn extends _$InGameTurn {
       ),
     );
 
-    /// 움직인 자리에 한나라 기물이 있다면 제거하기
+    /// 움직인 자리에 초나라 기물이 있다면 제거하기
     final status = inGameBoardStatus.getStatus(
         pieceActionable.targetX, pieceActionable.targetY);
     if (status is PieceBaseModel) {
-      if (status.team == Team.red) {
+      if (status.team == Team.blue) {
         ref.read(inGamePieceSetProvider.notifier).removePiece(pieceActionable);
       }
     }
@@ -244,18 +244,18 @@ final class InGameTurn extends _$InGameTurn {
   void determineIfJanggoon() {
     bool targetKing = false;
 
-    /// 초나라의 기물 모두 조사
-    final blueList = inGameBoardStatus.getBlueAll();
+    /// 한나라의 기물 모두 조사
+    final redList = inGameBoardStatus.getRedAll();
 
-    for (PieceBaseModel piece in blueList) {
-      final bluePiece = piece as BluePieceBaseModel;
+    for (PieceBaseModel piece in redList) {
+      final redPiece = piece as RedPieceBaseModel;
 
-      bluePiece.searchActionable(inGameBoardStatus);
-      bluePiece.doesThisPieceCallJanggoon();
+      redPiece.searchActionable(inGameBoardStatus);
+      redPiece.doesThisPieceCallJanggoon();
 
-      bluePiece.setStateThisPiece!(() {});
+      redPiece.setStateThisPiece!(() {});
 
-      if (bluePiece.isTargetingKing) {
+      if (redPiece.isTargetingKing) {
         targetKing = true;
       }
     }
@@ -285,7 +285,8 @@ int _maSpawnEndRange = 30;
 int _sangSpawnStartRange = 30;
 int _sangSpawnEndRange = 60;
 
-void upgradeBlue(int level) {
+/// 한나라 알고리즘 강화
+void upgradeRed(int level) {
   switch (level) {
     case 0:
       _minimaxTreeDepth = 3;

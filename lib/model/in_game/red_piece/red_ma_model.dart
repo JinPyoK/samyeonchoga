@@ -1,6 +1,6 @@
+import 'package:samyeonchoga/model/in_game/red_piece/find_red_actions.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/red_piece/find_red_actions.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -11,8 +11,8 @@ final class RedMaModel extends RedPieceBaseModel {
   }) : super(
           team: Team.red,
           pieceType: PieceType.ma,
-          value: 50,
-          imageProvider: imageBlueMa,
+          value: 5,
+          imageProvider: imageRedMa,
         );
 
   @override

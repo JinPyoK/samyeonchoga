@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
 
-class BlueUpgradeSystemNotification extends StatelessWidget {
-  const BlueUpgradeSystemNotification({super.key, required this.level});
+class RedUpgradeSystemNotification extends StatelessWidget {
+  const RedUpgradeSystemNotification({super.key, required this.level});
 
   final int level;
 

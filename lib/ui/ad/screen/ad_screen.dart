@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/ui/ad/controller/ad_id.dart';
 import 'package:samyeonchoga/ui/ad/widget/ad_reward.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class AdScreen extends StatefulWidget {
   const AdScreen({super.key});

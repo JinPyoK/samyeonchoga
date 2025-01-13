@@ -24,8 +24,8 @@ List<int?> _minimax(List<dynamic> params) {
 
   /// 노드가 max이면 초, min이면 한 기물들 조사
   final pieceList = (nodeDepth + 1) % 2 == 1
-      ? minimaxStatusBoard.getBlueAll()
-      : minimaxStatusBoard.getRedAll();
+      ? minimaxStatusBoard.getRedAll()
+      : minimaxStatusBoard.getBlueAll();
 
   bool allPiecesHaveEmptyActionable = true;
 

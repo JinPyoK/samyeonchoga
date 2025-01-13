@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class PieceJanggoonNotification extends StatelessWidget {
   const PieceJanggoonNotification({super.key});

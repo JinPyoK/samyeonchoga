@@ -5,7 +5,7 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';

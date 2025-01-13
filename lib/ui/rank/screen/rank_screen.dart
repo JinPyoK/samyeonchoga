@@ -4,7 +4,7 @@ import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/model/rank/rank_state_model.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
 import 'package:samyeonchoga/provider/rank/rank_state_provider.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/widget/loading_skeleton.dart';
 import 'package:samyeonchoga/ui/rank/widget/rank_refresh_button.dart';
 import 'package:samyeonchoga/ui/rank/widget/rank_tile.dart';

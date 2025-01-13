@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
-import 'package:samyeonchoga/ui/common/controller/scrren_size.dart';
+import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class HomeHelpChild extends StatelessWidget {
   const HomeHelpChild({super.key});
