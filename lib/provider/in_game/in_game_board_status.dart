@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_king_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
@@ -58,7 +56,6 @@ final class InGameBoardStatus {
   /// 한나라가 공격을 안하고 무한 반복수 하는 경우를 방비
   int getNumOfRed() {
     final redList = getRedAll();
-    log(redList.length.toString());
 
     return redList.length;
   }

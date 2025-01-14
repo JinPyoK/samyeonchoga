@@ -47,6 +47,8 @@ final class InGameTurn extends _$InGameTurn {
       /// 한나라 기물 부활
       _redSpawn();
 
+      ref.read(inGameOnTheRopesProvider.notifier).checkOnTheRopes();
+
       /// 한나라 기물의 수가 70을 넘으면 게임 종료
       if (inGameBoardStatus.getNumOfRed() > 70) {
         if (globalContext!.mounted) {

@@ -3,6 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/error_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/janggoon_system_notification.dart';
+import 'package:samyeonchoga/ui/in_game/widget/system_notification/red_on_the_ropes_system_notification.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/red_upgrade_system_notification.dart';
 
 part 'in_game_system_notification_provider.g.dart';
@@ -36,6 +37,14 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
       ErrorSystemNotification(key: GlobalKey(), errorMessage: errorMessage),
     ];
     makeSystemErrorSound();
+  }
+
+  void notifyOnTheRopes() {
+    state = <Widget>[
+      ...state,
+      RedOnTheRopesSystemNotification(key: GlobalKey()),
+    ];
+    makeGameStartSound();
   }
 
   void clearNotificationList() {

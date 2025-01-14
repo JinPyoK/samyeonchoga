@@ -1,3 +1,9 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
+
+part 'in_game_red_status.g.dart';
+
 /// 한나라 상태 정보
 /// 미니맥스 트리 깊이, 부활 수, 기물 부활 확률
 final class _InGameRedStatusProvider {
@@ -132,3 +138,35 @@ final class _InGameRedStatusProvider {
 }
 
 final inGameRedStatusProvider = _InGameRedStatusProvider();
+
+/// 기물 수가 60을 넘을 때 노티피케이션 한번만 호출하기
+bool _notifyOnce = false;
+
+@Riverpod()
+final class InGameOnTheRopes extends _$InGameOnTheRopes {
+  @override
+  bool build() {
+    return false;
+  }
+
+  void initOnTheRopes() {
+    _notifyOnce = false;
+  }
+
+  void checkOnTheRopes() {
+    final numOfRedPieces = inGameBoardStatus.getNumOfRed();
+
+    if (numOfRedPieces >= 60) {
+      state = true;
+      if (!_notifyOnce) {
+        ref.read(inGameSystemNotificationProvider.notifier).notifyOnTheRopes();
+        _notifyOnce = true;
+      }
+    } else {
+      state = false;
+      _notifyOnce = false;
+    }
+
+    state = numOfRedPieces >= 60;
+  }
+}

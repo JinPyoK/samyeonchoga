@@ -68,6 +68,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
       PieceType.zol: 5,
     };
 
+    ref.read(inGameOnTheRopesProvider.notifier).initOnTheRopes();
+
     /// 초나라 포진 설정
     switch (lineup) {
       case Lineup.maSangMaSang:
@@ -163,6 +165,8 @@ final class InGamePieceSet extends _$InGamePieceSet {
   void initPieceWithSavedData() {
     ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
     ref.read(inGameMoveProvider.notifier).setMove(inGameSave!.move);
+
+    ref.read(inGameOnTheRopesProvider.notifier).initOnTheRopes();
 
     if (inGameSave!.move < 20) {
       inGameRedStatusProvider.upgradeRed(0);

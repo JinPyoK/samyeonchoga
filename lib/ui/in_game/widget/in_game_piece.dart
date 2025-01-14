@@ -5,6 +5,7 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
@@ -40,24 +41,41 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     }
   }
 
-  List<Color> justTurnPieceColor() {
-    if (widget.pieceModel.justTurn) {
-      if (widget.pieceModel.team == Team.red) {
+  List<Color> _justTurnPieceColor() {
+    /// 한나라 기물의 수가 60 이상
+    final onTheRopes = ref.watch(inGameOnTheRopesProvider);
+
+    if (widget.pieceModel.team == Team.red) {
+      if (onTheRopes) {
         return [
           whiteColor,
           redColor,
         ];
       } else {
+        if (widget.pieceModel.justTurn) {
+          return [
+            whiteColor,
+            redColor,
+          ];
+        } else {
+          return [
+            whiteColor,
+            whiteColor,
+          ];
+        }
+      }
+    } else {
+      if (widget.pieceModel.justTurn) {
         return [
           whiteColor,
           Colors.blueAccent,
         ];
+      } else {
+        return [
+          whiteColor,
+          whiteColor,
+        ];
       }
-    } else {
-      return [
-        whiteColor,
-        whiteColor,
-      ];
     }
   }
 
@@ -112,7 +130,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
                 onTap: _onPieceTaped,
                 child: ShaderMask(
                   shaderCallback: (rect) {
-                    return RadialGradient(colors: justTurnPieceColor())
+                    return RadialGradient(colors: _justTurnPieceColor())
                         .createShader(rect);
                   },
                   child: Image(
