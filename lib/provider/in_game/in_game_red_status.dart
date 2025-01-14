@@ -1,6 +1,6 @@
 /// 한나라 상태 정보
 /// 미니맥스 트리 깊이, 부활 수, 기물 부활 확률
-final class InGameRedStatusProvider {
+final class _InGameRedStatusProvider {
   int minimaxTreeDepth = 3;
 
   int spawnMove = 8;
@@ -131,4 +131,4 @@ final class InGameRedStatusProvider {
   }
 }
 
-final inGameRedStatusProvider = InGameRedStatusProvider();
+final inGameRedStatusProvider = _InGameRedStatusProvider();
