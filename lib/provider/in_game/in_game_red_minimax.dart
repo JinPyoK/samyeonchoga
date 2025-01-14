@@ -1,7 +1,5 @@
 part of 'in_game_turn_provider.dart';
 
-int _minimaxTreeDepth = 3;
-
 final _minimaxNodeTree = MinimaxNodeTree();
 
 final _minimaxResult = <MinimaxNode>[];

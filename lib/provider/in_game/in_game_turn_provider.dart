@@ -15,6 +15,7 @@ import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
@@ -91,24 +92,24 @@ final class InGameTurn extends _$InGameTurn {
 
     /// 한나라 알고리즘 강화
     if (move == 20) {
-      upgradeRed(1);
+      inGameRedStatusProvider.upgradeRed(1);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(1);
     } else if (move == 40) {
-      upgradeRed(2);
+      inGameRedStatusProvider.upgradeRed(2);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(2);
     } else if (move == 60) {
-      upgradeRed(3);
+      inGameRedStatusProvider.upgradeRed(3);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(3);
     } else if (move == 80) {
-      upgradeRed(4);
+      inGameRedStatusProvider.upgradeRed(4);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(4);
     } else if (move == 100) {
-      upgradeRed(5);
+      inGameRedStatusProvider.upgradeRed(5);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(5);
     }
 
     /// spawnMove 마다 초나라 기물 부활
-    if (move % _spawnMove != 0) {
+    if (move % inGameRedStatusProvider.spawnMove != 0) {
       return;
     }
 
@@ -149,20 +150,23 @@ final class InGameTurn extends _$InGameTurn {
     final redPiecePlace = redSpawnPositionList[redSpawnPositionNumber];
 
     /// 기물 부활 확률
-    if (pieceTypeNumberRange >= _chaSpawnStartRange &&
-        pieceTypeNumberRange < _chaSpawnEndRange) {
+    if (pieceTypeNumberRange >= inGameRedStatusProvider.chaSpawnStartRange &&
+        pieceTypeNumberRange < inGameRedStatusProvider.chaSpawnEndRange) {
       spawnRedPiece =
           RedChaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
-    } else if (pieceTypeNumberRange >= _poSpawnStartRange &&
-        pieceTypeNumberRange < _poSpawnEndRange) {
+    } else if (pieceTypeNumberRange >=
+            inGameRedStatusProvider.poSpawnStartRange &&
+        pieceTypeNumberRange < inGameRedStatusProvider.poSpawnEndRange) {
       spawnRedPiece =
           RedPoModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
-    } else if (pieceTypeNumberRange >= _maSpawnStartRange &&
-        pieceTypeNumberRange < _maSpawnEndRange) {
+    } else if (pieceTypeNumberRange >=
+            inGameRedStatusProvider.maSpawnStartRange &&
+        pieceTypeNumberRange < inGameRedStatusProvider.maSpawnEndRange) {
       spawnRedPiece =
           RedMaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
-    } else if (pieceTypeNumberRange >= _sangSpawnStartRange &&
-        pieceTypeNumberRange < _sangSpawnEndRange) {
+    } else if (pieceTypeNumberRange >=
+            inGameRedStatusProvider.sangSpawnStartRange &&
+        pieceTypeNumberRange < inGameRedStatusProvider.sangSpawnEndRange) {
       spawnRedPiece =
           RedSangModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
     } else {
@@ -174,7 +178,8 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<PieceActionableModel?> _redAction() async {
-    final minimaxResult = await _minimaxIsolate(_minimaxTreeDepth);
+    final minimaxResult =
+        await _minimaxIsolate(inGameRedStatusProvider.minimaxTreeDepth);
 
     if (minimaxResult.isEmpty) {
       return null;
@@ -268,132 +273,5 @@ final class InGameTurn extends _$InGameTurn {
   Future<List<int?>> _minimaxIsolate(int treeDepth) async {
     return await compute(
         _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
-  }
-}
-
-int _spawnMove = 4;
-
-int _chaSpawnStartRange = 0;
-int _chaSpawnEndRange = 5;
-
-int _poSpawnStartRange = 5;
-int _poSpawnEndRange = 15;
-
-int _maSpawnStartRange = 15;
-int _maSpawnEndRange = 30;
-
-int _sangSpawnStartRange = 30;
-int _sangSpawnEndRange = 60;
-
-/// 한나라 알고리즘 강화
-void upgradeRed(int level) {
-  switch (level) {
-    case 0:
-      _minimaxTreeDepth = 3;
-
-      _spawnMove = 8;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 5;
-
-      _poSpawnStartRange = 5;
-      _poSpawnEndRange = 15;
-
-      _maSpawnStartRange = 15;
-      _maSpawnEndRange = 30;
-
-      _sangSpawnStartRange = 30;
-      _sangSpawnEndRange = 60;
-      break;
-
-    case 1:
-      _minimaxTreeDepth = 3;
-
-      _spawnMove = 4;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 5;
-
-      _poSpawnStartRange = 5;
-      _poSpawnEndRange = 15;
-
-      _maSpawnStartRange = 15;
-      _maSpawnEndRange = 30;
-
-      _sangSpawnStartRange = 30;
-      _sangSpawnEndRange = 70;
-      break;
-
-    case 2:
-      _minimaxTreeDepth = 4;
-
-      _spawnMove = 8;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 5;
-
-      _poSpawnStartRange = 5;
-      _poSpawnEndRange = 15;
-
-      _maSpawnStartRange = 15;
-      _maSpawnEndRange = 40;
-
-      _sangSpawnStartRange = 40;
-      _sangSpawnEndRange = 60;
-      break;
-
-    case 3:
-      _minimaxTreeDepth = 4;
-
-      _spawnMove = 4;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 10;
-
-      _poSpawnStartRange = 10;
-      _poSpawnEndRange = 30;
-
-      _maSpawnStartRange = 30;
-      _maSpawnEndRange = 60;
-
-      _sangSpawnStartRange = 60;
-      _sangSpawnEndRange = 80;
-      break;
-
-    case 4:
-      _minimaxTreeDepth = 5;
-
-      _spawnMove = 8;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 15;
-
-      _poSpawnStartRange = 15;
-      _poSpawnEndRange = 45;
-
-      _maSpawnStartRange = 45;
-      _maSpawnEndRange = 70;
-
-      _sangSpawnStartRange = 70;
-      _sangSpawnEndRange = 90;
-      break;
-
-    default:
-      _minimaxTreeDepth = 5;
-
-      _spawnMove = 4;
-
-      _chaSpawnStartRange = 0;
-      _chaSpawnEndRange = 25;
-
-      _poSpawnStartRange = 25;
-      _poSpawnEndRange = 45;
-
-      _maSpawnStartRange = 45;
-      _maSpawnEndRange = 75;
-
-      _sangSpawnStartRange = 75;
-      _sangSpawnEndRange = 90;
-      break;
   }
 }
