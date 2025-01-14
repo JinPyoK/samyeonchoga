@@ -19,7 +19,7 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
@@ -161,17 +161,17 @@ final class InGamePieceSet extends _$InGamePieceSet {
 
   void initPieceWithSavedData() {
     ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
-    ref.read(inGameRoundProvider.notifier).setRound(inGameSave!.round);
+    ref.read(inGameMoveProvider.notifier).setMove(inGameSave!.move);
 
-    if (inGameSave!.round < 20) {
+    if (inGameSave!.move < 20) {
       upgradeRed(0);
-    } else if (inGameSave!.round < 40) {
+    } else if (inGameSave!.move < 40) {
       upgradeRed(1);
-    } else if (inGameSave!.round < 60) {
+    } else if (inGameSave!.move < 60) {
       upgradeRed(2);
-    } else if (inGameSave!.round < 80) {
+    } else if (inGameSave!.move < 80) {
       upgradeRed(3);
-    } else if (inGameSave!.round < 100) {
+    } else if (inGameSave!.move < 100) {
       upgradeRed(4);
     } else {
       upgradeRed(5);

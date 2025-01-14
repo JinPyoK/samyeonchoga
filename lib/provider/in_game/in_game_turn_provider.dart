@@ -13,8 +13,8 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_po_model.dart';
 import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
@@ -32,7 +32,7 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<void> changeTurn() async {
-    ref.read(inGameRoundProvider.notifier).nextRound();
+    ref.read(inGameMoveProvider.notifier).nextMove();
 
     state = !state;
 
@@ -87,28 +87,28 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   void _redSpawn() {
-    final round = ref.read(inGameRoundProvider);
+    final move = ref.read(inGameMoveProvider);
 
     /// 한나라 알고리즘 강화
-    if (round == 20) {
+    if (move == 20) {
       upgradeRed(1);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(1);
-    } else if (round == 40) {
+    } else if (move == 40) {
       upgradeRed(2);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(2);
-    } else if (round == 60) {
+    } else if (move == 60) {
       upgradeRed(3);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(3);
-    } else if (round == 80) {
+    } else if (move == 80) {
       upgradeRed(4);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(4);
-    } else if (round == 100) {
+    } else if (move == 100) {
       upgradeRed(5);
       ref.read(inGameSystemNotificationProvider.notifier).notifyRedUpgrade(5);
     }
 
-    /// spawnRound 마다 초나라 기물 부활
-    if (round % _spawnRound != 0) {
+    /// spawnMove 마다 초나라 기물 부활
+    if (move % _spawnMove != 0) {
       return;
     }
 
@@ -271,7 +271,7 @@ final class InGameTurn extends _$InGameTurn {
   }
 }
 
-int _spawnRound = 4;
+int _spawnMove = 4;
 
 int _chaSpawnStartRange = 0;
 int _chaSpawnEndRange = 5;
@@ -291,7 +291,7 @@ void upgradeRed(int level) {
     case 0:
       _minimaxTreeDepth = 3;
 
-      _spawnRound = 8;
+      _spawnMove = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -309,7 +309,7 @@ void upgradeRed(int level) {
     case 1:
       _minimaxTreeDepth = 3;
 
-      _spawnRound = 4;
+      _spawnMove = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -327,7 +327,7 @@ void upgradeRed(int level) {
     case 2:
       _minimaxTreeDepth = 4;
 
-      _spawnRound = 8;
+      _spawnMove = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 5;
@@ -345,7 +345,7 @@ void upgradeRed(int level) {
     case 3:
       _minimaxTreeDepth = 4;
 
-      _spawnRound = 4;
+      _spawnMove = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 10;
@@ -363,7 +363,7 @@ void upgradeRed(int level) {
     case 4:
       _minimaxTreeDepth = 5;
 
-      _spawnRound = 8;
+      _spawnMove = 8;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 15;
@@ -381,7 +381,7 @@ void upgradeRed(int level) {
     default:
       _minimaxTreeDepth = 5;
 
-      _spawnRound = 4;
+      _spawnMove = 4;
 
       _chaSpawnStartRange = 0;
       _chaSpawnEndRange = 25;

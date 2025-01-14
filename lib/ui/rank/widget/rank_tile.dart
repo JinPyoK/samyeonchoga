@@ -58,7 +58,7 @@ class RankTile extends StatelessWidget {
                     height: 20 * hu,
                     child: FittedBox(
                       child: Text(
-                        model.round.toString(),
+                        model.move.toString(),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

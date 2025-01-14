@@ -1,19 +1,19 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'in_game_round_provider.g.dart';
+part 'in_game_move_provider.g.dart';
 
 @Riverpod()
-final class InGameRound extends _$InGameRound {
+final class InGameMove extends _$InGameMove {
   @override
   int build() {
     return 1;
   }
 
-  void nextRound() {
+  void nextMove() {
     state = state + 1;
   }
 
-  void setRound(int round) {
-    state = round;
+  void setMove(int move) {
+    state = move;
   }
 }

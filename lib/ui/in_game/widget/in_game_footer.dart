@@ -6,8 +6,8 @@ import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/repository/in_game/in_game_save_repository.dart';
@@ -209,14 +209,14 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
                                             final inGameGold =
                                                 ref.read(inGameGoldProvider);
-                                            final round =
-                                                ref.read(inGameRoundProvider);
+                                            final move =
+                                                ref.read(inGameMoveProvider);
                                             final inGameSaveDataList =
                                                 inGameBoardStatus
                                                     .refinePieceModelForSave();
 
                                             inGameSave!.backupInGameData(
-                                              round: round,
+                                              move: move,
                                               inGameGold: inGameGold,
                                               inGameSaveDataList:
                                                   inGameSaveDataList,

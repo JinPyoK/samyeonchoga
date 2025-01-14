@@ -8,7 +8,7 @@ part 'in_game_save_repository.g.dart';
 final class InGameSaveRepository {
   Id id = Isarbase.fixedId;
 
-  int round = 0;
+  int move = 0;
 
   int inGameGold = 0;
 
@@ -16,11 +16,11 @@ final class InGameSaveRepository {
 
   /// 게임 데이터 백업
   void backupInGameData({
-    required int round,
+    required int move,
     required int inGameGold,
     required List<InGameSaveModel> inGameSaveDataList,
   }) {
-    this.round = round;
+    this.move = move;
     this.inGameGold = inGameGold;
     this.inGameSaveDataList = inGameSaveDataList;
   }

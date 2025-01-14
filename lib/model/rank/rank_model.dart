@@ -2,18 +2,18 @@ final class RankModel {
   /// DateTime => Realtime Database의 경로, 데이터 참조용
   final String id;
 
-  /// Rank round
-  final int round;
+  /// Rank move
+  final int move;
 
   /// User Nickname
   final String nickName;
 
-  RankModel({required this.id, required this.round, required this.nickName});
+  RankModel({required this.id, required this.move, required this.nickName});
 
-  factory RankModel.autoId({required int round, required String nickName}) {
+  factory RankModel.autoId({required int move, required String nickName}) {
     return RankModel(
       id: _makeRankId(),
-      round: round,
+      move: move,
       nickName: nickName,
     );
   }
@@ -21,7 +21,7 @@ final class RankModel {
   factory RankModel.fromJson(Map<String, dynamic> json) {
     return RankModel(
       id: json['id'],
-      round: json['round'] as int,
+      move: json['move'] as int,
       nickName: json['nickName'] as String,
     );
   }
@@ -29,7 +29,7 @@ final class RankModel {
   /// 경로(Id) 제외
   Map<String, dynamic> toJson() {
     return {
-      'round': round,
+      'move': move,
       'nickName': nickName,
     };
   }

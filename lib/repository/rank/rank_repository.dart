@@ -26,7 +26,7 @@ final class RankRepository {
           if (rankList.length < 100) {
             rankList.add(rankModel);
           } else {
-            if (rankList.last.round > rankModel.round) {
+            if (rankList.last.move > rankModel.move) {
               /// 100위보다 낮으므로 랭크에 등록될 수 없다.
               return Transaction.abort();
             }
@@ -41,7 +41,7 @@ final class RankRepository {
           for (RankModel model in rankList) {
             rankData.addAll({
               model.id: {
-                'round': model.round,
+                'move': model.move,
                 'nickName': model.nickName,
               },
             });
@@ -70,7 +70,7 @@ List<RankModel> _makeSortedRankList(Object? data) {
       RankModel.fromJson(
         {
           'id': key,
-          'round': rankListObject[key]['round'] as int,
+          'move': rankListObject[key]['move'] as int,
           'nickName': rankListObject[key]['nickName'] as String,
         },
       ),
@@ -78,7 +78,7 @@ List<RankModel> _makeSortedRankList(Object? data) {
   }
 
   /// 순위대로 오름차순 정렬
-  rankList.sort((p, n) => n.round.compareTo(p.round));
+  rankList.sort((p, n) => n.move.compareTo(p.move));
 
   return rankList;
 }

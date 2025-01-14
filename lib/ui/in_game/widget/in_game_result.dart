@@ -5,7 +5,7 @@ import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_round_provider.dart';
+import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
@@ -37,7 +37,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
 
   @override
   Widget build(BuildContext context) {
-    final roundResult = ref.read(inGameRoundProvider);
+    final moveResult = ref.read(inGameMoveProvider);
 
     return SingleChildScrollView(
       child: Column(
@@ -68,7 +68,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
                 height: 50 * hu,
                 child: FittedBox(
                   child: Text(
-                    roundResult.toString(),
+                    moveResult.toString(),
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       color: blackColor,
@@ -76,7 +76,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
                   ),
                 ),
               ),
-              const Text("Round"),
+              const Text("수"),
             ],
           ),
           SizedBox(height: 30 * hu),
@@ -106,7 +106,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
 
                           await ref.read(rankProvider.notifier).registerRank(
                                 rankModel: RankModel.autoId(
-                                  round: roundResult,
+                                  move: moveResult,
                                   nickName: nickName,
                                 ),
                               );

@@ -20,7 +20,7 @@ class _RankScreenState extends ConsumerState<RankScreen>
     with AutomaticKeepAliveClientMixin {
   /// 공동 순위 스택
   int rankStack = 0;
-  int sameRound = 99999;
+  int sameMove = 99999;
 
   @override
   bool get wantKeepAlive => true;
@@ -79,23 +79,23 @@ class _RankScreenState extends ConsumerState<RankScreen>
 
                 /// 공동 순위 나타내기
                 if (index > 0) {
-                  if (item.round == sameRound) {
+                  if (item.move == sameMove) {
                     rankStack++;
                   } else {
                     rankStack = 0;
-                    sameRound = item.round;
+                    sameMove = item.move;
                   }
                 } else {
                   /// index == 0
                   rankStack = 0;
-                  sameRound = item.round;
+                  sameMove = item.move;
                 }
 
                 return RankTile(
                   rank: index + 1 - rankStack,
                   model: RankModel(
                     id: item.id,
-                    round: item.round,
+                    move: item.move,
                     nickName: item.nickName,
                   ),
                 );
