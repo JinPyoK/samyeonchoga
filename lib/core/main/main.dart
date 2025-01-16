@@ -13,7 +13,6 @@ import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
-import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 
 void main() async {
@@ -31,9 +30,6 @@ class Samyeonchoga extends StatelessWidget {
   Widget build(BuildContext context) {
     wu = MediaQuery.of(context).size.width / 320;
     hu = MediaQuery.of(context).size.height / 690;
-
-    /// 이미지 Preload
-    unawaited(imagePreload(context));
 
     return ProviderScope(
       child: MaterialApp(

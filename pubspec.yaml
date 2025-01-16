@@ -48,8 +48,8 @@ dependencies:
   riverpod_annotation:
 
   # Firebase
-  firebase_core:
-  firebase_database:
+  firebase_core: ^3.10.0
+  firebase_database: ^11.3.0
 
   # Isar Local Database
   isar: ^3.1.0+1

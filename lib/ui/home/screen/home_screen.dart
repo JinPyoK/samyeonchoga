@@ -1,16 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/home/widget/home_game_start_child.dart';
 import 'package:samyeonchoga/ui/home/widget/home_help_child.dart';
 import 'package:samyeonchoga/ui/home/widget/home_setting_child.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      /// 이미지 Preload
+      /// ios에서 광고를 보고 난 후 Preload한 이미지 데이터가 사라지는 현상이 있음
+      /// 그래서 홈 스크린 initState할 때마다 Preload 진행
+      unawaited(imagePreload(context));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
