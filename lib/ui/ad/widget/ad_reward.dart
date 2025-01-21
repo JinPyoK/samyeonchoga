@@ -77,6 +77,9 @@ class _AdRewardState extends State<AdReward> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10 * wu),
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(100 * wu, 40 * hu),
+        ),
         onPressed: () {
           if (_rewardedAd == null) {
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
