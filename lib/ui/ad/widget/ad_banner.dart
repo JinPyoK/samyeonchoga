@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class AdBanner extends StatefulWidget {
@@ -66,7 +67,21 @@ class _AdBannerState extends State<AdBanner> {
         height: widget.adSize.height.toDouble(),
         child: _bannerAd == null
             // Nothing to render yet.
-            ? const SizedBox()
+            ? Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: blackColor, width: 1.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(color: blackColor),
+                    SizedBox(height: 5),
+                    Text("배너 광고가 업로드 되는 중입니다..."),
+                  ],
+                ),
+              )
             // The actual ad.
             : AdWidget(ad: _bannerAd!),
       ),
