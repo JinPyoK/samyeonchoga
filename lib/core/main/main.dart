@@ -10,10 +10,12 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
 import 'package:samyeonchoga/core/local_database/isar_base.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/provider/privacy_policy/privacy_policy_instance.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
+import 'package:samyeonchoga/ui/privacy_policy/screen/privacy_policy_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +38,7 @@ class Samyeonchoga extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: _customTheme,
         title: 'samyeonchoga',
-        home: const HomeNavigationScreen(),
+        home: _startScreen(),
       ),
     );
   }
@@ -56,6 +58,9 @@ Future<void> _initGame() async {
   /// Isar 로컬 데이터베이스
   await Isarbase.initIsarbase();
 
+  /// 개인 정보 처리 약관 동의 여부
+  await privacyPolicy.readAgree();
+
   /// 앱 시작시 골드 로드하기
   await myGold.readGold();
 
@@ -68,6 +73,10 @@ Future<void> _initGame() async {
   /// 앱 시작시 오디오 로드 및 볼륨 설정
   await initAudio();
 }
+
+Widget _startScreen() => privacyPolicy.agree
+    ? const HomeNavigationScreen()
+    : const PrivacyPolicyScreen();
 
 final _customTheme = ThemeData(
   textTheme: GoogleFonts.nanumGothicTextTheme(),

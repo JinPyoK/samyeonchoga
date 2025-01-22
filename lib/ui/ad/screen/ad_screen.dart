@@ -44,13 +44,15 @@ class _AdScreenState extends State<AdScreen>
           child: AdReward(adUnitId: rewardUnitId),
         ),
         _renderCaution("광고를 올바르게 시청하지 않은 경우 보상이 주어지지 않을 수 있습니다."),
+        _renderCaution("앱을 삭제하면 골드가 사라집니다."),
+        _renderCaution("자세한 내용은 Home 탭의 도움말 버튼을 눌러보세요."),
       ],
     );
   }
 }
 
 Padding _renderCaution(String text) => Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10 * wu),
+      padding: EdgeInsets.symmetric(horizontal: 10 * wu, vertical: 5 * hu),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
