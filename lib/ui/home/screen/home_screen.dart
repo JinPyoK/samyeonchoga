@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
@@ -12,25 +10,8 @@ import 'package:samyeonchoga/ui/home/widget/home_help_child.dart';
 import 'package:samyeonchoga/ui/home/widget/home_setting_child.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      /// 이미지 Preload
-      /// ios에서 광고를 보고 난 후 Preload한 이미지 데이터가 사라지는 현상이 있음
-      /// 그래서 홈 스크린 initState할 때마다 Preload 진행
-      unawaited(imagePreload(context));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,14 +60,21 @@ OutlinedButton _renderButton(BuildContext context, String text, Widget child,
         inGameSave = await inGameSave?.readInGameSave();
 
         if (context.mounted) {
+          /// 게임 시작 버튼일 때
           if (defaultAction == false) {
-            if (inGameSave != null) {
+            /// 이미지 Preload
+            /// 광고 시청, 도움말의 웹 url 접속 이후 돌아올 때 캐시된 이미지 데이터가 사라지는 듯
+            /// 그래서 게임 시작 버튼 누를 때마다 Precache 진행
+            await imagePreload(context);
+            if (inGameSave != null && context.mounted) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (_) => const InGameScreen(gameHadSaved: true)));
             } else {
-              showCustomDialog(context, child, defaultAction: defaultAction);
+              if (context.mounted) {
+                showCustomDialog(context, child, defaultAction: defaultAction);
+              }
             }
           } else {
             showCustomDialog(context, child, defaultAction: defaultAction);

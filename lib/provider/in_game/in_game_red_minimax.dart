@@ -145,30 +145,45 @@ List<int?> _minimax(List<dynamic> params) {
       return [];
     }
 
-    final firstNode = _minimaxResult[0];
+    final selectedNodeList = <MinimaxNode>[];
 
-    int minimaxResultValue = firstNode.minimaxValue!;
-    List<int?> minimaxResultNodes = [
-      firstNode.pieceX,
-      firstNode.pieceY,
-      firstNode.targetX,
-      firstNode.targetY,
-      firstNode.targetValue,
-    ];
+    MinimaxNode selectedNode = _minimaxResult[0];
+
+    int minimaxResultValue = selectedNode.minimaxValue!;
+
+    /// 어떤 미니맥스 노드를 선택할지 탐색
     for (MinimaxNode resultNode in _minimaxResult) {
-      if (minimaxResultValue < resultNode.minimaxValue!) {
+      /// 미니맥스 밸류가 같다면 리스트에 넣고 랜덤 선택
+      if (resultNode.minimaxValue == minimaxResultValue) {
+        selectedNodeList.add(resultNode);
+      }
+
+      /// 미니맥스 밸류가 더 큰값이 있다면 리스트 비우고 탐색 재개
+      else if (resultNode.minimaxValue! > minimaxResultValue) {
+        selectedNodeList.clear();
+        selectedNodeList.add(resultNode);
         minimaxResultValue = resultNode.minimaxValue!;
-        minimaxResultNodes = [
-          resultNode.pieceX,
-          resultNode.pieceY,
-          resultNode.targetX,
-          resultNode.targetY,
-          resultNode.targetValue,
-        ];
       }
     }
 
-    return minimaxResultNodes;
+    /// 경우의 수 없으나 안전하게 예외 처리
+    if (selectedNodeList.isEmpty) {
+      return [];
+    }
+
+    /// 랜덤으로 반환
+    else {
+      final randomNumber = Random().nextInt(selectedNodeList.length);
+      selectedNode = selectedNodeList[randomNumber];
+
+      return [
+        selectedNode.pieceX,
+        selectedNode.pieceY,
+        selectedNode.targetX,
+        selectedNode.targetY,
+        selectedNode.targetValue,
+      ];
+    }
   }
 
   return [];
