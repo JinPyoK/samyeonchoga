@@ -73,11 +73,19 @@ OutlinedButton _renderButton(BuildContext context, String text, Widget child,
                       builder: (_) => const InGameScreen(gameHadSaved: true)));
             } else {
               if (context.mounted) {
-                showCustomDialog(context, child, defaultAction: defaultAction);
+                showCustomDialog(
+                  context,
+                  child,
+                  defaultAction: defaultAction,
+                );
               }
             }
           } else {
-            showCustomDialog(context, child, defaultAction: defaultAction);
+            showCustomDialog(
+              context,
+              child,
+              defaultAction: defaultAction,
+            );
           }
         }
       },

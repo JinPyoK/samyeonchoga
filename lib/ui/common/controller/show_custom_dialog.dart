@@ -7,9 +7,11 @@ void showCustomDialog(
   Color color = whiteColor,
   bool defaultAction = true,
   Color actionButtonColor = woodColor,
+  Color barrierColor = const Color(0x80000000),
 }) {
   showGeneralDialog(
     context: context,
+    barrierColor: barrierColor,
     pageBuilder: (context, a1, a2) => Container(),
     transitionDuration: const Duration(milliseconds: 100),
     transitionBuilder: (context, a1, a2, child) {

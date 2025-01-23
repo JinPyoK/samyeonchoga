@@ -1,6 +1,7 @@
 import 'dart:math' hide log;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:samyeonchoga/model/in_game/minimax_node_tree.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
@@ -57,6 +58,7 @@ final class InGameTurn extends _$InGameTurn {
               globalContext!,
               const InGameResult(reason: 1),
               defaultAction: false,
+              barrierColor: const Color(0x20000000),
             );
           });
         }
@@ -75,6 +77,7 @@ final class InGameTurn extends _$InGameTurn {
                 globalContext!,
                 const InGameResult(reason: 0),
                 defaultAction: false,
+                barrierColor: const Color(0x20000000),
               );
             });
           }
