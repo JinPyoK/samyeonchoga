@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
+import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class HomeHelpChild extends StatelessWidget {
   const HomeHelpChild({super.key});
@@ -50,6 +52,31 @@ class HomeHelpChild extends StatelessWidget {
         _renderDescription(
             '초나라의 왕이 한나라의 기물로부터 취해져서 게임이 종료되었을 때, 유저의 최종 착수 횟수를 랭크에 등록하실 수 있습니다.'),
         _renderDescription('랭크는 최대 100위까지 기록되며, 아래 Rank 탭에서 확인하실 수 있습니다.'),
+        _renderTitle('9. 개인 정보 처리 방침 및 이용 약관'),
+        TextButton(
+            onPressed: () async {
+              try {
+                await launchUrlString(
+                    'https://doc-hosting.flycricket.io/samyeonchoga-privacy-policy/8969df59-6b0b-4697-ba23-406c3978aa1b/privacy');
+              } catch (_, __) {
+                if (context.mounted) {
+                  showCustomSnackBar(context, '웹사이트에 접속할 수 없습니다.');
+                }
+              }
+            },
+            child: const Text("개인 정보 처리 방침")),
+        TextButton(
+            onPressed: () async {
+              try {
+                await launchUrlString(
+                    'https://doc-hosting.flycricket.io/samyeonchoga-terms-of-use/447c5e07-7c85-4336-9b16-ca31e569ea24/terms');
+              } catch (_, __) {
+                if (context.mounted) {
+                  showCustomSnackBar(context, '웹사이트에 접속할 수 없습니다.');
+                }
+              }
+            },
+            child: const Text("이용 약관")),
       ],
     );
   }
