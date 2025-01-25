@@ -77,7 +77,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
           ),
           SizedBox(height: 5 * hu),
           Text(
-            widget.reason == 0 ? '왕이 사망하였습니다.' : '한나라 기물의 수가 70을 초과하였습니다.',
+            widget.reason == 0 ? '왕이 사망하였습니다.' : '한나라 기물의 수가 50을 초과하였습니다.',
             style: TextStyle(
               color: blackColor,
               fontSize: 10 * hu,

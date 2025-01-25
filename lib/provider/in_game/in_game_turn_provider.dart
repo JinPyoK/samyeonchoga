@@ -50,8 +50,8 @@ final class InGameTurn extends _$InGameTurn {
 
       ref.read(inGameOnTheRopesProvider.notifier).checkOnTheRopes();
 
-      /// 한나라 기물의 수가 70을 넘으면 게임 종료
-      if (inGameBoardStatus.getNumOfRed() > 70) {
+      /// 한나라 기물의 수가 50을 넘으면 게임 종료
+      if (inGameBoardStatus.getNumOfRed() > 50) {
         if (globalContext!.mounted) {
           Future.delayed(const Duration(seconds: 1), () {
             showCustomDialog(

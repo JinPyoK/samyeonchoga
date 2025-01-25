@@ -139,7 +139,7 @@ final class _InGameRedStatusProvider {
 
 final inGameRedStatusProvider = _InGameRedStatusProvider();
 
-/// 기물 수가 60을 넘을 때 노티피케이션 한번만 호출하기
+/// 기물 수가 30을 넘을 때 노티피케이션 한번만 호출하기
 bool _notifyOnce = false;
 
 @Riverpod()
@@ -156,7 +156,7 @@ final class InGameOnTheRopes extends _$InGameOnTheRopes {
   void checkOnTheRopes() {
     final numOfRedPieces = inGameBoardStatus.getNumOfRed();
 
-    if (numOfRedPieces >= 60) {
+    if (numOfRedPieces >= 30) {
       state = true;
       if (!_notifyOnce) {
         ref.read(inGameSystemNotificationProvider.notifier).notifyOnTheRopes();
@@ -167,6 +167,6 @@ final class InGameOnTheRopes extends _$InGameOnTheRopes {
       _notifyOnce = false;
     }
 
-    state = numOfRedPieces >= 60;
+    state = numOfRedPieces >= 30;
   }
 }
