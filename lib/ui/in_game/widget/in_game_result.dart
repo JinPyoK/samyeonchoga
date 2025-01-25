@@ -11,6 +11,7 @@ import 'package:samyeonchoga/provider/rank/rank_provider.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
+import 'package:samyeonchoga/ui/in_game/controller/check_bad_words.dart';
 
 class InGameResult extends ConsumerStatefulWidget {
   const InGameResult({
@@ -27,7 +28,30 @@ class InGameResult extends ConsumerStatefulWidget {
 class _InGameResultState extends ConsumerState<InGameResult> {
   final _textController = TextEditingController();
 
+  /// 랭크 1회 등록 후 버튼 비활성화
   bool _canRankRegister = true;
+
+  /// 닉네임 체크 로딩
+  bool _nicknameChecking = false;
+
+  /// 비속어 체크
+  Future<bool> _nickNameHasBadWords(String nickName) async {
+    if (nickName == '') {
+      if (context.mounted) {
+        showCustomSnackBar(context, "닉네임을 1글자 이상 입력해주세요");
+      }
+      return true;
+    }
+
+    if (await hasBadWords(nickName)) {
+      if (mounted) {
+        showCustomSnackBar(context, "비속어, 연속적인 번호는 금지입니다.");
+      }
+      return true;
+    }
+
+    return false;
+  }
 
   @override
   void dispose() {
@@ -95,26 +119,31 @@ class _InGameResultState extends ConsumerState<InGameResult> {
                 onPressed: _canRankRegister
                     ? () async {
                         try {
-                          final nickName = _textController.text;
+                          if (!_nicknameChecking) {
+                            _nicknameChecking = true;
+                            setState(() {});
 
-                          if (nickName == '') {
-                            if (context.mounted) {
-                              showCustomSnackBar(context, "닉네임을 1글자 이상 입력해주세요");
+                            final nickName = _textController.text;
+
+                            if (await _nickNameHasBadWords(nickName)) {
+                              _nicknameChecking = false;
+                              setState(() {});
+                              return;
                             }
-                            return;
-                          }
 
-                          await ref.read(rankProvider.notifier).registerRank(
-                                rankModel: RankModel.autoId(
-                                  move: moveResult,
-                                  nickName: nickName,
-                                ),
-                              );
+                            await ref.read(rankProvider.notifier).registerRank(
+                                  rankModel: RankModel.autoId(
+                                    move: moveResult,
+                                    nickName: nickName,
+                                  ),
+                                );
 
-                          _canRankRegister = false;
-                          setState(() {});
-                          if (context.mounted) {
-                            showCustomSnackBar(context, "랭킹에 등록하였습니다");
+                            _canRankRegister = false;
+                            _nicknameChecking = false;
+                            setState(() {});
+                            if (context.mounted) {
+                              showCustomSnackBar(context, "랭킹에 등록하였습니다");
+                            }
                           }
                         } catch (_) {
                           if (context.mounted) {
@@ -124,7 +153,13 @@ class _InGameResultState extends ConsumerState<InGameResult> {
                         }
                       }
                     : null,
-                child: const Text("랭킹 등록"),
+                child: _nicknameChecking
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                          color: whiteColor,
+                        ),
+                      )
+                    : const Text("랭킹 등록"),
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
