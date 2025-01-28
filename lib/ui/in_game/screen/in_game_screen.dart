@@ -19,6 +19,7 @@ class InGameScreen extends ConsumerWidget {
           ref.read(inGameNavigatorProvider.notifier).clearNavigator();
         },
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: const InGameAppBar(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
