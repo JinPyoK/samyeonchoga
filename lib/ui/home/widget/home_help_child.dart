@@ -76,6 +76,10 @@ class HomeHelpChild extends StatelessWidget {
               }
             },
             child: const Text("이용 약관")),
+        _renderTitle('10. 저작권'),
+        _renderDescription('기물과 장기판 이미지는 제가 직접 그렸습니다.'),
+        _renderDescription('앱 로고 및 도움말 상단 이미지는 AI를 통해 생성하였습니다.'),
+        _renderDescription('효과음: Pixabay -> TanwerAman, freesound_community'),
       ],
     );
   }
