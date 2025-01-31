@@ -28,6 +28,7 @@ class HomeHelpChild extends StatelessWidget {
         _renderTitle('3. 대국'),
         _renderDescription(
             '20수 마다 한나라가 강해지며, 총 5단계까지 강화됩니다. 한나라가 강해질 수록 한나라의 알고리즘이 더욱 깊어지며, 부활 빈도가 증가합니다.'),
+        _renderDescription('한나라의 기물이 왕을 바로 취할 수 있는 자리에 부활할 수 있으니 조심하세요.'),
         _renderDescription(
             '대국 도중에 앱을 강제 종료 하지 마세요. 라운드, 골드 등 진행했던 내용이 모두 사라집니다.'),
         _renderTitle('4. 골드'),
