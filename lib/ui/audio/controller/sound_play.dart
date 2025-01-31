@@ -23,9 +23,9 @@ Future<void> makePieceSpawnSound(PieceType pieceType) async {
 Future<void> makePieceKilledSound(Team team) async {
   switch (team) {
     case Team.red:
-      await _makeSound(soundBlueKilledPath);
-    default:
       await _makeSound(soundRedKilledPath);
+    default:
+      await _makeSound(soundBlueKilledPath);
   }
 }
 
@@ -42,7 +42,7 @@ Future<void> makePieceMoveSound() async {
 }
 
 Future<void> makeSystemErrorSound() async {
-  await _makeSound(soundRedKilledPath);
+  await _makeSound(soundBlueKilledPath);
 }
 
 Future<void> makeExecuteOrJanggoonSound() async {
