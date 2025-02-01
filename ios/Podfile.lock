@@ -1,5 +1,5 @@
 PODS:
-  - audioplayers_darwin (0.0.1):
+  - audio_session (0.0.1):
     - Flutter
   - Firebase/CoreOnly (11.6.0):
     - FirebaseCore (~> 11.6.0)
@@ -48,6 +48,9 @@ PODS:
     - GoogleUtilities/Privacy
   - isar_flutter_libs (1.0.0):
     - Flutter
+  - just_audio (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - leveldb-library (1.22.6)
   - package_info_plus (0.4.5):
     - Flutter
@@ -61,12 +64,13 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
-  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_database (from `.symlinks/plugins/firebase_database/ios`)
   - Flutter (from `Flutter`)
   - google_mobile_ads (from `.symlinks/plugins/google_mobile_ads/ios`)
   - isar_flutter_libs (from `.symlinks/plugins/isar_flutter_libs/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/darwin`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
@@ -86,8 +90,8 @@ SPEC REPOS:
     - leveldb-library
 
 EXTERNAL SOURCES:
-  audioplayers_darwin:
-    :path: ".symlinks/plugins/audioplayers_darwin/ios"
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   firebase_core:
     :path: ".symlinks/plugins/firebase_core/ios"
   firebase_database:
@@ -98,6 +102,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_mobile_ads/ios"
   isar_flutter_libs:
     :path: ".symlinks/plugins/isar_flutter_libs/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/darwin"
   package_info_plus:
     :path: ".symlinks/plugins/package_info_plus/ios"
   path_provider_foundation:
@@ -108,7 +114,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/darwin"
 
 SPEC CHECKSUMS:
-  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
+  audio_session: 32a33910dd5bb35d54297e4b50006481071f196b
   Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
   firebase_core: e2aa06dbd854d961f8ce46c2e20933bee1bf2d2b
   firebase_database: 28a7fc45a4940a12c1e88600d058a64773788b98
@@ -123,6 +129,7 @@ SPEC CHECKSUMS:
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   isar_flutter_libs: b69f437aeab9c521821c3f376198c4371fa21073
+  just_audio: a42c63806f16995daf5b219ae1d679deb76e6a79
   leveldb-library: cc8b8f8e013647a295ad3f8cd2ddf49a6f19be19
   package_info_plus: c0502532a26c7662a62a356cebe2692ec5fe4ec4
   path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46

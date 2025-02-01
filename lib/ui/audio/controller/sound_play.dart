@@ -1,9 +1,7 @@
-import 'package:audioplayers/audioplayers.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/sound/sound_setting.dart';
-
-part 'sound_configure.dart';
 
 Future<void> makePieceSpawnSound(PieceType pieceType) async {
   switch (pieceType) {
@@ -47,4 +45,20 @@ Future<void> makeSystemErrorSound() async {
 
 Future<void> makeExecuteOrJanggoonSound() async {
   await _makeSound(soundExecuteJanggoonPath);
+}
+
+Future<void> _makeSound(String soundPath) async {
+  final player = AudioPlayer();
+
+  await player.setAsset(soundPath);
+
+  await player.setVolume(soundSetting.volume);
+
+  await player.seek(const Duration());
+
+  await player.play();
+
+  await player.stop();
+
+  await player.dispose();
 }
