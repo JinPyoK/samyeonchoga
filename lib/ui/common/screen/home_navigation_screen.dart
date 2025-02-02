@@ -124,7 +124,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
                 FontAwesomeIcons.rankingStar,
                 color: whiteColor,
               ),
-              label: "Rank",
+              label: "Ranking",
             ),
             NavigationDestination(
               icon: Icon(Icons.live_tv_outlined),
