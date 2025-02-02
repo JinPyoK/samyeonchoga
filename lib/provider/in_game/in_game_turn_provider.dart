@@ -17,10 +17,10 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
+import 'package:samyeonchoga/ui/in_game/controller/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_result.dart';
 
 part 'in_game_red_minimax.dart';

@@ -22,12 +22,12 @@ import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
+import 'package:samyeonchoga/ui/in_game/controller/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/ui/in_game/widget/in_game_piece.dart';
 
 part 'in_game_piece_set_provider.g.dart';
@@ -313,6 +313,11 @@ final class InGamePieceSet extends _$InGamePieceSet {
       /// 처형 기물이 방금 움직인 기물
       if (targetPieceModel == lastTurnPiece) {
         lastTurnPiece = null;
+      }
+
+      /// 처형 기물이 방금 탭한 기물
+      if (targetPieceModel == selectedPieceModel) {
+        selectedPieceModel = null;
       }
 
       makeExecuteOrJanggoonSound();

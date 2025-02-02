@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
-import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_cha_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_king_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_ma_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
+import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
+import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
+import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 
+import 'red_piece/red_byung_model.dart';
 import 'red_piece/red_cha_model.dart';
 import 'red_piece/red_ma_model.dart';
 import 'red_piece/red_po_model.dart';
 import 'red_piece/red_sang_model.dart';
-import 'red_piece/red_byung_model.dart';
 
 abstract base class PieceOrJustActionable {}
 
@@ -31,8 +31,11 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   /// 기물의 이미지 프로바이더 (precached)
   final ImageProvider imageProvider;
 
-  /// 기물이 방금 착수했는지 -> UI 표시
+  /// 기물을 방금 착수했는지 -> UI 표시
   bool justTurn = false;
+
+  /// 기물을 방금 탭했는지 -> UI 표시
+  bool justTapped = false;
 
   /// 기물의 현재 좌표
   int x;

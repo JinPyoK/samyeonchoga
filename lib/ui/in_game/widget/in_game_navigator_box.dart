@@ -15,10 +15,10 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_piece_set_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
+import 'package:samyeonchoga/ui/in_game/controller/in_game_selected_piece_model.dart';
 
 class InGameNavigatorBox extends ConsumerStatefulWidget {
   const InGameNavigatorBox({
@@ -68,6 +68,12 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       inGameBoardStatus.changeStatus(widget.pieceActionable.targetX,
           widget.pieceActionable.targetY, selectedPieceModel!);
 
+      /// 최근 탭한 기물 setState
+      if (selectedPieceModel != null) {
+        selectedPieceModel!.justTapped = false;
+        selectedPieceModel!.setStateThisPiece!(() {});
+      }
+
       /// 최근 기물 착수 ui 구현 위해서
       if (lastTurnPiece != null) {
         lastTurnPiece!.justTurn = false;
@@ -82,6 +88,8 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
       selectedPieceModel!.y = widget.pieceActionable.targetY;
       selectedPieceModel!.setStateThisPiece!(() {});
       ref.read(inGameTurnProvider.notifier).changeTurn();
+
+      selectedPieceModel = null;
 
       makePieceMoveSound();
     } else if (widget.navigatorType == NavigatorType.spawn) {

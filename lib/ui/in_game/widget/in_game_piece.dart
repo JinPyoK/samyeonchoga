@@ -6,10 +6,10 @@ import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/board_position_value.dart';
+import 'package:samyeonchoga/ui/in_game/controller/in_game_selected_piece_model.dart';
 import 'package:samyeonchoga/ui/in_game/widget/system_notification/piece_janggoon_notification.dart';
 
 class InGamePiece extends ConsumerStatefulWidget {
@@ -31,8 +31,15 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     final isMyTurn = ref.read(inGameTurnProvider);
 
     if (widget.pieceModel.team == Team.blue && isMyTurn) {
-      selectedPieceModel = widget.pieceModel;
+      if (selectedPieceModel != null) {
+        selectedPieceModel!.justTapped = false;
+        selectedPieceModel!.setStateThisPiece!(() {});
+      }
+      selectedPieceModel = widget.pieceModel..justTapped = true;
+      setState(() {});
+
       widget.pieceModel.searchActionable(inGameBoardStatus);
+
       ref
           .read(inGameNavigatorProvider.notifier)
           .showPieceNavigator(widget.pieceModel.pieceActionable);
@@ -42,8 +49,15 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
   }
 
   List<Color> _justTurnPieceColor() {
-    /// 한나라 기물의 수가 60 이상
+    /// 한나라 기물의 수가 30 이상
     final onTheRopes = ref.watch(inGameOnTheRopesProvider);
+
+    if (widget.pieceModel.justTapped) {
+      return [
+        whiteColor,
+        inGameBlackColor,
+      ];
+    }
 
     if (widget.pieceModel.team == Team.red) {
       if (onTheRopes) {
