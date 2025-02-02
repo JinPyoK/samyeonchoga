@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/privacy_policy/privacy_policy_instance.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents.dart';
-import 'package:samyeonchoga/ui/agreement/widget/agreement_contents_bullet.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_title.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
+import 'package:samyeonchoga/ui/common/widget/launch_url_text.dart';
 
 class TermsOfUseScreen extends StatefulWidget {
   const TermsOfUseScreen({super.key});
@@ -48,8 +48,14 @@ class _TermsOfUseScreenState extends State<TermsOfUseScreen> {
             const AgreementContents(
                 contents:
                     '애플리케이션은 자체적으로 운영되는 것이 아니라 일부 제3자 서비스를 이용합니다. 이러한 제3자 서비스에는 자체적인 이용 약관이 적용되므로, 아래 링크를 참고하시기 바랍니다:'),
-            const AgreementContentsBullet(contents: 'Google Play 서비스'),
-            const AgreementContentsBullet(contents: 'AdMob'),
+            const LaunchUrlTextButton(
+              url: 'https://policies.google.com/terms',
+              text: "Google Play 서비스",
+            ),
+            const LaunchUrlTextButton(
+              url: 'https://developers.google.com/admob/terms',
+              text: "AdMob",
+            ),
             const AgreementTitle(title: '책임 제한'),
             const AgreementContents(
                 contents:

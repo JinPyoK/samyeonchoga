@@ -4,6 +4,7 @@ import 'package:samyeonchoga/ui/agreement/screen/terms_of_use_screen.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents_bullet.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_title.dart';
+import 'package:samyeonchoga/ui/common/widget/launch_url_text.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});
@@ -66,8 +67,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             const AgreementContents(
                 contents:
                     '애플리케이션은 데이터 처리와 관련하여 자체적인 개인정보 처리 방침을 가진 제3자 서비스를 사용합니다. 아래는 애플리케이션이 사용하는 제3자 서비스의 개인정보 처리 방침 링크입니다:'),
-            const AgreementContentsBullet(contents: 'Google Play 서비스'),
-            const AgreementContentsBullet(contents: 'AdMob'),
+            const LaunchUrlTextButton(
+              url: 'https://policies.google.com/privacy',
+              text: "Google Play 서비스",
+            ),
+            const LaunchUrlTextButton(
+              url: 'https://support.google.com/admob/answer/6128543?hl=en',
+              text: "AdMob",
+            ),
             const AgreementContents(
                 contents:
                     '서비스 제공자는 다음과 같은 경우 사용자 제공 정보 및 자동 수집 정보를 공개할 수 있습니다:'),
