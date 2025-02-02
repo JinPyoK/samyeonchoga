@@ -4,7 +4,7 @@ import 'package:samyeonchoga/ui/agreement/screen/terms_of_use_screen.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents_bullet.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_title.dart';
-import 'package:samyeonchoga/ui/common/widget/launch_url_text.dart';
+import 'package:samyeonchoga/ui/common/widget/launch_url_text_button.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   const PrivacyPolicyScreen({super.key});

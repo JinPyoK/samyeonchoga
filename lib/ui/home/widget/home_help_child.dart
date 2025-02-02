@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/asset_path.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
-import 'package:samyeonchoga/ui/common/widget/launch_url_text.dart';
+import 'package:samyeonchoga/ui/common/widget/launch_url_text_button.dart';
 
 class HomeHelpChild extends StatelessWidget {
   const HomeHelpChild({super.key});
