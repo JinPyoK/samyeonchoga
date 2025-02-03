@@ -49,9 +49,9 @@ class HomeHelpChild extends StatelessWidget {
         _renderDescription(
             '대국 도중에 게임을 임시 저장 및 종료할 수 있고, 저장한 게임을 나중에 다시 시작할 수 있습니다.'),
         _renderDescription('골드와 마찬가지로, 앱을 삭제하면 저장했던 게임이 사라집니다.'),
-        _renderTitle('8. 랭크'),
-        _renderDescription('게임이 종료되었을 때, 유저의 최종 착수 횟수를 랭크에 등록하실 수 있습니다.'),
-        _renderDescription('랭크는 최대 100위까지 기록되며, 아래 Rank 탭에서 확인하실 수 있습니다.'),
+        _renderTitle('8. 랭킹'),
+        _renderDescription('게임이 종료되었을 때, 유저의 최종 착수 횟수를 랭킹에 등록하실 수 있습니다.'),
+        _renderDescription('랭킹은 최대 100위까지 기록되며, 아래 Ranking 탭에서 확인하실 수 있습니다.'),
         _renderTitle('9. 개인 정보 처리 방침 및 이용 약관'),
         const LaunchUrlTextButton(
           url:
