@@ -91,7 +91,7 @@ class _AdRewardState extends State<AdReward> {
                   }
                   await myGold.writeGold();
 
-                  await _rewardedAd!.dispose();
+                  await _rewardedAd?.dispose();
 
                   _rewardedAd = null;
 
