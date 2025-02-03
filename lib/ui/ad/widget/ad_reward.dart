@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/provider/gold/gold_entity.dart';
@@ -86,12 +84,16 @@ class _AdRewardState extends State<AdReward> {
           } else {
             try {
               _rewardedAd!.show(
-                onUserEarnedReward: (_, __) {
+                onUserEarnedReward: (_, __) async {
                   myGold.gold += 1000;
                   if (setStateGold != null) {
                     setStateGold!(() {});
                   }
-                  unawaited(myGold.writeGold());
+                  await myGold.writeGold();
+
+                  await _rewardedAd!.dispose();
+
+                  _rewardedAd = null;
 
                   _loadAd();
                 },
