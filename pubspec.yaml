@@ -62,7 +62,6 @@ dependencies:
 
   # Util
   easy_debounce: # 환경 설정 사운드 조절
-  path_provider: # 이자르 로컬 데이터베이스
   package_info_plus: ^8.1.2 # 업데이트 알림 다이얼로그
   dio: ^5.7.0 # 스토어 버전 정보 가져오기 위한 Rest API 통신 (GET)
   url_launcher: ^6.3.1 # 홈 스크린 도움말 -> 개인 정보 처리 방침 및 이용 약관 URL 연결
