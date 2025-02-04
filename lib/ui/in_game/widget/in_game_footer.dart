@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_footer_spawn_piece_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
@@ -10,10 +9,12 @@ import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/repository/in_game/in_game_save_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
+import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -239,9 +240,10 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                             final inGameGold =
                                                 ref.read(inGameGoldProvider);
 
-                                            myGold.addGold(inGameGold);
+                                            myGolds += inGameGold;
 
-                                            await myGold.writeGold();
+                                            await GoldRepository()
+                                                .setGolds(golds: myGolds);
 
                                             await inGameSave
                                                 ?.deleteInGameSave();

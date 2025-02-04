@@ -1,5 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 
 part 'in_game_gold_provider.g.dart';
 
@@ -7,7 +7,7 @@ part 'in_game_gold_provider.g.dart';
 final class InGameGold extends _$InGameGold {
   @override
   int build() {
-    return myGold.gold >= 3000 ? 3000 : myGold.gold;
+    return myGolds >= 3000 ? 3000 : myGolds;
   }
 
   void setInGameGold(int gold) {

@@ -1,28 +1,19 @@
-import 'package:isar/isar.dart';
-import 'package:samyeonchoga/core/local_database/isar_base.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-part 'sound_setting.g.dart';
+final class SoundVolumeRepository {
+  Future<double> getSoundVolume() async {
+    final pref = await SharedPreferences.getInstance();
 
-@collection
-final class SoundSetting {
-  Id id = Isarbase.fixedId;
+    final double? volume = pref.getDouble('soundVolume');
 
-  double volume = 0.5;
-
-  void changeVolume(double volume) {
-    this.volume = volume;
+    return volume ?? 0.5;
   }
 
-  /// 앱 첫 실행시 한 번 호출
-  Future<void> readSoundVolume() async {
-    final result = await Isarbase.read(this);
-    if (result == null) return;
+  Future<void> setSoundVolume({required double volume}) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
 
-    final mySoundVolume = result as SoundSetting;
-    volume = mySoundVolume.volume;
-  }
-
-  Future<void> writSoundVolume() async {
-    await Isarbase.write(this);
+      await pref.setDouble('soundVolume', volume);
+    } catch (_) {}
   }
 }

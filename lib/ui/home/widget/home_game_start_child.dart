@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
+import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 import 'package:samyeonchoga/ui/in_game/screen/in_game_screen.dart';
 
@@ -145,7 +146,7 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
     /// 게임 시작을 누르면 addPostFrameCallback이 또 한번 실행됨
     /// 이유를 아직 모르겠음
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      myGold.gold > 3000 ? _startGold = 3000 : _startGold = myGold.gold;
+      myGolds > 3000 ? _startGold = 3000 : _startGold = myGolds;
 
       setState(() {});
     });
@@ -202,8 +203,8 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                 const SizedBox(width: 10),
                 OutlinedButton(
                     onPressed: () {
-                      if (_startGold + 100 >= myGold.gold) {
-                        _startGold = myGold.gold;
+                      if (_startGold + 100 >= myGolds) {
+                        _startGold = myGolds;
                       } else {
                         _startGold >= 2900
                             ? _startGold = 3000
@@ -216,8 +217,8 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                 const SizedBox(width: 10),
                 OutlinedButton(
                     onPressed: () {
-                      myGold.gold <= 3000
-                          ? _startGold = myGold.gold
+                      myGolds <= 3000
+                          ? _startGold = myGolds
                           : _startGold = 3000;
 
                       setState(() {});
@@ -253,9 +254,9 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
                 child: const Text("취소")),
             ElevatedButton(
                 onPressed: () async {
-                  myGold.addGold(-_startGold);
+                  myGolds -= _startGold;
 
-                  await myGold.writeGold();
+                  await GoldRepository().setGolds(golds: myGolds);
 
                   setStateGold!(() {});
 

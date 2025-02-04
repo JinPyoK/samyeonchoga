@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
+import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 
 class AdReward extends StatefulWidget {
   const AdReward({super.key, required this.adUnitId});
@@ -85,11 +86,13 @@ class _AdRewardState extends State<AdReward> {
             try {
               _rewardedAd!.show(
                 onUserEarnedReward: (_, __) async {
-                  myGold.gold += 1000;
+                  myGolds += 1000;
+
                   if (setStateGold != null) {
                     setStateGold!(() {});
                   }
-                  await myGold.writeGold();
+
+                  await GoldRepository().setGolds(golds: myGolds);
 
                   await _rewardedAd?.dispose();
 

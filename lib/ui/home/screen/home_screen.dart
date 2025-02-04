@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
+import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
@@ -66,6 +67,7 @@ OutlinedButton _renderButton(BuildContext context, String text, Widget child,
             /// 광고 시청, 도움말의 웹 url 접속 이후 돌아올 때 캐시된 이미지 데이터가 사라지는 듯
             /// 그래서 게임 시작 버튼 누를 때마다 Precache 진행
             await imagePreload(context);
+            await soundInit();
             if (inGameSave != null && context.mounted) {
               Navigator.push(
                   context,

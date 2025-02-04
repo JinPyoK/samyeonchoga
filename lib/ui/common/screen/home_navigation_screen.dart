@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
+import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/ui/ad/screen/ad_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/compare_store_version.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
@@ -11,6 +11,8 @@ import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
 import 'package:samyeonchoga/ui/rank/screen/rank_screen.dart';
+
+int myGolds = 0;
 
 class HomeNavigationScreen extends StatefulWidget {
   const HomeNavigationScreen({super.key});
@@ -24,6 +26,11 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
   int _currentIndex = 0;
 
+  Future<void> _getGolds() async {
+    myGolds = await GoldRepository().getGolds();
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +38,10 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
     globalContext = context;
 
-    compareStoreVersionAndShowDialog(context);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getGolds();
+      compareStoreVersionAndShowDialog(context);
+    });
   }
 
   @override
@@ -85,7 +95,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 24),
-              child: GoldWidget(gold: myGold.gold),
+              child: GoldWidget(gold: myGolds),
             ),
           ],
         ),

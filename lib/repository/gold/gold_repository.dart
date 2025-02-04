@@ -1,36 +1,19 @@
-import 'package:isar/isar.dart';
-import 'package:samyeonchoga/core/local_database/isar_base.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-part 'gold_repository.g.dart';
-
-@collection
 final class GoldRepository {
-  Id id = Isarbase.fixedId;
+  Future<int> getGolds() async {
+    final pref = await SharedPreferences.getInstance();
 
-  int gold = 5000;
+    final int? gold = pref.getInt('golds');
 
-  void addGold(int gold) {
-    this.gold += gold;
+    return gold ?? 5000;
   }
 
-  /// 앱 첫 실행시 한 번 호출
-  Future<void> readGold() async {
-    final result = await Isarbase.read(this);
-    if (result == null) return;
-    final myGold = result as GoldRepository;
+  Future<void> setGolds({required int golds}) async {
+    try {
+      final pref = await SharedPreferences.getInstance();
 
-    /// 업데이트 할 때 골드가 -1000골드로 되어있었음. Isar 버그?
-    if (myGold.gold < 0) {
-      gold = 0;
-    } else {
-      gold = myGold.gold;
-    }
-  }
-
-  /// 1. 게임 시작
-  /// 2. 게임 외통 및 종료 또는 게임 저장하지 않고 종료
-  /// 3. 광고 시청 후 골드 보상
-  Future<void> writeGold() async {
-    await Isarbase.write(this);
+      await pref.setInt('golds', golds);
+    } catch (_) {}
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/provider/privacy_policy/privacy_policy_instance.dart';
+import 'package:samyeonchoga/repository/privacy_policy/privacy_policy_repository.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_contents.dart';
 import 'package:samyeonchoga/ui/agreement/widget/agreement_title.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
@@ -100,8 +100,8 @@ class _TermsOfUseScreenState extends State<TermsOfUseScreen> {
                         _isLoading = true;
                         setState(() {});
 
-                        privacyPolicy.agree = true;
-                        await privacyPolicy.writeAgree();
+                        await PrivacyPolicyRepository()
+                            .setPrivacyPolicy(userAgree: true);
 
                         if (context.mounted) {
                           Navigator.pushAndRemoveUntil(

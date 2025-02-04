@@ -9,9 +9,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
 import 'package:samyeonchoga/core/local_database/isar_base.dart';
-import 'package:samyeonchoga/provider/gold/gold_entity.dart';
-import 'package:samyeonchoga/provider/privacy_policy/privacy_policy_instance.dart';
-import 'package:samyeonchoga/provider/sound/sound_setting.dart';
+import 'package:samyeonchoga/repository/privacy_policy/privacy_policy_repository.dart';
 import 'package:samyeonchoga/ui/agreement/screen/privacy_policy_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
@@ -37,7 +35,22 @@ class Samyeonchoga extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: _customTheme,
         title: 'samyeonchoga',
-        home: _startScreen(),
+        home: FutureBuilder(
+            future: PrivacyPolicyRepository().getPrivacyPolicy(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Scaffold(body: Container());
+              } else if (snapshot.hasData) {
+                if (snapshot.data!) {
+                  return const HomeNavigationScreen();
+                } else {
+                  return const PrivacyPolicyScreen();
+                }
+              } else {
+                return const Scaffold(
+                    body: Center(child: Text("The game cannot be run")));
+              }
+            }),
       ),
     );
   }
@@ -57,22 +70,9 @@ Future<void> _initGame() async {
   /// Isar 로컬 데이터베이스
   await Isarbase.initIsarbase();
 
-  /// 개인 정보 처리 약관 동의 여부
-  await privacyPolicy.readAgree();
-
-  /// 앱 시작시 골드 로드하기
-  await myGold.readGold();
-
-  /// 앱 시작시 사운드 설정 로드하기
-  await soundSetting.readSoundVolume();
-
   /// 구글 애드몹
   unawaited(MobileAds.instance.initialize());
 }
-
-Widget _startScreen() => privacyPolicy.agree
-    ? const HomeNavigationScreen()
-    : const PrivacyPolicyScreen();
 
 final _customTheme = ThemeData(
   textTheme: GoogleFonts.nanumGothicTextTheme(),
