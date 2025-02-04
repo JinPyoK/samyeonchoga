@@ -5,9 +5,9 @@ import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
 import 'package:samyeonchoga/repository/gold/gold_repository.dart';
+import 'package:samyeonchoga/repository/in_game/in_game_saved_data_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
@@ -173,7 +173,7 @@ class _InGameResultState extends ConsumerState<InGameResult> {
 
                   await GoldRepository().setGolds(golds: myGolds);
 
-                  await inGameSave?.deleteInGameSave();
+                  await InGameSavedDataRepository().removeInGameData();
 
                   if (context.mounted) {
                     Navigator.pop(globalContext!);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
+import 'package:samyeonchoga/repository/in_game/in_game_saved_data_repository.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
@@ -58,7 +58,8 @@ OutlinedButton _renderButton(BuildContext context, String text, Widget child,
     OutlinedButton(
       onPressed: () async {
         /// 앱 시작시 저장된 게임 있는지 확인
-        inGameSave = await inGameSave?.readInGameSave();
+        final inGameSavedData =
+            await InGameSavedDataRepository().getSavedData();
 
         if (context.mounted) {
           /// 게임 시작 버튼일 때
@@ -68,7 +69,7 @@ OutlinedButton _renderButton(BuildContext context, String text, Widget child,
             /// 그래서 게임 시작 버튼 누를 때마다 Precache 진행
             await imagePreload(context);
             await soundInit();
-            if (inGameSave != null && context.mounted) {
+            if (inGameSavedData.isNotEmpty && context.mounted) {
               Navigator.push(
                   context,
                   MaterialPageRoute(

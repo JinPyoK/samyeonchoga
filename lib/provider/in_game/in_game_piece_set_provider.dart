@@ -21,10 +21,10 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_red_status.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_save_entity.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_system_notification_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
 import 'package:samyeonchoga/provider/lineup/lineup.dart';
+import 'package:samyeonchoga/repository/in_game/in_game_saved_data_repository.dart';
 import 'package:samyeonchoga/ui/audio/controller/sound_play.dart';
 import 'package:samyeonchoga/ui/in_game/controller/get_gold_notification.dart';
 import 'package:samyeonchoga/ui/in_game/controller/in_game_selected_piece_model.dart';
@@ -162,28 +162,31 @@ final class InGamePieceSet extends _$InGamePieceSet {
     makeGameStartSound();
   }
 
-  void initPieceWithSavedData() {
-    ref.read(inGameGoldProvider.notifier).setInGameGold(inGameSave!.inGameGold);
-    ref.read(inGameMoveProvider.notifier).setMove(inGameSave!.move);
+  Future<void> initPieceWithSavedData() async {
+    final inGameSavedData = await InGameSavedDataRepository().getSavedData();
+    final move = int.parse(inGameSavedData[0]);
+    final inGameGold = int.parse(inGameSavedData[1]);
+
+    ref.read(inGameMoveProvider.notifier).setMove(move);
+    ref.read(inGameGoldProvider.notifier).setInGameGold(inGameGold);
 
     ref.read(inGameOnTheRopesProvider.notifier).initOnTheRopes();
 
-    if (inGameSave!.move < 20) {
+    if (move < 20) {
       inGameRedStatusProvider.upgradeRed(0);
-    } else if (inGameSave!.move < 40) {
+    } else if (move < 40) {
       inGameRedStatusProvider.upgradeRed(1);
-    } else if (inGameSave!.move < 60) {
+    } else if (move < 60) {
       inGameRedStatusProvider.upgradeRed(2);
-    } else if (inGameSave!.move < 80) {
+    } else if (move < 80) {
       inGameRedStatusProvider.upgradeRed(3);
-    } else if (inGameSave!.move < 100) {
+    } else if (move < 100) {
       inGameRedStatusProvider.upgradeRed(4);
     } else {
       inGameRedStatusProvider.upgradeRed(5);
     }
 
-    inGameBoardStatus
-        .initStatusBoardWithSavedData(inGameSave!.inGameSaveDataList);
+    inGameBoardStatus.initStatusBoardWithSavedData(inGameSavedData);
 
     selectedPieceModel = null;
     lastTurnPiece = null;

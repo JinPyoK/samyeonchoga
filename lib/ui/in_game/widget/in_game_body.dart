@@ -23,7 +23,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       /// 이미지의 넓이 또는 높이를 이용하여 기물의 위치를 정의
       final renderBox =
           imageBoardKey.currentContext?.findRenderObject() as RenderBox;
@@ -34,7 +34,9 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
 
       if (widget.gameHadSaved) {
         /// 기물 저장된 데이터로 초기화
-        ref.read(inGamePieceSetProvider.notifier).initPieceWithSavedData();
+        await ref
+            .read(inGamePieceSetProvider.notifier)
+            .initPieceWithSavedData();
       } else {
         /// 기물 초기화
         ref.read(inGamePieceSetProvider.notifier).initPieceSet();

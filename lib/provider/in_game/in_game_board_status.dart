@@ -5,7 +5,6 @@ import 'package:samyeonchoga/model/in_game/blue_piece/blue_po_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sa_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_sang_model.dart';
 import 'package:samyeonchoga/model/in_game/blue_piece/blue_zol_model.dart';
-import 'package:samyeonchoga/model/in_game/in_game_save_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_actionable_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
@@ -78,20 +77,16 @@ final class InGameBoardStatus {
   }
 
   /// 게임 저장 데이터 수집
-  List<InGameSaveModel> refinePieceModelForSave() {
-    final inGameSaveDataList = <InGameSaveModel>[];
+  List<String> refinePieceModelForSave() {
+    final inGameSaveDataList = <String>[];
 
     for (List<PieceOrJustActionable> statusList in boardStatus) {
       for (PieceOrJustActionable status in statusList) {
         if (status is PieceBaseModel) {
-          final refineData = InGameSaveModel(
-            team: status.team,
-            pieceType: status.pieceType,
-            x: status.x,
-            y: status.y,
-          );
-
-          inGameSaveDataList.add(refineData);
+          inGameSaveDataList.add(status.team.name);
+          inGameSaveDataList.add(status.pieceType.name);
+          inGameSaveDataList.add(status.x.toString());
+          inGameSaveDataList.add(status.y.toString());
         }
       }
     }
@@ -100,43 +95,48 @@ final class InGameBoardStatus {
   }
 
   /// 저장된 게임 데이터로 초기화
-  void initStatusBoardWithSavedData(List<InGameSaveModel> savedData) {
+  void initStatusBoardWithSavedData(List<String> savedData) {
     initStatusBoard();
 
-    for (InGameSaveModel inGameSaveData in savedData) {
+    for (int i = 2; i < savedData.length; i += 4) {
       late PieceBaseModel pieceModel;
 
+      final team = Team.values.byName(savedData[i + 0]);
+      final pieceType = PieceType.values.byName(savedData[i + 1]);
+      final x = int.parse(savedData[i + 2]);
+      final y = int.parse(savedData[i + 3]);
+
       /// 초나라
-      if (inGameSaveData.team == Team.blue) {
-        if (inGameSaveData.pieceType == PieceType.king) {
-          pieceModel = BlueKingModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.sa) {
-          pieceModel = BlueSaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.cha) {
-          pieceModel = BlueChaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.po) {
-          pieceModel = BluePoModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.ma) {
-          pieceModel = BlueMaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.sang) {
-          pieceModel = BlueSangModel(x: inGameSaveData.x, y: inGameSaveData.y);
+      if (team == Team.blue) {
+        if (pieceType == PieceType.king) {
+          pieceModel = BlueKingModel(x: x, y: y);
+        } else if (pieceType == PieceType.sa) {
+          pieceModel = BlueSaModel(x: x, y: y);
+        } else if (pieceType == PieceType.cha) {
+          pieceModel = BlueChaModel(x: x, y: y);
+        } else if (pieceType == PieceType.po) {
+          pieceModel = BluePoModel(x: x, y: y);
+        } else if (pieceType == PieceType.ma) {
+          pieceModel = BlueMaModel(x: x, y: y);
+        } else if (pieceType == PieceType.sang) {
+          pieceModel = BlueSangModel(x: x, y: y);
         } else {
-          pieceModel = BlueZolModel(x: inGameSaveData.x, y: inGameSaveData.y);
+          pieceModel = BlueZolModel(x: x, y: y);
         }
       }
 
       /// 한나라
       else {
-        if (inGameSaveData.pieceType == PieceType.cha) {
-          pieceModel = RedChaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.po) {
-          pieceModel = RedPoModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.ma) {
-          pieceModel = RedMaModel(x: inGameSaveData.x, y: inGameSaveData.y);
-        } else if (inGameSaveData.pieceType == PieceType.sang) {
-          pieceModel = RedSangModel(x: inGameSaveData.x, y: inGameSaveData.y);
+        if (pieceType == PieceType.cha) {
+          pieceModel = RedChaModel(x: x, y: y);
+        } else if (pieceType == PieceType.po) {
+          pieceModel = RedPoModel(x: x, y: y);
+        } else if (pieceType == PieceType.ma) {
+          pieceModel = RedMaModel(x: x, y: y);
+        } else if (pieceType == PieceType.sang) {
+          pieceModel = RedSangModel(x: x, y: y);
         } else {
-          pieceModel = RedByungModel(x: inGameSaveData.x, y: inGameSaveData.y);
+          pieceModel = RedByungModel(x: x, y: y);
         }
       }
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);
@@ -165,7 +165,7 @@ final class InGameBoardStatus {
     return boardStatusJsonList;
   }
 
-  /// 저장된 게임 데이터로 초기화
+  /// 저장된 게임 데이터로 초기화 (미니맥스)
   void boardStatusFromJsonList(List<Map<String, dynamic>> boardStatusJsonList) {
     initStatusBoard();
 

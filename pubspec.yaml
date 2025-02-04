@@ -52,8 +52,6 @@ dependencies:
   firebase_database: ^11.3.0
 
   # Isar Local Database
-  isar: ^3.1.0+1
-  isar_flutter_libs: ^3.1.0+1
   shared_preferences: ^2.5.1
 
   # Google AdMob
@@ -86,9 +84,6 @@ dev_dependencies:
 
   # Riverpod
   riverpod_generator:
-
-  # Isar
-  isar_generator: ^3.1.0+1
 
   # Icon
   flutter_launcher_icons: ^0.14.2

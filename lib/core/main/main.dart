@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/core/firebase/firebase_options.dart';
-import 'package:samyeonchoga/core/local_database/isar_base.dart';
 import 'package:samyeonchoga/repository/privacy_policy/privacy_policy_repository.dart';
 import 'package:samyeonchoga/ui/agreement/screen/privacy_policy_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
@@ -66,9 +65,6 @@ Future<void> _initGame() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  /// Isar 로컬 데이터베이스
-  await Isarbase.initIsarbase();
 
   /// 구글 애드몹
   unawaited(MobileAds.instance.initialize());
