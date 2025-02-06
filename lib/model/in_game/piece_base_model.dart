@@ -56,7 +56,7 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
   PieceBaseModel getNewPieceInstance() {
     late PieceBaseModel pieceModel;
 
-    /// 한나라
+    /// 초나라
     if (team == Team.blue) {
       if (pieceType == PieceType.king) {
         pieceModel = BlueKingModel(x: x, y: y);
@@ -75,7 +75,7 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
       }
     }
 
-    /// 초나라
+    /// 한나라
     else {
       if (pieceType == PieceType.cha) {
         pieceModel = RedChaModel(x: x, y: y);

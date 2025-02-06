@@ -51,7 +51,7 @@ final class InGameBoardStatus {
     return redList;
   }
 
-  /// 한나라의 기물 개수 -> 한나라 기물이 70개 이상이면 게임 종료
+  /// 한나라의 기물 개수 -> 한나라 기물이 50개 이상이면 게임 종료
   /// 한나라가 공격을 안하고 무한 반복수 하는 경우를 방비
   int getNumOfRed() {
     final redList = getRedAll();

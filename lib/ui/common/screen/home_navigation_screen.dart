@@ -90,6 +90,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
             ));
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: whiteColor,
           actions: [
