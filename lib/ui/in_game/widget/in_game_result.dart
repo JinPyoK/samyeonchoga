@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/rank/rank_model.dart';
@@ -111,6 +112,12 @@ class _InGameResultState extends ConsumerState<InGameResult> {
               hintText: "닉네임을 입력해주세요",
             ),
             maxLength: 10,
+            inputFormatters: [
+              /// 한글 -> 천지인 키보드 아래아, 쌍아래아
+              FilteringTextInputFormatter.allow(RegExp(
+                  r'[a-z|A-Z|0-9|ㄱ-ㅎ|ㅏ-ㅣ|가-힣|ᆞ|ᆢ|ㆍ|ᆢ|ᄀᆞ|ᄂᆞ|ᄃᆞ|ᄅᆞ|ᄆᆞ|ᄇᆞ|ᄉᆞ|ᄋᆞ|ᄌᆞ|ᄎᆞ|ᄏᆞ|ᄐᆞ|ᄑᆞ|ᄒᆞ| ]')),
+              // 영어와 숫자만 허용
+            ],
           ),
           SizedBox(height: 30 * hu),
           Row(

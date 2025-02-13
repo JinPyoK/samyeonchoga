@@ -67,7 +67,7 @@ Future<void> _initGame() async {
   );
 
   /// 구글 애드몹
-  unawaited(MobileAds.instance.initialize());
+  await MobileAds.instance.initialize();
 }
 
 final _customTheme = ThemeData(

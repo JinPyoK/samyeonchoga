@@ -1,32 +1,32 @@
 PODS:
   - audio_session (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (11.6.0):
-    - FirebaseCore (~> 11.6.0)
-  - Firebase/Database (11.6.0):
+  - Firebase/CoreOnly (11.7.0):
+    - FirebaseCore (~> 11.7.0)
+  - Firebase/Database (11.7.0):
     - Firebase/CoreOnly
-    - FirebaseDatabase (~> 11.6.0)
-  - firebase_core (3.10.1):
-    - Firebase/CoreOnly (= 11.6.0)
+    - FirebaseDatabase (~> 11.7.0)
+  - firebase_core (3.11.0):
+    - Firebase/CoreOnly (= 11.7.0)
     - Flutter
-  - firebase_database (11.3.1):
-    - Firebase/Database (= 11.6.0)
+  - firebase_database (11.3.2):
+    - Firebase/Database (= 11.7.0)
     - firebase_core
     - Flutter
-  - FirebaseAppCheckInterop (11.7.0)
-  - FirebaseCore (11.6.0):
-    - FirebaseCoreInternal (~> 11.6.0)
+  - FirebaseAppCheckInterop (11.8.0)
+  - FirebaseCore (11.7.0):
+    - FirebaseCoreInternal (~> 11.7.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreInternal (11.6.0):
+  - FirebaseCoreInternal (11.7.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
-  - FirebaseDatabase (11.6.0):
+  - FirebaseDatabase (11.7.0):
     - FirebaseAppCheckInterop (~> 11.0)
-    - FirebaseCore (~> 11.6.0)
+    - FirebaseCore (~> 11.7.0)
     - FirebaseSharedSwift (~> 11.0)
     - GoogleUtilities/UserDefaults (~> 8.0)
     - leveldb-library (~> 1.22)
-  - FirebaseSharedSwift (11.7.0)
+  - FirebaseSharedSwift (11.8.0)
   - Flutter (1.0.0)
   - Google-Mobile-Ads-SDK (11.13.0):
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -116,14 +116,14 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   audio_session: 19e9480dbdd4e5f6c4543826b2e8b0e4ab6145fe
-  Firebase: 374a441a91ead896215703a674d58cdb3e9d772b
-  firebase_core: e2aa06dbd854d961f8ce46c2e20933bee1bf2d2b
-  firebase_database: 28a7fc45a4940a12c1e88600d058a64773788b98
-  FirebaseAppCheckInterop: 2376d3ec5cb4267facad4fe754ab4f301a5a519b
-  FirebaseCore: 48b0dd707581cf9c1a1220da68223fb0a562afaa
-  FirebaseCoreInternal: d98ab91e2d80a56d7b246856a8885443b302c0c2
-  FirebaseDatabase: ce3a83a39ab50559a85c5add54f6f285544433b8
-  FirebaseSharedSwift: a45efd84d60ebbfdcdbaebc66948af3630459e62
+  Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
+  firebase_core: aa979ae726f00b3ef4ccf59dfb96170af84efbd4
+  firebase_database: eb0e548078735cd76d84876e6189e855f0f9aa3f
+  FirebaseAppCheckInterop: 7bf86d55a2b7e9bd91464120eba3e52e4b63b2e2
+  FirebaseCore: 3227e35f4197a924206fbcdc0349325baf4f5de4
+  FirebaseCoreInternal: d6c17dafc8dc33614733a8b52df78fcb4394c881
+  FirebaseDatabase: b014c0068fa691dec5f4a868357e685df882cca5
+  FirebaseSharedSwift: 672954eac7b141d6954fab9a32d45d6b1d922df8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   Google-Mobile-Ads-SDK: 14f57f2dc33532a24db288897e26494640810407
   google_mobile_ads: fe0e2c1764ad95323dd0e3081d0bb2d58411f957
