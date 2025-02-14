@@ -1,5 +1,5 @@
 /// 이미지
-const imageAppLogoPath = 'assets/image/app_logo.png';
+const imageAppIconPath = 'assets/image/app_icon.png';
 
 const imageBoardPath = 'assets/image/board.png';
 
