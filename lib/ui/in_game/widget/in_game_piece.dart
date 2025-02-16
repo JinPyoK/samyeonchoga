@@ -112,12 +112,14 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
 
   @override
   void setState(VoidCallback fn) {
-    if (widget.pieceModel is RedPieceBaseModel) {
-      final redPieceModel = widget.pieceModel as RedPieceBaseModel;
+    if (mounted) {
+      if (widget.pieceModel is RedPieceBaseModel) {
+        final redPieceModel = widget.pieceModel as RedPieceBaseModel;
 
-      _callJanggoon = redPieceModel.isTargetingKing;
+        _callJanggoon = redPieceModel.isTargetingKing;
+      }
+      super.setState(fn);
     }
-    super.setState(fn);
   }
 
   @override
