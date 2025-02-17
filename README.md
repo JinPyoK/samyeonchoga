@@ -3,7 +3,7 @@
  
  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;">
 
-  <img src="https://github.com/user-attachments/assets/5468ab70-b9a9-4bf6-97dc-b1a1b23464e1" width="30%" style="margin-bottom: 10px;">
+  <img src="https://github.com/user-attachments/assets/f05fb88c-0822-4231-96bf-888c9e9dad57" width="30%" style="margin-bottom: 10px;">
   <img src="https://github.com/user-attachments/assets/d3fac3bb-3fda-4686-936e-938daf33e90f" width="30%" style="margin-bottom: 10px;">
   <img src="https://github.com/user-attachments/assets/68b1477d-b9fa-4562-b945-483b65cad256" width="30%" style="margin-bottom: 10px;">
 
@@ -14,7 +14,7 @@
 </div>
 
 ## 스토어
-구글 플레이스토어에서 심사 진행중입니다. 2025년 1월 중으로 배포 완료할 것 같습니다. IOS 앱스토어에는 등록하지 않았습니다.
+구글 플레이스토어에서 심사 진행중입니다. 2025년 3월 중으로 배포 완료할 것 같습니다. IOS 앱스토어에는 등록하지 않았습니다.
 
 ## 블로그
 https://jinpyoflutter.blogspot.com/
