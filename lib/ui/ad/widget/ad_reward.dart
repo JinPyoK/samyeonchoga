@@ -47,12 +47,20 @@ class _AdRewardState extends State<AdReward> {
             /// Called when the ad failed to show full screen content.
             onAdFailedToShowFullScreenContent: (ad, err) {
               /// Dispose the ad here to free resources.
+              _rewardedAd = null;
+
+              _loadAd();
+
               ad.dispose();
             },
 
             /// Called when the ad dismissed full screen content.
             onAdDismissedFullScreenContent: (ad) {
               /// Dispose the ad here to free resources.
+              _rewardedAd = null;
+
+              _loadAd();
+
               ad.dispose();
             },
 
@@ -91,10 +99,6 @@ class _AdRewardState extends State<AdReward> {
                   }
 
                   await GoldRepository().setGolds(golds: myGolds);
-
-                  _rewardedAd = null;
-
-                  _loadAd();
                 },
               );
             } catch (_) {
