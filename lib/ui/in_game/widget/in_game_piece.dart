@@ -53,42 +53,24 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     final onTheRopes = ref.watch(inGameOnTheRopesProvider);
 
     if (widget.pieceModel.justTapped) {
-      return [
-        whiteColor,
-        inGameBlackColor,
-      ];
+      return [whiteColor, inGameBlackColor];
     }
 
     if (widget.pieceModel.team == Team.red) {
       if (onTheRopes) {
-        return [
-          whiteColor,
-          redColor,
-        ];
+        return [whiteColor, redColor];
       } else {
         if (widget.pieceModel.justTurn) {
-          return [
-            whiteColor,
-            redColor,
-          ];
+          return [whiteColor, redColor];
         } else {
-          return [
-            whiteColor,
-            whiteColor,
-          ];
+          return [whiteColor, whiteColor];
         }
       }
     } else {
       if (widget.pieceModel.justTurn) {
-        return [
-          whiteColor,
-          Colors.blueAccent,
-        ];
+        return [whiteColor, Colors.blueAccent];
       } else {
-        return [
-          whiteColor,
-          whiteColor,
-        ];
+        return [whiteColor, whiteColor];
       }
     }
   }
@@ -128,9 +110,10 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutCubic,
       left: boardPositionXValue[widget.pieceModel.x],
-      bottom: widget.pieceModel.pieceType == PieceType.king
-          ? boardPositionYValueForKing[widget.pieceModel.y]
-          : boardPositionYValue[widget.pieceModel.y],
+      bottom:
+          widget.pieceModel.pieceType == PieceType.king
+              ? boardPositionYValueForKing[widget.pieceModel.y]
+              : boardPositionYValue[widget.pieceModel.y],
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
         children: [
@@ -146,8 +129,9 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
                 onTap: _onPieceTaped,
                 child: ShaderMask(
                   shaderCallback: (rect) {
-                    return RadialGradient(colors: _justTurnPieceColor())
-                        .createShader(rect);
+                    return RadialGradient(
+                      colors: _justTurnPieceColor(),
+                    ).createShader(rect);
                   },
                   child: Image(
                     image: widget.pieceModel.imageProvider,

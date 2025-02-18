@@ -16,17 +16,21 @@ import 'package:samyeonchoga/model/in_game/red_piece/red_sang_model.dart';
 
 final class InGameBoardStatus {
   List<List<PieceOrJustActionable>> boardStatus = List.generate(
-      9,
-      (x) => List<PieceOrJustActionable>.generate(10,
-          (y) => PieceActionableModel(targetX: x, targetY: y, targetValue: 0)));
+    9,
+    (x) => List<PieceOrJustActionable>.generate(
+      10,
+      (y) => PieceActionableModel(targetX: x, targetY: y, targetValue: 0),
+    ),
+  );
 
   void initStatusBoard() {
     boardStatus = List.generate(
-        9,
-        (x) => List<PieceOrJustActionable>.generate(
-            10,
-            (y) =>
-                PieceActionableModel(targetX: x, targetY: y, targetValue: 0)));
+      9,
+      (x) => List<PieceOrJustActionable>.generate(
+        10,
+        (y) => PieceActionableModel(targetX: x, targetY: y, targetValue: 0),
+      ),
+    );
   }
 
   PieceOrJustActionable getStatus(int x, int y) => boardStatus[x][y];
@@ -124,7 +128,6 @@ final class InGameBoardStatus {
           pieceModel = BlueZolModel(x: x, y: y);
         }
       }
-
       /// 한나라
       else {
         if (pieceType == PieceType.cha) {
@@ -175,46 +178,69 @@ final class InGameBoardStatus {
       /// 초나라
       if (boardStatusJson['team'] == Team.blue.name) {
         if (boardStatusJson['pieceType'] == PieceType.king.name) {
-          pieceModel =
-              BlueKingModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueKingModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.sa.name) {
-          pieceModel =
-              BlueSaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueSaModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.cha.name) {
-          pieceModel =
-              BlueChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueChaModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
-          pieceModel =
-              BluePoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BluePoModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
-          pieceModel =
-              BlueMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueMaModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
-          pieceModel =
-              BlueSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueSangModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.zol.name) {
-          pieceModel =
-              BlueZolModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = BlueZolModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         }
       }
-
       /// 한나라
       else {
         if (boardStatusJson['pieceType'] == PieceType.cha.name) {
-          pieceModel =
-              RedChaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = RedChaModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.po.name) {
-          pieceModel =
-              RedPoModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = RedPoModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.ma.name) {
-          pieceModel =
-              RedMaModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = RedMaModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.sang.name) {
-          pieceModel =
-              RedSangModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = RedSangModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         } else if (boardStatusJson['pieceType'] == PieceType.byung.name) {
-          pieceModel =
-              RedByungModel(x: boardStatusJson['x'], y: boardStatusJson['y']);
+          pieceModel = RedByungModel(
+            x: boardStatusJson['x'],
+            y: boardStatusJson['y'],
+          );
         }
       }
       changeStatus(pieceModel.x, pieceModel.y, pieceModel);

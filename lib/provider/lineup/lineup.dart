@@ -1,8 +1,3 @@
-enum Lineup {
-  maSangMaSang,
-  sangMaSangMa,
-  maSangSangMa,
-  sangMaMaSang,
-}
+enum Lineup { maSangMaSang, sangMaSangMa, maSangSangMa, sangMaMaSang }
 
 Lineup lineup = Lineup.maSangMaSang;

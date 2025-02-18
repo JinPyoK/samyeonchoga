@@ -148,8 +148,9 @@ final class InGameTurn extends _$InGameTurn {
     }
 
     final pieceTypeNumberRange = Random().nextInt(100);
-    final redSpawnPositionNumber =
-        Random().nextInt(redSpawnPositionList.length);
+    final redSpawnPositionNumber = Random().nextInt(
+      redSpawnPositionList.length,
+    );
 
     late PieceBaseModel spawnRedPiece;
     final redPiecePlace = redSpawnPositionList[redSpawnPositionNumber];
@@ -157,34 +158,45 @@ final class InGameTurn extends _$InGameTurn {
     /// 기물 부활 확률
     if (pieceTypeNumberRange >= inGameRedStatusProvider.chaSpawnStartRange &&
         pieceTypeNumberRange < inGameRedStatusProvider.chaSpawnEndRange) {
-      spawnRedPiece =
-          RedChaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
+      spawnRedPiece = RedChaModel(
+        x: redPiecePlace.targetX,
+        y: redPiecePlace.targetY,
+      );
     } else if (pieceTypeNumberRange >=
             inGameRedStatusProvider.poSpawnStartRange &&
         pieceTypeNumberRange < inGameRedStatusProvider.poSpawnEndRange) {
-      spawnRedPiece =
-          RedPoModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
+      spawnRedPiece = RedPoModel(
+        x: redPiecePlace.targetX,
+        y: redPiecePlace.targetY,
+      );
     } else if (pieceTypeNumberRange >=
             inGameRedStatusProvider.maSpawnStartRange &&
         pieceTypeNumberRange < inGameRedStatusProvider.maSpawnEndRange) {
-      spawnRedPiece =
-          RedMaModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
+      spawnRedPiece = RedMaModel(
+        x: redPiecePlace.targetX,
+        y: redPiecePlace.targetY,
+      );
     } else if (pieceTypeNumberRange >=
             inGameRedStatusProvider.sangSpawnStartRange &&
         pieceTypeNumberRange < inGameRedStatusProvider.sangSpawnEndRange) {
-      spawnRedPiece =
-          RedSangModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
+      spawnRedPiece = RedSangModel(
+        x: redPiecePlace.targetX,
+        y: redPiecePlace.targetY,
+      );
     } else {
-      spawnRedPiece =
-          RedByungModel(x: redPiecePlace.targetX, y: redPiecePlace.targetY);
+      spawnRedPiece = RedByungModel(
+        x: redPiecePlace.targetX,
+        y: redPiecePlace.targetY,
+      );
     }
 
     ref.read(inGamePieceSetProvider.notifier).spawnPiece(spawnRedPiece);
   }
 
   Future<PieceActionableModel?> _redAction() async {
-    final minimaxResult =
-        await _minimaxIsolate(inGameRedStatusProvider.minimaxTreeDepth);
+    final minimaxResult = await _minimaxIsolate(
+      inGameRedStatusProvider.minimaxTreeDepth,
+    );
 
     if (minimaxResult.isEmpty) {
       return null;
@@ -207,7 +219,10 @@ final class InGameTurn extends _$InGameTurn {
     final piece = inGameBoardStatus.getStatus(pieceX, pieceY) as PieceBaseModel;
 
     final pieceActionable = PieceActionableModel(
-        targetX: targetX, targetY: targetY, targetValue: targetValue);
+      targetX: targetX,
+      targetY: targetY,
+      targetValue: targetValue,
+    );
 
     /// 기물 착수 ui 구현 위해서
     if (lastTurnPiece != null) {
@@ -222,16 +237,14 @@ final class InGameTurn extends _$InGameTurn {
     inGameBoardStatus.changeStatus(
       piece.x,
       piece.y,
-      PieceActionableModel(
-        targetX: piece.x,
-        targetY: piece.y,
-        targetValue: 0,
-      ),
+      PieceActionableModel(targetX: piece.x, targetY: piece.y, targetValue: 0),
     );
 
     /// 움직인 자리에 초나라 기물이 있다면 제거하기
     final status = inGameBoardStatus.getStatus(
-        pieceActionable.targetX, pieceActionable.targetY);
+      pieceActionable.targetX,
+      pieceActionable.targetY,
+    );
     if (status is PieceBaseModel) {
       if (status.team == Team.blue) {
         ref.read(inGamePieceSetProvider.notifier).removePiece(pieceActionable);
@@ -239,7 +252,10 @@ final class InGameTurn extends _$InGameTurn {
     }
 
     inGameBoardStatus.changeStatus(
-        pieceActionable.targetX, pieceActionable.targetY, piece);
+      pieceActionable.targetX,
+      pieceActionable.targetY,
+      piece,
+    );
 
     /// 기물 착수
     piece.x = pieceActionable.targetX;
@@ -276,7 +292,10 @@ final class InGameTurn extends _$InGameTurn {
   }
 
   Future<List<int?>> _minimaxIsolate(int treeDepth) async {
-    return await compute(
-        _minimax, [treeDepth, inGameBoardStatus.boardStatusToJsonList(), 0]);
+    return await compute(_minimax, [
+      treeDepth,
+      inGameBoardStatus.boardStatusToJsonList(),
+      0,
+    ]);
   }
 }

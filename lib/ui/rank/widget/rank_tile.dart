@@ -4,11 +4,7 @@ import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class RankTile extends StatelessWidget {
-  const RankTile({
-    super.key,
-    required this.rank,
-    required this.model,
-  });
+  const RankTile({super.key, required this.rank, required this.model});
 
   final int rank;
   final RankModel model;

@@ -74,7 +74,6 @@ abstract base class PieceBaseModel extends PieceOrJustActionable {
         pieceModel = BlueZolModel(x: x, y: y);
       }
     }
-
     /// 한나라
     else {
       if (pieceType == PieceType.cha) {

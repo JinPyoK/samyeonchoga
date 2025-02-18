@@ -26,14 +26,12 @@ Map<int, double> boardPositionYValue = {
 };
 
 /// 한나라 왕의 이미지만 y value 차이가 있음
-Map<int, double> boardPositionYValueForKing = {
-  7: 1,
-  8: 1,
-  9: 1,
-};
+Map<int, double> boardPositionYValueForKing = {7: 1, 8: 1, 9: 1};
 
-void initBoardPositionValue(
-    {required double boardWidth, required double boardHeight}) {
+void initBoardPositionValue({
+  required double boardWidth,
+  required double boardHeight,
+}) {
   final xValue = boardWidth / 360;
   final yValue = boardHeight / 720;
 

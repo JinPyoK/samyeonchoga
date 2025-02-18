@@ -23,12 +23,13 @@ class InGameAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
     return AppBar(
       backgroundColor: inGameBlackColor,
-      leading: isMyTurn
-          ? Container()
-          : const Padding(
-              padding: EdgeInsets.all(16),
-              child: CircularProgressIndicator(color: whiteColor),
-            ),
+      leading:
+          isMyTurn
+              ? Container()
+              : const Padding(
+                padding: EdgeInsets.all(16),
+                child: CircularProgressIndicator(color: whiteColor),
+              ),
       centerTitle: true,
       title: Text(
         inGameMove.toString(),

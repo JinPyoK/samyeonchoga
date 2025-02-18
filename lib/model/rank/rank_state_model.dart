@@ -1,8 +1,4 @@
-enum RankStateEnum {
-  fetch,
-  loading,
-  error,
-}
+enum RankStateEnum { fetch, loading, error }
 
 final class RankStateModel {
   final RankStateEnum state;

@@ -25,8 +25,12 @@ final class Rank extends _$Rank {
 
       /// 랭크 데이터가 없을 경우
       if (rankList.isEmpty) {
-        ref.read(rankStateProvider.notifier).changeRankState(
-            rankState: RankStateEnum.error, errorMessage: '랭크 데이터가 존재하지 않습니다.');
+        ref
+            .read(rankStateProvider.notifier)
+            .changeRankState(
+              rankState: RankStateEnum.error,
+              errorMessage: '랭크 데이터가 존재하지 않습니다.',
+            );
         return;
       }
 
@@ -36,7 +40,9 @@ final class Rank extends _$Rank {
           .read(rankStateProvider.notifier)
           .changeRankState(rankState: RankStateEnum.fetch);
     } catch (_) {
-      ref.read(rankStateProvider.notifier).changeRankState(
+      ref
+          .read(rankStateProvider.notifier)
+          .changeRankState(
             rankState: RankStateEnum.error,
             errorMessage: '랭크 데이터를 불러오는 도중 에러가 발생했습니다',
           );

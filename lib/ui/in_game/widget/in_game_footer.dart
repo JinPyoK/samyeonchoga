@@ -79,8 +79,10 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
           const SizedBox(width: 10),
           Text(
             label,
-            style:
-                const TextStyle(color: whiteColor, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: whiteColor,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(width: 10),
           GoldWidget(gold: gold, goldTextColor: whiteColor),
@@ -125,18 +127,23 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: isMyTurn
-            ? () {
-                ref.read(inGameNavigatorProvider.notifier).showSpawnNavigator();
-              }
-            : null,
+        onTap:
+            isMyTurn
+                ? () {
+                  ref
+                      .read(inGameNavigatorProvider.notifier)
+                      .showSpawnNavigator();
+                }
+                : null,
         child: SizedBox(
           height: 50 * hu,
           child: InputDecorator(
             decoration: InputDecoration(
               labelText: '부활 기물 선택',
               labelStyle: const TextStyle(
-                  color: whiteColor, fontWeight: FontWeight.bold),
+                color: whiteColor,
+                fontWeight: FontWeight.bold,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
                 borderSide: const BorderSide(color: whiteColor),
@@ -153,7 +160,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                     color: whiteColor,
                     fontWeight: FontWeight.bold,
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -183,11 +190,12 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: redColor,
-                        ),
-                        onPressed: isMyTurn
-                            ? () {
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: redColor,
+                      ),
+                      onPressed:
+                          isMyTurn
+                              ? () {
                                 showCustomDialog(
                                   context,
                                   Column(
@@ -204,67 +212,75 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                       ),
                                       const SizedBox(height: 30),
                                       ElevatedButton(
-                                          onPressed: () async {
-                                            final tempList = <String>[];
+                                        onPressed: () async {
+                                          final tempList = <String>[];
 
-                                            final move =
-                                                ref.read(inGameMoveProvider);
-                                            final inGameGold =
-                                                ref.read(inGameGoldProvider);
-                                            final inGameSaveDataList =
-                                                inGameBoardStatus
-                                                    .refinePieceModelForSave();
+                                          final move = ref.read(
+                                            inGameMoveProvider,
+                                          );
+                                          final inGameGold = ref.read(
+                                            inGameGoldProvider,
+                                          );
+                                          final inGameSaveDataList =
+                                              inGameBoardStatus
+                                                  .refinePieceModelForSave();
 
-                                            tempList.add(move.toString());
-                                            tempList.add(inGameGold.toString());
+                                          tempList.add(move.toString());
+                                          tempList.add(inGameGold.toString());
 
-                                            final saveDataList = [
-                                              ...tempList,
-                                              ...inGameSaveDataList
-                                            ];
+                                          final saveDataList = [
+                                            ...tempList,
+                                            ...inGameSaveDataList,
+                                          ];
 
-                                            await InGameSavedDataRepository()
-                                                .saveInGameData(
-                                                    inGameData: saveDataList);
+                                          await InGameSavedDataRepository()
+                                              .saveInGameData(
+                                                inGameData: saveDataList,
+                                              );
 
-                                            if (context.mounted) {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                            }
-                                          },
-                                          child: const Text("게임 저장 후 종료")),
+                                          if (context.mounted) {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          }
+                                        },
+                                        child: const Text("게임 저장 후 종료"),
+                                      ),
                                       const SizedBox(height: 15),
                                       ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.redAccent,
-                                          ),
-                                          onPressed: () async {
-                                            final inGameGold =
-                                                ref.read(inGameGoldProvider);
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.redAccent,
+                                        ),
+                                        onPressed: () async {
+                                          final inGameGold = ref.read(
+                                            inGameGoldProvider,
+                                          );
 
-                                            myGolds += inGameGold;
+                                          myGolds += inGameGold;
 
-                                            await GoldRepository()
-                                                .setGolds(golds: myGolds);
+                                          await GoldRepository().setGolds(
+                                            golds: myGolds,
+                                          );
 
-                                            await InGameSavedDataRepository()
-                                                .removeInGameData();
+                                          await InGameSavedDataRepository()
+                                              .removeInGameData();
 
-                                            if (context.mounted) {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                            }
+                                          if (context.mounted) {
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                          }
 
-                                            setStateGold!(() {});
-                                          },
-                                          child: const Text("저장하지 않고 종료")),
+                                          setStateGold!(() {});
+                                        },
+                                        child: const Text("저장하지 않고 종료"),
+                                      ),
                                     ],
                                   ),
                                   actionButtonColor: Colors.grey,
                                 );
                               }
-                            : null,
-                        child: const Text("게임 저장 및 종료")),
+                              : null,
+                      child: const Text("게임 저장 및 종료"),
+                    ),
                   ),
                 ),
               ],
@@ -273,58 +289,64 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ElevatedButton(
-                      onPressed: isMyTurn
-                          ? () {
-                              showCustomDialog(
-                                context,
-                                SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      _renderSpawnButton(PieceType.cha),
-                                      const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.po),
-                                      const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.ma),
-                                      const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.sang),
-                                      const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.sa),
-                                      const SizedBox(height: 10),
-                                      _renderSpawnButton(PieceType.zol),
-                                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ElevatedButton(
+                      onPressed:
+                          isMyTurn
+                              ? () {
+                                showCustomDialog(
+                                  context,
+                                  SingleChildScrollView(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        _renderSpawnButton(PieceType.cha),
+                                        const SizedBox(height: 10),
+                                        _renderSpawnButton(PieceType.po),
+                                        const SizedBox(height: 10),
+                                        _renderSpawnButton(PieceType.ma),
+                                        const SizedBox(height: 10),
+                                        _renderSpawnButton(PieceType.sang),
+                                        const SizedBox(height: 10),
+                                        _renderSpawnButton(PieceType.sa),
+                                        const SizedBox(height: 10),
+                                        _renderSpawnButton(PieceType.zol),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                color: Colors.transparent,
-                                actionButtonColor: Colors.grey,
-                              );
-                            }
-                          : null,
-                      child: const Text("기물 부활 목록")),
-                )),
+                                  color: Colors.transparent,
+                                  actionButtonColor: Colors.grey,
+                                );
+                              }
+                              : null,
+                      child: const Text("기물 부활 목록"),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: ElevatedButton(
-                      onPressed: isMyTurn
-                          ? () {
-                              ref
-                                  .read(inGameNavigatorProvider.notifier)
-                                  .showExecuteNavigator();
-                            }
-                          : null,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ElevatedButton(
+                      onPressed:
+                          isMyTurn
+                              ? () {
+                                ref
+                                    .read(inGameNavigatorProvider.notifier)
+                                    .showExecuteNavigator();
+                              }
+                              : null,
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text("기물 처형"),
                           GoldWidget(gold: 300, goldTextColor: whiteColor),
                         ],
-                      )),
-                )),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             // Dummy containers for spaceBetween in row

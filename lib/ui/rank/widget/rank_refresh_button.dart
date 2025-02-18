@@ -32,14 +32,15 @@ class _RankRefreshButtonState extends ConsumerState<RankRefreshButton> {
         color: woodColor,
         borderRadius: BorderRadius.circular(8),
         child: InkWell(
-          onTap: _coolTime
-              ? null
-              : () async {
-                  if (!_coolTime) {
-                    await ref.read(rankProvider.notifier).getRankList();
-                    await _refreshCoolTime();
-                  }
-                },
+          onTap:
+              _coolTime
+                  ? null
+                  : () async {
+                    if (!_coolTime) {
+                      await ref.read(rankProvider.notifier).getRankList();
+                      await _refreshCoolTime();
+                    }
+                  },
           borderRadius: BorderRadius.circular(8),
           child: Padding(
             padding: EdgeInsets.all(3 * hu),
@@ -47,12 +48,10 @@ class _RankRefreshButtonState extends ConsumerState<RankRefreshButton> {
               width: 30 * hu,
               height: 30 * hu,
               child: FittedBox(
-                child: _coolTime
-                    ? const _RankRefreshTimer()
-                    : const Icon(
-                        Icons.refresh,
-                        color: whiteColor,
-                      ),
+                child:
+                    _coolTime
+                        ? const _RankRefreshTimer()
+                        : const Icon(Icons.refresh, color: whiteColor),
               ),
             ),
           ),
@@ -98,10 +97,7 @@ class _RankRefreshTimerState extends State<_RankRefreshTimer> {
     return Center(
       child: Text(
         _seconds.toString(),
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: whiteColor,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.bold, color: whiteColor),
       ),
     );
   }

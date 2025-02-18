@@ -22,25 +22,25 @@ class ErrorSystemNotification extends StatelessWidget {
       bottom: pieceSize,
       child: IgnorePointer(
         child: Container(
-          decoration: BoxDecoration(
-            color: inGameBlackColor.withValues(alpha: 0.8),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.symmetric(
-              horizontal: pieceSize, vertical: pieceSize / 2),
-          child: Text(
-            errorMessage,
-            style: GoogleFonts.songMyung(
-              color: whiteColor,
-              fontWeight: FontWeight.bold,
-              fontSize: pieceSize / 2,
-            ),
-          ),
-        )
-            .animate()
-            .fadeIn(
-              duration: const Duration(seconds: 1),
+              decoration: BoxDecoration(
+                color: inGameBlackColor.withValues(alpha: 0.8),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: pieceSize,
+                vertical: pieceSize / 2,
+              ),
+              child: Text(
+                errorMessage,
+                style: GoogleFonts.songMyung(
+                  color: whiteColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: pieceSize / 2,
+                ),
+              ),
             )
+            .animate()
+            .fadeIn(duration: const Duration(seconds: 1))
             .then()
             .fadeOut(
               delay: const Duration(milliseconds: 500),

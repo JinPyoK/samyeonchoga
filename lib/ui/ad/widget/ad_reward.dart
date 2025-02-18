@@ -38,27 +38,27 @@ class _AdRewardState extends State<AdReward> {
         /// Called when an ad is successfully received.
         onAdLoaded: (ad) {
           ad.fullScreenContentCallback = FullScreenContentCallback(
+            /// Called when the ad showed the full screen content.
+            onAdShowedFullScreenContent: (ad) {},
 
-              /// Called when the ad showed the full screen content.
-              onAdShowedFullScreenContent: (ad) {},
+            /// Called when an impression occurs on the ad.
+            onAdImpression: (ad) {},
 
-              /// Called when an impression occurs on the ad.
-              onAdImpression: (ad) {},
+            /// Called when the ad failed to show full screen content.
+            onAdFailedToShowFullScreenContent: (ad, err) {
+              /// Dispose the ad here to free resources.
+              ad.dispose();
+            },
 
-              /// Called when the ad failed to show full screen content.
-              onAdFailedToShowFullScreenContent: (ad, err) {
-                /// Dispose the ad here to free resources.
-                ad.dispose();
-              },
+            /// Called when the ad dismissed full screen content.
+            onAdDismissedFullScreenContent: (ad) {
+              /// Dispose the ad here to free resources.
+              ad.dispose();
+            },
 
-              /// Called when the ad dismissed full screen content.
-              onAdDismissedFullScreenContent: (ad) {
-                /// Dispose the ad here to free resources.
-                ad.dispose();
-              },
-
-              /// Called when a click is recorded for an ad.
-              onAdClicked: (ad) {});
+            /// Called when a click is recorded for an ad.
+            onAdClicked: (ad) {},
+          );
 
           // Keep a reference to the ad so you can show it later.
           _rewardedAd = ad;
@@ -76,9 +76,7 @@ class _AdRewardState extends State<AdReward> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10 * wu),
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(100 * wu, 40 * hu),
-        ),
+        style: ElevatedButton.styleFrom(minimumSize: Size(100 * wu, 40 * hu)),
         onPressed: () {
           if (_rewardedAd == null) {
             showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');

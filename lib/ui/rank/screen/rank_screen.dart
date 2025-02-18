@@ -66,42 +66,41 @@ class _RankScreenState extends ConsumerState<RankScreen>
         if (rankState.state == RankStateEnum.error)
           Padding(
             padding: const EdgeInsets.only(top: 30),
-            child: Center(
-              child: Text(rankState.errorMessage!),
-            ),
+            child: Center(child: Text(rankState.errorMessage!)),
           ),
         if (rankState.state == RankStateEnum.fetch)
           Expanded(
             child: ListView(
-              children: rankList.asMap().entries.map((entry) {
-                final index = entry.key;
-                final item = entry.value;
+              children:
+                  rankList.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final item = entry.value;
 
-                /// 공동 순위 나타내기
-                if (index > 0) {
-                  if (item.move == sameMove) {
-                    rankStack++;
-                  } else {
-                    rankStack = 0;
-                    sameMove = item.move;
-                  }
-                } else {
-                  /// index == 0
-                  rankStack = 0;
-                  sameMove = item.move;
-                }
+                    /// 공동 순위 나타내기
+                    if (index > 0) {
+                      if (item.move == sameMove) {
+                        rankStack++;
+                      } else {
+                        rankStack = 0;
+                        sameMove = item.move;
+                      }
+                    } else {
+                      /// index == 0
+                      rankStack = 0;
+                      sameMove = item.move;
+                    }
 
-                return RankTile(
-                  rank: index + 1 - rankStack,
-                  model: RankModel(
-                    id: item.id,
-                    move: item.move,
-                    nickName: item.nickName,
-                  ),
-                );
-              }).toList(),
+                    return RankTile(
+                      rank: index + 1 - rankStack,
+                      model: RankModel(
+                        id: item.id,
+                        move: item.move,
+                        nickName: item.nickName,
+                      ),
+                    );
+                  }).toList(),
             ),
-          )
+          ),
       ],
     );
   }

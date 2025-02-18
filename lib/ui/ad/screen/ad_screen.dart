@@ -25,10 +25,7 @@ class _AdScreenState extends State<AdScreen>
           padding: EdgeInsets.only(left: 20 * wu),
           child: Text(
             "광고",
-            style: TextStyle(
-              fontSize: 36 * hu,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 36 * hu, fontWeight: FontWeight.bold),
           ),
         ),
         // SizedBox(height: 10 * hu),
@@ -50,20 +47,14 @@ class _AdScreenState extends State<AdScreen>
 }
 
 Padding _renderCaution(String text) => Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10 * wu, vertical: 5 * hu),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            '* ',
-            style: TextStyle(color: Colors.black54),
-          ),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(color: Colors.black54),
-            ),
-          ),
-        ],
+  padding: EdgeInsets.symmetric(horizontal: 10 * wu, vertical: 5 * hu),
+  child: Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text('* ', style: TextStyle(color: Colors.black54)),
+      Expanded(
+        child: Text(text, style: const TextStyle(color: Colors.black54)),
       ),
-    );
+    ],
+  ),
+);

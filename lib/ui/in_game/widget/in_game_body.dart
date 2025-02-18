@@ -58,10 +58,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
           children: [
             Align(
               alignment: Alignment.bottomLeft,
-              child: Image(
-                image: imageBoard,
-                key: imageBoardKey,
-              ),
+              child: Image(image: imageBoard, key: imageBoardKey),
             ),
             ...pieceSet,
             ...navigatorBoxList,

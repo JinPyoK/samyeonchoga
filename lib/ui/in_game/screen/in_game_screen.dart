@@ -31,14 +31,8 @@ class InGameScreen extends ConsumerWidget {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                flex: 7,
-                child: InGameBody(gameHadSaved: gameHadSaved),
-              ),
-              const Expanded(
-                flex: 5,
-                child: InGameFooter(),
-              ),
+              Expanded(flex: 7, child: InGameBody(gameHadSaved: gameHadSaved)),
+              const Expanded(flex: 5, child: InGameFooter()),
             ],
           ),
         ),

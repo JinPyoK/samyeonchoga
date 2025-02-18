@@ -35,21 +35,23 @@ class Samyeonchoga extends StatelessWidget {
         theme: _customTheme,
         title: 'samyeonchoga',
         home: FutureBuilder(
-            future: PrivacyPolicyRepository().getPrivacyPolicy(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Scaffold(body: Container());
-              } else if (snapshot.hasData) {
-                if (snapshot.data!) {
-                  return const HomeNavigationScreen();
-                } else {
-                  return const PrivacyPolicyScreen();
-                }
+          future: PrivacyPolicyRepository().getPrivacyPolicy(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Scaffold(body: Container());
+            } else if (snapshot.hasData) {
+              if (snapshot.data!) {
+                return const HomeNavigationScreen();
               } else {
-                return const Scaffold(
-                    body: Center(child: Text("The game cannot be run")));
+                return const PrivacyPolicyScreen();
               }
-            }),
+            } else {
+              return const Scaffold(
+                body: Center(child: Text("The game cannot be run")),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -57,14 +59,10 @@ class Samyeonchoga extends StatelessWidget {
 
 Future<void> _initGame() async {
   /// 기기 세로 모드 고정
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   /// 파이어베이스
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   /// 구글 애드몹
   await MobileAds.instance.initialize();
@@ -92,14 +90,10 @@ final _customTheme = ThemeData(
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       foregroundColor: whiteColor,
       backgroundColor: woodColor,
-      textStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
+      textStyle: const TextStyle(fontWeight: FontWeight.bold),
       disabledBackgroundColor: Colors.grey,
     ),
   ),

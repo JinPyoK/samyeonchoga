@@ -65,25 +65,26 @@ class _AdBannerState extends State<AdBanner> {
       child: SizedBox(
         width: widget.adSize.width.toDouble(),
         height: widget.adSize.height.toDouble(),
-        child: _bannerAd == null
-            // Nothing to render yet.
-            ? Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: blackColor, width: 1.5),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(color: blackColor),
-                    SizedBox(height: 5),
-                    Text("배너 광고가 업로드 되는 중입니다..."),
-                  ],
-                ),
-              )
-            // The actual ad.
-            : AdWidget(ad: _bannerAd!),
+        child:
+            _bannerAd == null
+                // Nothing to render yet.
+                ? Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: blackColor, width: 1.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(color: blackColor),
+                      SizedBox(height: 5),
+                      Text("배너 광고가 업로드 되는 중입니다..."),
+                    ],
+                  ),
+                )
+                // The actual ad.
+                : AdWidget(ad: _bannerAd!),
       ),
     );
   }

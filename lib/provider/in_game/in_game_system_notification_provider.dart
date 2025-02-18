@@ -16,10 +16,7 @@ final class InGameSystemNotification extends _$InGameSystemNotification {
   }
 
   void notifyJanggoon() {
-    state = <Widget>[
-      ...state,
-      JanggoonSystemNotification(key: GlobalKey()),
-    ];
+    state = <Widget>[...state, JanggoonSystemNotification(key: GlobalKey())];
     makeExecuteOrJanggoonSound();
   }
 

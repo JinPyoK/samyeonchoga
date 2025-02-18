@@ -5,15 +5,13 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
 final class BlueZolModel extends BluePieceBaseModel {
-  BlueZolModel({
-    required super.x,
-    required super.y,
-  }) : super(
-          team: Team.blue,
-          pieceType: PieceType.zol,
-          value: 20,
-          imageProvider: imageBlueZol,
-        );
+  BlueZolModel({required super.x, required super.y})
+    : super(
+        team: Team.blue,
+        pieceType: PieceType.zol,
+        value: 20,
+        imageProvider: imageBlueZol,
+      );
 
   @override
   void searchActionable(InGameBoardStatus statusBoard) {

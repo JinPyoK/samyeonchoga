@@ -28,7 +28,8 @@ void showCustomDialog(
             if (defaultAction)
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: actionButtonColor),
+                  backgroundColor: actionButtonColor,
+                ),
                 onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
                 },

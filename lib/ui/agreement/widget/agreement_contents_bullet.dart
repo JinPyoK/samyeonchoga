@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
 class AgreementContentsBullet extends StatelessWidget {
-  const AgreementContentsBullet({
-    super.key,
-    required this.contents,
-  });
+  const AgreementContentsBullet({super.key, required this.contents});
 
   final String contents;
 
@@ -16,17 +13,11 @@ class AgreementContentsBullet extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '●',
-            style: TextStyle(fontSize: 14),
-          ),
+          const Text('●', style: TextStyle(fontSize: 14)),
           const SizedBox(width: 10),
           SizedBox(
             width: 260 * wu,
-            child: Text(
-              contents,
-              style: const TextStyle(fontSize: 14),
-            ),
+            child: Text(contents, style: const TextStyle(fontSize: 14)),
           ),
         ],
       ),

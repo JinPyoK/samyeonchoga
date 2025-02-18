@@ -5,15 +5,13 @@ import 'package:samyeonchoga/provider/in_game/in_game_board_status.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
 final class RedPoModel extends RedPieceBaseModel {
-  RedPoModel({
-    required super.x,
-    required super.y,
-  }) : super(
-          team: Team.red,
-          pieceType: PieceType.po,
-          value: 7,
-          imageProvider: imageRedPo,
-        );
+  RedPoModel({required super.x, required super.y})
+    : super(
+        team: Team.red,
+        pieceType: PieceType.po,
+        value: 7,
+        imageProvider: imageRedPo,
+      );
 
   @override
   void searchActionable(InGameBoardStatus statusBoard) {

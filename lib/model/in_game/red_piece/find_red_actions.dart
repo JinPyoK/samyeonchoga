@@ -3,7 +3,9 @@ import 'package:samyeonchoga/model/in_game/piece_base_model.dart';
 import 'package:samyeonchoga/model/in_game/piece_enum.dart';
 
 void findRedActions(
-    PieceOrJustActionable status, List<PieceActionableModel> pieceActionable) {
+  PieceOrJustActionable status,
+  List<PieceActionableModel> pieceActionable,
+) {
   if (status is PieceActionableModel) {
     pieceActionable.add(
       PieceActionableModel(

@@ -17,42 +17,37 @@ final class RankRepository {
 
   Future<void> writeRank({required RankModel rankModel}) async {
     /// 동시성 문제 방지
-    await _realtime.ref('rank').runTransaction(
-      (rankSnapshotValue) {
-        try {
-          final rankList = _makeSortedRankList(rankSnapshotValue);
+    await _realtime.ref('rank').runTransaction((rankSnapshotValue) {
+      try {
+        final rankList = _makeSortedRankList(rankSnapshotValue);
 
-          /// 마지막 순위의 데이터 제거 후 랭크 데이터 쓰기 => 데이터 100개만 유지
-          if (rankList.length < 100) {
-            rankList.add(rankModel);
-          } else {
-            if (rankList.last.move > rankModel.move) {
-              /// 100위보다 낮으므로 랭크에 등록될 수 없다.
-              return Transaction.abort();
-            }
-
-            /// 100위보다 높으면 마지막 데이터를 지우고 해당 데이터 추가
-            rankList.removeLast();
-            rankList.add(rankModel);
+        /// 마지막 순위의 데이터 제거 후 랭크 데이터 쓰기 => 데이터 100개만 유지
+        if (rankList.length < 100) {
+          rankList.add(rankModel);
+        } else {
+          if (rankList.last.move > rankModel.move) {
+            /// 100위보다 낮으므로 랭크에 등록될 수 없다.
+            return Transaction.abort();
           }
 
-          Map<String, dynamic> rankData = {};
-
-          for (RankModel model in rankList) {
-            rankData.addAll({
-              model.id: {
-                'move': model.move,
-                'nickName': model.nickName,
-              },
-            });
-          }
-
-          return Transaction.success(rankData);
-        } catch (_) {
-          return Transaction.abort();
+          /// 100위보다 높으면 마지막 데이터를 지우고 해당 데이터 추가
+          rankList.removeLast();
+          rankList.add(rankModel);
         }
-      },
-    );
+
+        Map<String, dynamic> rankData = {};
+
+        for (RankModel model in rankList) {
+          rankData.addAll({
+            model.id: {'move': model.move, 'nickName': model.nickName},
+          });
+        }
+
+        return Transaction.success(rankData);
+      } catch (_) {
+        return Transaction.abort();
+      }
+    });
   }
 }
 
@@ -67,13 +62,11 @@ List<RankModel> _makeSortedRankList(Object? data) {
 
   for (String key in rankListObject.keys) {
     rankList.add(
-      RankModel.fromJson(
-        {
-          'id': key,
-          'move': rankListObject[key]['move'] as int,
-          'nickName': rankListObject[key]['nickName'] as String,
-        },
-      ),
+      RankModel.fromJson({
+        'id': key,
+        'move': rankListObject[key]['move'] as int,
+        'nickName': rankListObject[key]['nickName'] as String,
+      }),
     );
   }
 

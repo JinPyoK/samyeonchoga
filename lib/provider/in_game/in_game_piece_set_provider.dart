@@ -291,11 +291,15 @@ final class InGamePieceSet extends _$InGamePieceSet {
   }
 
   /// 기물 제거
-  void removePiece(PieceActionableModel pieceActionable,
-      [bool isExecute = false]) {
+  void removePiece(
+    PieceActionableModel pieceActionable, [
+    bool isExecute = false,
+  ]) {
     final gold = ref.read(inGameGoldProvider);
     final targetPieceModel = inGameBoardStatus.getStatus(
-        pieceActionable.targetX, pieceActionable.targetY);
+      pieceActionable.targetX,
+      pieceActionable.targetY,
+    );
 
     if (isExecute) {
       if (gold < 300) {

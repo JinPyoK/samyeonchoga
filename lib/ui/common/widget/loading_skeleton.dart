@@ -3,10 +3,7 @@ import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class LoadingSkeleton extends StatelessWidget {
-  const LoadingSkeleton({
-    super.key,
-    this.itemCount = 4,
-  });
+  const LoadingSkeleton({super.key, this.itemCount = 4});
 
   final int itemCount;
 
@@ -37,15 +34,9 @@ class _RenderBone extends StatelessWidget {
         enabled: true,
         child: Card(
           child: ListTile(
-            title: Bone.text(
-              width: 80,
-            ),
-            subtitle: Bone.text(
-              width: 180,
-            ),
-            leading: Bone.icon(
-              size: 64,
-            ),
+            title: Bone.text(width: 80),
+            subtitle: Bone.text(width: 180),
+            leading: Bone.icon(size: 64),
           ),
         ),
       ),

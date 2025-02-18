@@ -23,10 +23,7 @@ class GoldWidget extends StatelessWidget {
           textStyle: TextStyle(color: goldTextColor),
         ),
         const SizedBox(width: 10),
-        const FaIcon(
-          FontAwesomeIcons.coins,
-          color: Colors.amber,
-        ),
+        const FaIcon(FontAwesomeIcons.coins, color: Colors.amber),
       ],
     );
   }

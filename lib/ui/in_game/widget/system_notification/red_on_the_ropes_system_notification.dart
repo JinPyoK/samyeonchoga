@@ -16,25 +16,25 @@ class RedOnTheRopesSystemNotification extends StatelessWidget {
       bottom: pieceSize,
       child: IgnorePointer(
         child: Container(
-          decoration: BoxDecoration(
-            color: inGameBlackColor.withValues(alpha: 0.8),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: EdgeInsets.symmetric(
-              horizontal: pieceSize, vertical: pieceSize / 3),
-          child: Text(
-            '사방에서 초나라의 노래가 들려온다',
-            style: GoogleFonts.songMyung(
-              color: whiteColor,
-              fontWeight: FontWeight.bold,
-              fontSize: pieceSize / 2.5,
-            ),
-          ),
-        )
-            .animate()
-            .fadeIn(
-              duration: const Duration(seconds: 2),
+              decoration: BoxDecoration(
+                color: inGameBlackColor.withValues(alpha: 0.8),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.symmetric(
+                horizontal: pieceSize,
+                vertical: pieceSize / 3,
+              ),
+              child: Text(
+                '사방에서 초나라의 노래가 들려온다',
+                style: GoogleFonts.songMyung(
+                  color: whiteColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: pieceSize / 2.5,
+                ),
+              ),
             )
+            .animate()
+            .fadeIn(duration: const Duration(seconds: 2))
             .then()
             .fadeOut(
               delay: const Duration(milliseconds: 500),

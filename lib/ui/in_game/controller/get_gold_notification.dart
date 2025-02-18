@@ -13,13 +13,19 @@ final class GetGoldNotificationWidget extends _$GetGoldNotificationWidget {
 
   void showGoldNotification(bool isIncrease, int getGold) {
     state = _GoldNotification(
-        key: GlobalKey(), increase: isIncrease, gold: getGold);
+      key: GlobalKey(),
+      increase: isIncrease,
+      gold: getGold,
+    );
   }
 }
 
 class _GoldNotification extends StatefulWidget {
-  const _GoldNotification(
-      {required super.key, required this.increase, required this.gold});
+  const _GoldNotification({
+    required super.key,
+    required this.increase,
+    required this.gold,
+  });
 
   final bool increase;
   final int gold;

@@ -13,55 +13,55 @@ class RedUpgradeSystemNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       child: Container(
-        decoration: BoxDecoration(
-          color: inGameBlackColor.withValues(alpha: 0.8),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        padding: EdgeInsets.symmetric(
-            horizontal: pieceSize, vertical: pieceSize / 5),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              '한나라 알고리즘',
-              style: GoogleFonts.songMyung(
-                color: whiteColor,
-                fontWeight: FontWeight.bold,
-                fontSize: pieceSize / 2,
-              ),
+            decoration: BoxDecoration(
+              color: inGameBlackColor.withValues(alpha: 0.8),
+              borderRadius: BorderRadius.circular(8),
             ),
-            Row(
+            padding: EdgeInsets.symmetric(
+              horizontal: pieceSize,
+              vertical: pieceSize / 5,
+            ),
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    level.toString(),
-                    style: GoogleFonts.songMyung(
-                      color: whiteColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: pieceSize,
-                    ),
-                  ),
-                ),
                 Text(
-                  '단계',
+                  '한나라 알고리즘',
                   style: GoogleFonts.songMyung(
                     color: whiteColor,
                     fontWeight: FontWeight.bold,
                     fontSize: pieceSize / 2,
                   ),
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        level.toString(),
+                        style: GoogleFonts.songMyung(
+                          color: whiteColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: pieceSize,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '단계',
+                      style: GoogleFonts.songMyung(
+                        color: whiteColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: pieceSize / 2,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
-      )
-          .animate()
-          .fadeIn(
-            duration: const Duration(seconds: 1),
           )
+          .animate()
+          .fadeIn(duration: const Duration(seconds: 1))
           .then()
           .shimmer(
             delay: const Duration(milliseconds: 500),

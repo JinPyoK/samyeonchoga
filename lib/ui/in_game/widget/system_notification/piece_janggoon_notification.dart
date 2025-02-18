@@ -9,20 +9,20 @@ class PieceJanggoonNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: inGameBlackColor.withValues(alpha: 0.8),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      padding: const EdgeInsets.all(8),
-      child: Text(
-        '장군!',
-        style: TextStyle(
-          color: whiteColor,
-          fontWeight: FontWeight.bold,
-          fontSize: 8 * hu,
-        ),
-      ),
-    )
+          decoration: BoxDecoration(
+            color: inGameBlackColor.withValues(alpha: 0.8),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            '장군!',
+            style: TextStyle(
+              color: whiteColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 8 * hu,
+            ),
+          ),
+        )
         .animate()
         .fade(duration: const Duration(seconds: 1))
         .animate(onPlay: (controller) => controller.repeat())

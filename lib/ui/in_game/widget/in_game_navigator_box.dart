@@ -56,7 +56,9 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
 
       /// 움직인 자리에 한나라 기물이 있다면 제거하기
       final status = inGameBoardStatus.getStatus(
-          widget.pieceActionable.targetX, widget.pieceActionable.targetY);
+        widget.pieceActionable.targetX,
+        widget.pieceActionable.targetY,
+      );
       if (status is PieceBaseModel) {
         if (status.team == Team.red) {
           ref
@@ -65,8 +67,11 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
         }
       }
 
-      inGameBoardStatus.changeStatus(widget.pieceActionable.targetX,
-          widget.pieceActionable.targetY, selectedPieceModel!);
+      inGameBoardStatus.changeStatus(
+        widget.pieceActionable.targetX,
+        widget.pieceActionable.targetY,
+        selectedPieceModel!,
+      );
 
       /// 최근 탭한 기물 setState
       if (selectedPieceModel != null) {
@@ -163,9 +168,10 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 3,
-                color: widget.navigatorType == NavigatorType.spawn
-                    ? Colors.lightGreenAccent
-                    : redColor,
+                color:
+                    widget.navigatorType == NavigatorType.spawn
+                        ? Colors.lightGreenAccent
+                        : redColor,
               ),
               borderRadius: BorderRadius.circular(8),
               color: Colors.transparent,

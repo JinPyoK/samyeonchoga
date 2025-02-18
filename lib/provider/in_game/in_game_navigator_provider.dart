@@ -25,8 +25,9 @@ final class InGameNavigator extends _$InGameNavigator {
     final navigatorBoxList = <InGameNavigatorBox>[];
 
     for (PieceActionableModel actionableModel in pieceActionableList) {
-      navigatorBoxList
-          .add(InGameNavigatorBox(pieceActionable: actionableModel));
+      navigatorBoxList.add(
+        InGameNavigatorBox(pieceActionable: actionableModel),
+      );
     }
 
     state = List.from(navigatorBoxList);
@@ -46,7 +47,10 @@ final class InGameNavigator extends _$InGameNavigator {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
-                    targetX: i, targetY: j, targetValue: 0),
+                  targetX: i,
+                  targetY: j,
+                  targetValue: 0,
+                ),
                 navigatorType: NavigatorType.spawn,
               ),
             );
@@ -61,7 +65,10 @@ final class InGameNavigator extends _$InGameNavigator {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
-                    targetX: i, targetY: j, targetValue: 0),
+                  targetX: i,
+                  targetY: j,
+                  targetValue: 0,
+                ),
                 navigatorType: NavigatorType.spawn,
               ),
             );
@@ -85,7 +92,10 @@ final class InGameNavigator extends _$InGameNavigator {
             navigatorBoxList.add(
               InGameNavigatorBox(
                 pieceActionable: PieceActionableModel(
-                    targetX: i, targetY: j, targetValue: 0),
+                  targetX: i,
+                  targetY: j,
+                  targetValue: 0,
+                ),
                 navigatorType: NavigatorType.execute,
               ),
             );

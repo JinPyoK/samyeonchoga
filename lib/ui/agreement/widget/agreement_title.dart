@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AgreementTitle extends StatelessWidget {
-  const AgreementTitle({
-    super.key,
-    required this.title,
-  });
+  const AgreementTitle({super.key, required this.title});
 
   final String title;
 
@@ -14,10 +11,7 @@ class AgreementTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: Text(
         title,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        ),
+        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
       ),
     );
   }

@@ -63,15 +63,10 @@ final class MinimaxNode {
   int? targetY;
   int targetValue = 0;
 
-  MinimaxNode({
-    required this.nodeDepth,
-  }) {
+  MinimaxNode({required this.nodeDepth}) {
     nodeType =
         (nodeDepth + 1) % 2 == 1 ? MinimaxNodeType.min : MinimaxNodeType.max;
   }
 }
 
-enum MinimaxNodeType {
-  min,
-  max,
-}
+enum MinimaxNodeType { min, max }

@@ -1,5 +1,1 @@
-enum NavigatorType {
-  pieceMove,
-  spawn,
-  execute,
-}
+enum NavigatorType { pieceMove, spawn, execute }

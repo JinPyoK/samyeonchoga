@@ -33,10 +33,7 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
       children: [
         const Padding(
           padding: EdgeInsets.only(left: 10),
-          child: Text(
-            "효과음",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+          child: Text("효과음", style: TextStyle(fontWeight: FontWeight.bold)),
         ),
         Slider(
           value: _volume,
@@ -50,12 +47,15 @@ class _HomeSettingChildState extends State<HomeSettingChild> {
             setState(() {});
 
             EasyDebounce.debounce(
-                'soundSetting', const Duration(milliseconds: 500), () async {
-              /// 기기에 소리 저장 볼륨값 저장
-              await SoundVolumeRepository().setSoundVolume(volume: _volume);
-            });
+              'soundSetting',
+              const Duration(milliseconds: 500),
+              () async {
+                /// 기기에 소리 저장 볼륨값 저장
+                await SoundVolumeRepository().setSoundVolume(volume: _volume);
+              },
+            );
           },
-        )
+        ),
       ],
     );
   }

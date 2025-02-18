@@ -56,38 +56,37 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
       canPop: false,
       onPopInvokedWithResult: (_, __) {
         showCustomDialog(
-            context,
-            defaultAction: false,
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text("게임을 종료하시겠습니까?"),
-                const SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true).pop();
-                      },
-                      child: const Text("취소"),
+          context,
+          defaultAction: false,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text("게임을 종료하시겠습니까?"),
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.grey,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: redColor,
-                      ),
-                      onPressed: () {
-                        SystemNavigator.pop();
-                      },
-                      child: const Text("게임 종료"),
-                    )
-                  ],
-                )
-              ],
-            ));
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                    child: const Text("취소"),
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: redColor),
+                    onPressed: () {
+                      SystemNavigator.pop();
+                    },
+                    child: const Text("게임 종료"),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -103,11 +102,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
         body: PageView(
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomeScreen(),
-            RankScreen(),
-            AdScreen(),
-          ],
+          children: const [HomeScreen(), RankScreen(), AdScreen()],
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
@@ -139,10 +134,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
             ),
             NavigationDestination(
               icon: Icon(Icons.live_tv_outlined),
-              selectedIcon: Icon(
-                Icons.live_tv_outlined,
-                color: whiteColor,
-              ),
+              selectedIcon: Icon(Icons.live_tv_outlined, color: whiteColor),
               label: "Ad",
             ),
           ],
