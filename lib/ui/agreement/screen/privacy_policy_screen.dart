@@ -6,14 +6,9 @@ import 'package:samyeonchoga/ui/agreement/widget/agreement_contents_bullet.dart'
 import 'package:samyeonchoga/ui/agreement/widget/agreement_title.dart';
 import 'package:samyeonchoga/ui/common/widget/launch_url_text_button.dart';
 
-class PrivacyPolicyScreen extends StatefulWidget {
+class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
-  @override
-  State<PrivacyPolicyScreen> createState() => _PrivacyPolicyScreenState();
-}
-
-class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
