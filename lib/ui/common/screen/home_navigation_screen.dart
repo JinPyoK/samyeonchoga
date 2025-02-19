@@ -26,20 +26,13 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
   int _currentIndex = 0;
 
-  Future<void> _getGolds() async {
-    myGolds = await GoldRepository().getGolds();
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    setStateGold = setState;
 
     globalContext = context;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _getGolds();
       compareStoreVersionAndShowDialog(context);
     });
   }
@@ -90,15 +83,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: whiteColor,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 24),
-              child: GoldWidget(gold: myGolds),
-            ),
-          ],
-        ),
+        appBar: const _CommonAppBar(),
         body: PageView(
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
@@ -108,11 +93,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           selectedIndex: _currentIndex,
           onDestinationSelected: (index) {
             _currentIndex = index;
-            _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-            );
+            _pageController.jumpToPage(index);
             setState(() {});
           },
           destinations: const <NavigationDestination>[
@@ -140,6 +121,46 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _CommonAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const _CommonAppBar();
+
+  @override
+  State<_CommonAppBar> createState() => _CommonAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _CommonAppBarState extends State<_CommonAppBar> {
+  Future<void> _getGolds() async {
+    myGolds = await GoldRepository().getGolds();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setStateGold = setState;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _getGolds();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: whiteColor,
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 24),
+          child: GoldWidget(gold: myGolds),
+        ),
+      ],
     );
   }
 }
