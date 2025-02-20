@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/repository/privacy_policy/privacy_policy_repository.dart';
@@ -34,7 +36,7 @@ class _TermsOfUseScreenState extends State<TermsOfUseScreen> {
           children: [
             const AgreementContents(
               contents:
-                  '본 이용 약관은 Kim Jin Pyo(이하 "서비스 제공자")가 무료 서비스로 제공하는 모바일 애플리케이션 "samyeonchoga"(이하 "애플리케이션")에 적용됩니다.',
+                  '본 이용 약관은 Kim Jin Pyo(이하 "서비스 제공자")가 무료 서비스로 제공하는 모바일 애플리케이션 "사면초가: Janggi Defense"(이하 "애플리케이션")에 적용됩니다.',
             ),
             const SizedBox(height: 30),
             const AgreementContents(
@@ -53,10 +55,11 @@ class _TermsOfUseScreenState extends State<TermsOfUseScreen> {
               contents:
                   '애플리케이션은 자체적으로 운영되는 것이 아니라 일부 제3자 서비스를 이용합니다. 이러한 제3자 서비스에는 자체적인 이용 약관이 적용되므로, 아래 링크를 참고하시기 바랍니다:',
             ),
-            const LaunchUrlTextButton(
-              url: 'https://policies.google.com/terms',
-              text: "Google Play 서비스",
-            ),
+            if (Platform.isAndroid)
+              const LaunchUrlTextButton(
+                url: 'https://policies.google.com/terms',
+                text: "Google Play 서비스",
+              ),
             const LaunchUrlTextButton(
               url: 'https://developers.google.com/admob/terms',
               text: "AdMob",

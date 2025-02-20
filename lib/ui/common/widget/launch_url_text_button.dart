@@ -10,17 +10,20 @@ class LaunchUrlTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () async {
-        try {
-          await launchUrlString(url);
-        } catch (_, __) {
-          if (context.mounted) {
-            showCustomSnackBar(context, '웹사이트에 접속할 수 없습니다.');
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: TextButton(
+        onPressed: () async {
+          try {
+            await launchUrlString(url);
+          } catch (_, __) {
+            if (context.mounted) {
+              showCustomSnackBar(context, '웹사이트에 접속할 수 없습니다.');
+            }
           }
-        }
-      },
-      child: Text(text),
+        },
+        child: Text(text),
+      ),
     );
   }
 }

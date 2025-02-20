@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
@@ -65,7 +67,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             children: [
               const AgreementContents(
                 contents:
-                    '이 개인정보 처리 방침은 Kim Jin Pyo(이하 "서비스 제공자")가 무료 서비스로 제공하는 모바일 애플리케이션 "samyeonchoga"(이하 "애플리케이션")에 적용됩니다. 본 서비스는 "있는 그대로" 제공됩니다.',
+                    '이 개인정보 처리 방침은 Kim Jin Pyo(이하 "서비스 제공자")가 무료 서비스로 제공하는 모바일 애플리케이션 "사면초가: Janggi Defense"(이하 "애플리케이션")에 적용됩니다. 본 서비스는 "있는 그대로" 제공됩니다.',
               ),
               const AgreementTitle(title: '정보 수집 및 이용'),
               const AgreementContents(
@@ -112,10 +114,11 @@ class PrivacyPolicyScreen extends StatelessWidget {
                 contents:
                     '애플리케이션은 데이터 처리와 관련하여 자체적인 개인정보 처리 방침을 가진 제3자 서비스를 사용합니다. 아래는 애플리케이션이 사용하는 제3자 서비스의 개인정보 처리 방침 링크입니다:',
               ),
-              const LaunchUrlTextButton(
-                url: 'https://policies.google.com/privacy',
-                text: "Google Play 서비스",
-              ),
+              if (Platform.isAndroid)
+                const LaunchUrlTextButton(
+                  url: 'https://policies.google.com/privacy',
+                  text: "Google Play 서비스",
+                ),
               const LaunchUrlTextButton(
                 url: 'https://support.google.com/admob/answer/6128543?hl=en',
                 text: "AdMob",
