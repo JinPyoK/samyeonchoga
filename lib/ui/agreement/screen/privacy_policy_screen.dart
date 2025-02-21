@@ -115,13 +115,19 @@ class PrivacyPolicyScreen extends StatelessWidget {
                     '애플리케이션은 데이터 처리와 관련하여 자체적인 개인정보 처리 방침을 가진 제3자 서비스를 사용합니다. 아래는 애플리케이션이 사용하는 제3자 서비스의 개인정보 처리 방침 링크입니다:',
               ),
               if (Platform.isAndroid)
-                const LaunchUrlTextButton(
-                  url: 'https://policies.google.com/privacy',
-                  text: "Google Play 서비스",
+                const Padding(
+                  padding: EdgeInsets.only(left: 8),
+                  child: LaunchUrlTextButton(
+                    url: 'https://policies.google.com/privacy',
+                    text: "Google Play 서비스",
+                  ),
                 ),
-              const LaunchUrlTextButton(
-                url: 'https://support.google.com/admob/answer/6128543?hl=en',
-                text: "AdMob",
+              const Padding(
+                padding: EdgeInsets.only(left: 8),
+                child: LaunchUrlTextButton(
+                  url: 'https://support.google.com/admob/answer/6128543?hl=en',
+                  text: "AdMob",
+                ),
               ),
               const AgreementContents(
                 contents:
