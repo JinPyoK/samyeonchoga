@@ -14,6 +14,7 @@ Future<String?> androidStoreVersion() async {
         r'\[\[\["(\d+\.\d+(\.[a-z]+)?(\.([^"]|\\")*)?)"\]\]',
       );
       final String? version = regexp.firstMatch(response.data)?.group(1);
+
       return version;
     }
   } catch (_) {
