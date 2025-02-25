@@ -9,7 +9,7 @@ class RedOnTheRopesSystemNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double leftPadding = pieceSize * 0.67;
+    double leftPadding = pieceSize * 0.65;
 
     return Positioned(
       left: leftPadding,

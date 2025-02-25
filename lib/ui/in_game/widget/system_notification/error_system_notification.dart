@@ -14,7 +14,7 @@ class ErrorSystemNotification extends StatelessWidget {
     double leftPadding = pieceSize * 1.65;
 
     if (errorMessage == '기물의 수가 최대입니다') {
-      leftPadding = pieceSize * 1.2;
+      leftPadding = pieceSize * 1.17;
     }
 
     return Positioned(

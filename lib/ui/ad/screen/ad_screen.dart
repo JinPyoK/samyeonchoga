@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:samyeonchoga/ui/ad/controller/ad_id.dart';
+import 'package:samyeonchoga/ui/ad/widget/ad_banner.dart';
 import 'package:samyeonchoga/ui/ad/widget/ad_reward.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 
@@ -28,11 +30,8 @@ class _AdScreenState extends State<AdScreen>
             style: TextStyle(fontSize: 36 * hu, fontWeight: FontWeight.bold),
           ),
         ),
-        // SizedBox(height: 10 * hu),
-        // AdBanner(
-        //   adSize: AdSize(width: (300 * wu).toInt(), height: (100 * hu).toInt()),
-        //   adUnitId: bannerUnitId,
-        // ),
+        SizedBox(height: 10 * hu),
+        AdBanner(adSize: AdSize.largeBanner, adUnitId: bannerUnitId),
         SizedBox(height: 20 * hu),
         Padding(
           padding: EdgeInsets.all(12 * hu),

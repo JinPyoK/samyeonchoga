@@ -11,7 +11,7 @@ class JanggoonSystemNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: pieceSize * 2.45,
-      bottom: pieceSize * 6.5,
+      bottom: pieceSize * 5.8,
       child: IgnorePointer(
         child: Container(
               decoration: BoxDecoration(

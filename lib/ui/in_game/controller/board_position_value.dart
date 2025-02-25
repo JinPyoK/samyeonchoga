@@ -1,4 +1,4 @@
-double pieceSize = 50;
+double pieceSize = 40;
 
 Map<int, double> boardPositionXValue = {
   0: 0,
