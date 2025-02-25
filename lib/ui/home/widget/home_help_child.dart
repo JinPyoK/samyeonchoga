@@ -63,13 +63,8 @@ class HomeHelpChild extends StatelessWidget {
         _renderTitle('9. 개인 정보 처리 방침 및 이용 약관'),
         const LaunchUrlTextButton(
           url:
-              'https://doc-hosting.flycricket.io/samyeonchoga-privacy-policy/8969df59-6b0b-4697-ba23-406c3978aa1b/privacy',
-          text: "개인 정보 처리 방침",
-        ),
-        const LaunchUrlTextButton(
-          url:
-              'https://doc-hosting.flycricket.io/samyeonchoga-terms-of-use/447c5e07-7c85-4336-9b16-ca31e569ea24/terms',
-          text: "이용 약관",
+              'https://power-goal-234.notion.site/1a5edbcd9b16801aa933cdf3b5df36cd?v=1a5edbcd9b1680ed80ee000c81656756',
+          text: "개인 정보 처리 방침 및 이용 약관 확인",
         ),
         _renderTitle('10. 라이센스'),
         _renderDescription('기물과 장기판, 앱 아이콘 및 도움말 상단 이미지는 제가 직접 그렸습니다.'),
