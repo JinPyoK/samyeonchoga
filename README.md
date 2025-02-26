@@ -14,7 +14,7 @@
 </div>
 
 ## 스토어
-구글 플레이스토어에서 심사 진행중입니다. 2025년 3월 중으로 배포 완료할 것 같습니다. IOS 앱스토어에는 등록하지 않았습니다.
+[구글 플레이스토어](https://play.google.com/store/apps/details?id=com.jinpyok.samyeonchoga)
 
 ## 블로그
 https://jinpyoflutter.blogspot.com/
