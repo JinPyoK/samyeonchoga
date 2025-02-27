@@ -1,0 +1,2 @@
+/Users/kimjinpyo/FlutterProjects/samyeonchoga/android/app/.cxx/RelWithDebInfo/5x272b5c/x86/CMakeFiles/edit_cache.dir
+/Users/kimjinpyo/FlutterProjects/samyeonchoga/android/app/.cxx/RelWithDebInfo/5x272b5c/x86/CMakeFiles/rebuild_cache.dir

@@ -24,12 +24,6 @@ class _AdBannerState extends State<AdBanner> {
     _loadAd();
   }
 
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    super.dispose();
-  }
-
   /// Loads a banner ad.
   void _loadAd() {
     final bannerAd = BannerAd(
