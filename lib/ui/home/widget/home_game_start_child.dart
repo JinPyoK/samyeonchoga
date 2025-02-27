@@ -131,8 +131,7 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
   void initState() {
     super.initState();
 
-    /// 게임 시작을 누르면 addPostFrameCallback이 또 한번 실행됨
-    /// 이유를 아직 모르겠음
+    /// 게임 시작을 누르면 initState가 또 실행된다.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       myGolds > 3000 ? _startGold = 3000 : _startGold = myGolds;
 

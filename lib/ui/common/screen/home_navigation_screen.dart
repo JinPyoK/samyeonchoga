@@ -39,8 +39,8 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     _pageController.dispose();
+    super.dispose();
   }
 
   @override

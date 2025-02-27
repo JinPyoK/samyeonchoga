@@ -28,6 +28,7 @@ class _RankScreenState extends ConsumerState<RankScreen>
   @override
   void initState() {
     super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(rankProvider.notifier).getRankList();
     });

@@ -37,14 +37,10 @@ class Samyeonchoga extends StatelessWidget {
         home: FutureBuilder(
           future: PrivacyPolicyRepository().getPrivacyPolicy(),
           builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Scaffold(body: Container());
-            } else if (snapshot.hasData) {
-              if (snapshot.data!) {
-                return const HomeNavigationScreen();
-              } else {
-                return const PrivacyPolicyScreen();
-              }
+            if (snapshot.hasData) {
+              return snapshot.data!
+                  ? const HomeNavigationScreen()
+                  : const PrivacyPolicyScreen();
             } else {
               return const Scaffold(
                 body: Center(child: Text("The game cannot be run")),

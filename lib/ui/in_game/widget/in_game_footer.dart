@@ -243,7 +243,9 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                             Navigator.pop(context);
                                           }
                                         },
-                                        child: const Text("게임 저장 후 종료"),
+                                        child: const FittedBox(
+                                          child: Text("게임 저장 후 종료"),
+                                        ),
                                       ),
                                       const SizedBox(height: 15),
                                       ElevatedButton(
@@ -271,7 +273,9 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
 
                                           setStateGold!(() {});
                                         },
-                                        child: const Text("저장하지 않고 종료"),
+                                        child: const FittedBox(
+                                          child: Text("저장하지 않고 종료"),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -279,7 +283,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                 );
                               }
                               : null,
-                      child: const Text("게임 저장 및 종료"),
+                      child: const FittedBox(child: Text("게임 저장 및 종료")),
                     ),
                   ),
                 ),
@@ -321,7 +325,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                 );
                               }
                               : null,
-                      child: const Text("기물 부활 목록"),
+                      child: const FittedBox(child: Text("기물 부활 목록")),
                     ),
                   ),
                 ),
@@ -337,12 +341,14 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                     .showExecuteNavigator();
                               }
                               : null,
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text("기물 처형"),
-                          GoldWidget(gold: 300, goldTextColor: whiteColor),
-                        ],
+                      child: const FittedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("기물 처형"),
+                            GoldWidget(gold: 300, goldTextColor: whiteColor),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -44,6 +44,8 @@ class _AdRewardState extends State<AdReward> {
               _rewardedAd = null;
 
               _loadAd();
+
+              ad.dispose();
             },
 
             /// Called when the ad dismissed full screen content.
@@ -52,6 +54,8 @@ class _AdRewardState extends State<AdReward> {
               _rewardedAd = null;
 
               _loadAd();
+
+              ad.dispose();
             },
 
             /// Called when a click is recorded for an ad.
