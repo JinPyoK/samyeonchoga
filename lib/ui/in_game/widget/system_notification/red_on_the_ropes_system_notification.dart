@@ -11,7 +11,7 @@ class RedOnTheRopesSystemNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: pieceSize * 0.5,
-      bottom: pieceSize,
+      bottom: pieceSize * 3.85,
       child: IgnorePointer(
         child: Container(
               decoration: BoxDecoration(
