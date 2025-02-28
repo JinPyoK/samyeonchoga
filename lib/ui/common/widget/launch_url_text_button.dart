@@ -14,7 +14,7 @@ class LaunchUrlTextButton extends StatelessWidget {
       onPressed: () async {
         try {
           await launchUrlString(url);
-        } catch (_, __) {
+        } catch (_, _) {
           if (context.mounted) {
             showCustomSnackBar(context, '웹사이트에 접속할 수 없습니다.');
           }
