@@ -43,7 +43,9 @@ class Samyeonchoga extends StatelessWidget {
                   : const PrivacyPolicyScreen();
             } else {
               return const Scaffold(
-                body: Center(child: Text("The game cannot be run")),
+                body: Center(
+                  child: CircularProgressIndicator(color: blackColor),
+                ),
               );
             }
           },

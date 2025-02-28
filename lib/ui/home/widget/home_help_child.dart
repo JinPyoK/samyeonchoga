@@ -63,10 +63,10 @@ class HomeHelpChild extends StatelessWidget {
         _renderTitle('9. 개인 정보 처리 방침 및 이용 약관'),
         const LaunchUrlTextButton(
           url:
-          'https://power-goal-234.notion.site/Janggi-Defense-1a5edbcd9b1680fc86b1f0f018010bc9',
+              'https://power-goal-234.notion.site/Janggi-Defense-1a5edbcd9b1680fc86b1f0f018010bc9',
           text: "개인 정보 처리 방침 및 이용 약관 확인",
         ),
-        _renderTitle('10. 라이센스'),
+        _renderTitle('10. 애셋 출처'),
         _renderDescription('기물과 장기판, 앱 아이콘 및 도움말 상단 이미지는 제가 직접 그렸습니다.'),
         _renderDescription('효과음: Pixabay -> TanwerAman, freesound_community'),
         _renderDescription('골드, 트토피 아이콘: Font Awesome Free Icons'),
@@ -75,14 +75,12 @@ class HomeHelpChild extends StatelessWidget {
   }
 }
 
-Padding _renderTitle(String title) =>
-    Padding(
-      padding: EdgeInsets.only(bottom: 5 * hu),
-      child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-    );
+Padding _renderTitle(String title) => Padding(
+  padding: EdgeInsets.only(bottom: 5 * hu),
+  child: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+);
 
-Padding _renderDescription(String description) =>
-    Padding(
-      padding: EdgeInsets.only(bottom: 10 * hu),
-      child: Text(description),
-    );
+Padding _renderDescription(String description) => Padding(
+  padding: EdgeInsets.only(bottom: 10 * hu),
+  child: Text(description),
+);
