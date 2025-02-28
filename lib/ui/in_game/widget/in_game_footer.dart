@@ -341,12 +341,16 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                     .showExecuteNavigator();
                               }
                               : null,
-                      child: const FittedBox(
+                      child: FittedBox(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("기물 처형"),
-                            GoldWidget(gold: 300, goldTextColor: whiteColor),
+                            const Text("기물 처형"),
+                            SizedBox(width: 10 * wu),
+                            const GoldWidget(
+                              gold: 300,
+                              goldTextColor: whiteColor,
+                            ),
                           ],
                         ),
                       ),

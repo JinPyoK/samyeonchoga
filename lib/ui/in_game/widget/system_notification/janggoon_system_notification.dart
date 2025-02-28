@@ -10,24 +10,24 @@ class JanggoonSystemNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: pieceSize * 2.45,
-      bottom: pieceSize * 5.8,
+      left: pieceSize * 3,
+      bottom: pieceSize * 5.85,
       child: IgnorePointer(
         child: Container(
               decoration: BoxDecoration(
                 color: inGameBlackColor.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(8),
               ),
-              padding: EdgeInsets.symmetric(
-                horizontal: pieceSize,
-                vertical: pieceSize / 2.5,
-              ),
-              child: Text(
-                '장군!',
-                style: GoogleFonts.songMyung(
-                  color: whiteColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: pieceSize,
+              padding: EdgeInsets.symmetric(horizontal: pieceSize / 1.5),
+              width: pieceSize * 3,
+              height: pieceSize * 2,
+              child: FittedBox(
+                child: Text(
+                  '장군!',
+                  style: GoogleFonts.songMyung(
+                    color: whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )

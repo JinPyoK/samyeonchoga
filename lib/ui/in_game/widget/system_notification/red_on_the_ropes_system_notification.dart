@@ -9,10 +9,8 @@ class RedOnTheRopesSystemNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double leftPadding = pieceSize * 0.65;
-
     return Positioned(
-      left: leftPadding,
+      left: pieceSize * 0.5,
       bottom: pieceSize,
       child: IgnorePointer(
         child: Container(
@@ -20,16 +18,16 @@ class RedOnTheRopesSystemNotification extends StatelessWidget {
                 color: inGameBlackColor.withValues(alpha: 0.8),
                 borderRadius: BorderRadius.circular(8),
               ),
-              padding: EdgeInsets.symmetric(
-                horizontal: pieceSize,
-                vertical: pieceSize / 3,
-              ),
-              child: Text(
-                '사방에서 초나라의 노래가 들려온다',
-                style: GoogleFonts.songMyung(
-                  color: whiteColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: pieceSize / 2.5,
+              padding: EdgeInsets.symmetric(horizontal: pieceSize / 1.5),
+              width: pieceSize * 8,
+              height: pieceSize * 1.5,
+              child: FittedBox(
+                child: Text(
+                  '사방에서 초나라의 노래가 들려온다',
+                  style: GoogleFonts.songMyung(
+                    color: whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )

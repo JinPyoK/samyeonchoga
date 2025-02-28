@@ -232,36 +232,43 @@ class _HomeGameStartChildState extends ConsumerState<HomeGameStartChild> {
         ),
         SizedBox(height: 50 * hu),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton(
-              onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: const Text("취소"),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                myGolds -= _startGold;
-
-                await GoldRepository().setGolds(golds: myGolds);
-
-                setStateGold!(() {});
-
-                ref.read(inGameGoldProvider.notifier).setInGameGold(_startGold);
-
-                if (context.mounted) {
+            Expanded(
+              child: OutlinedButton(
+                onPressed: () {
                   Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: const FittedBox(child: Text("취소")),
+              ),
+            ),
+            SizedBox(width: 10 * wu),
+            Expanded(
+              child: ElevatedButton(
+                onPressed: () async {
+                  myGolds -= _startGold;
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const InGameScreen(gameHadSaved: false),
-                    ),
-                  );
-                }
-              },
-              child: const Text("게임 시작"),
+                  await GoldRepository().setGolds(golds: myGolds);
+
+                  setStateGold!(() {});
+
+                  ref
+                      .read(inGameGoldProvider.notifier)
+                      .setInGameGold(_startGold);
+
+                  if (context.mounted) {
+                    Navigator.of(context, rootNavigator: true).pop();
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const InGameScreen(gameHadSaved: false),
+                      ),
+                    );
+                  }
+                },
+                child: const FittedBox(child: Text("게임 시작")),
+              ),
             ),
           ],
         ),

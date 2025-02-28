@@ -87,5 +87,5 @@ OutlinedButton _renderButton(
     }
   },
   style: OutlinedButton.styleFrom(fixedSize: Size(100 * wu, 40 * hu)),
-  child: Text(text),
+  child: FittedBox(child: Text(text)),
 );

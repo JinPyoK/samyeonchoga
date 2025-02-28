@@ -11,14 +11,8 @@ class ErrorSystemNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double leftPadding = pieceSize * 1.65;
-
-    if (errorMessage == '기물의 수가 최대입니다') {
-      leftPadding = pieceSize * 1.17;
-    }
-
     return Positioned(
-      left: leftPadding,
+      left: pieceSize / 2,
       bottom: pieceSize,
       child: IgnorePointer(
         child: Container(
@@ -28,14 +22,17 @@ class ErrorSystemNotification extends StatelessWidget {
               ),
               padding: EdgeInsets.symmetric(
                 horizontal: pieceSize,
-                vertical: pieceSize / 2,
+                vertical: pieceSize / 3,
               ),
-              child: Text(
-                errorMessage,
-                style: GoogleFonts.songMyung(
-                  color: whiteColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: pieceSize / 2,
+              width: pieceSize * 8,
+              height: pieceSize * 1.5,
+              child: FittedBox(
+                child: Text(
+                  errorMessage,
+                  style: GoogleFonts.songMyung(
+                    color: whiteColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             )
