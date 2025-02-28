@@ -15,6 +15,3 @@
 
 ## 스토어
 [구글 플레이스토어](https://play.google.com/store/apps/details?id=com.jinpyok.samyeonchoga)
-
-## 블로그
-https://jinpyoflutter.blogspot.com/
