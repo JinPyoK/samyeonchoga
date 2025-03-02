@@ -4,15 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/model/rank/rank_model.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
-import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/rank/rank_provider.dart';
-import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/repository/in_game/in_game_saved_data_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_snackbar.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
-import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 import 'package:samyeonchoga/ui/in_game/controller/check_bad_words.dart';
 
 class InGameResult extends ConsumerStatefulWidget {
@@ -171,12 +168,6 @@ class _InGameResultState extends ConsumerState<InGameResult> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: redColor),
                 onPressed: () async {
-                  final inGameGold = ref.read(inGameGoldProvider);
-
-                  myGolds += inGameGold;
-
-                  await GoldRepository().setGolds(golds: myGolds);
-
                   await InGameSavedDataRepository().removeInGameData();
 
                   if (context.mounted) {
