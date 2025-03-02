@@ -37,7 +37,7 @@ class HomeHelpChild extends StatelessWidget {
         _renderTitle('4. 골드'),
         _renderDescription('기물을 부활시키거나 처형하기 위해 골드가 필요합니다.'),
         _renderDescription('대국 도중 한나라 기물을 취하면 소량의 골드를 획득합니다.'),
-        _renderDescription('게임이 종료되면 게임중 남은 골드는 사라집니다.'),
+        _renderDescription('게임이 종료되면 게임 중 남은 골드는 사라집니다.'),
         _renderDescription('앱을 삭제하면 현재 가지고 계신 골드는 사라지므로 주의해주세요!'),
         _renderDescription('아래 Ad 탭에서 광고를 시청하시면 1000골드를 보상으로 받으실 수 있습니다.'),
         _renderTitle('5. 기물 부활'),
