@@ -8,12 +8,10 @@ import 'package:samyeonchoga/provider/in_game/in_game_gold_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_move_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_navigator_provider.dart';
 import 'package:samyeonchoga/provider/in_game/in_game_turn_provider.dart';
-import 'package:samyeonchoga/repository/gold/gold_repository.dart';
 import 'package:samyeonchoga/repository/in_game/in_game_saved_data_repository.dart';
 import 'package:samyeonchoga/ui/common/controller/screen_size.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
-import 'package:samyeonchoga/ui/common/screen/home_navigation_screen.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
@@ -203,7 +201,7 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       const Text(
-                                        "게임을 종료하시겠습니까?\n\n게임을 저장하지 않고 종료하면 남은 골드는 돌려받습니다.",
+                                        "게임을 종료하시겠습니까?\n\n게임을 저장하지 않고 종료하면 게임 중 남은 골드는 사라집니다.",
                                         style: TextStyle(
                                           color: blackColor,
                                           fontWeight: FontWeight.bold,
@@ -253,16 +251,6 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                           backgroundColor: Colors.redAccent,
                                         ),
                                         onPressed: () async {
-                                          final inGameGold = ref.read(
-                                            inGameGoldProvider,
-                                          );
-
-                                          myGolds += inGameGold;
-
-                                          await GoldRepository().setGolds(
-                                            golds: myGolds,
-                                          );
-
                                           await InGameSavedDataRepository()
                                               .removeInGameData();
 
