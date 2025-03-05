@@ -96,7 +96,7 @@ class _AdRewardState extends State<AdReward> {
                 },
               );
             } catch (_) {
-              showCustomSnackBar(context, '잠시 후 다시 시도해 주세요');
+              showCustomSnackBar(context, '광고를 시청할 수 없습니다');
             }
           }
         },
