@@ -11,6 +11,8 @@ import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/home/screen/home_screen.dart';
 import 'package:samyeonchoga/ui/rank/screen/rank_screen.dart';
 
+import '../../ad/screen/ad_screen.dart';
+
 int myGolds = 0;
 
 class HomeNavigationScreen extends StatefulWidget {
@@ -86,10 +88,7 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
         body: PageView(
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [
-            HomeScreen(), RankScreen(),
-            // AdScreen(),
-          ],
+          children: const [HomeScreen(), RankScreen(), AdScreen()],
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
@@ -115,11 +114,11 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
               ),
               label: "Ranking",
             ),
-            // NavigationDestination(
-            //   icon: Icon(Icons.live_tv_outlined),
-            //   selectedIcon: Icon(Icons.live_tv_outlined, color: whiteColor),
-            //   label: "Ad",
-            // ),
+            NavigationDestination(
+              icon: Icon(Icons.live_tv_outlined),
+              selectedIcon: Icon(Icons.live_tv_outlined, color: whiteColor),
+              label: "Ad",
+            ),
           ],
         ),
       ),

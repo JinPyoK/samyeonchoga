@@ -44,7 +44,7 @@ Future<void> compareStoreVersionAndShowDialog(BuildContext context) async {
                         await launchUrlString(
                           Platform.isAndroid
                               ? androidPlayStoreUrl
-                              : iosAppStoreUrl,
+                              : 'https://apps.apple.com/us/app/%EC%82%AC%EB%A9%B4%EC%B4%88%EA%B0%80-janggi-defense/id6742233042',
                         );
                       } catch (_, _) {
                         if (context.mounted) {
