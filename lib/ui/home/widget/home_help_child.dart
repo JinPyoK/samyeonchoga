@@ -39,7 +39,11 @@ class HomeHelpChild extends StatelessWidget {
         _renderDescription('대국 도중 한나라 기물을 취하면 소량의 골드를 획득합니다.'),
         _renderDescription('게임이 종료되면 게임 중 남은 골드는 사라집니다.'),
         _renderDescription('앱을 삭제하면 현재 가지고 계신 골드는 사라지므로 주의해주세요!'),
-        _renderDescription('아래 Ad 탭에서 광고를 시청하시면 1000골드를 보상으로 받으실 수 있습니다.'),
+        // _renderDescription('아래 Ad 탭에서 광고를 시청하시면 1000골드를 보상으로 받으실 수 있습니다.'),
+        _renderDescription('광고를 시청하여 1000골드를 획득하는 기능을 추후 구현할 것이니 조금만 기다려주세요!'),
+        _renderDescription(
+          '그 이전까지는 기물을 취하면 소량의 골드를 획득할 수 있습니다. 획득한 골드를 모을 수 있도록 구현하겠습니다.',
+        ),
         _renderTitle('5. 기물 부활'),
         _renderDescription('초나라의 기물 부활 개수는 최대를 넘을 수 없으며, 골드가 소모됩니다.'),
         _renderDescription(

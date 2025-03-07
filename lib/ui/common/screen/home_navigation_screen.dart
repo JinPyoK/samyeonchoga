@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:samyeonchoga/core/constant/color.dart';
 import 'package:samyeonchoga/provider/context/global_context.dart';
 import 'package:samyeonchoga/repository/gold/gold_repository.dart';
-import 'package:samyeonchoga/ui/ad/screen/ad_screen.dart';
 import 'package:samyeonchoga/ui/common/controller/compare_store_version.dart';
 import 'package:samyeonchoga/ui/common/controller/show_custom_dialog.dart';
 import 'package:samyeonchoga/ui/common/controller/util_function.dart';
@@ -87,7 +86,10 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
         body: PageView(
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [HomeScreen(), RankScreen(), AdScreen()],
+          children: const [
+            HomeScreen(), RankScreen(),
+            // AdScreen(),
+          ],
         ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _currentIndex,
@@ -113,11 +115,11 @@ class _HomeNavigationScreenState extends State<HomeNavigationScreen> {
               ),
               label: "Ranking",
             ),
-            NavigationDestination(
-              icon: Icon(Icons.live_tv_outlined),
-              selectedIcon: Icon(Icons.live_tv_outlined, color: whiteColor),
-              label: "Ad",
-            ),
+            // NavigationDestination(
+            //   icon: Icon(Icons.live_tv_outlined),
+            //   selectedIcon: Icon(Icons.live_tv_outlined, color: whiteColor),
+            //   label: "Ad",
+            // ),
           ],
         ),
       ),

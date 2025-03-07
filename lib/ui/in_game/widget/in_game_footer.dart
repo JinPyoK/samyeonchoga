@@ -15,6 +15,9 @@ import 'package:samyeonchoga/ui/common/controller/util_function.dart';
 import 'package:samyeonchoga/ui/common/widget/gold_widget.dart';
 import 'package:samyeonchoga/ui/common/widget/image_assets.dart';
 
+import '../../../repository/gold/gold_repository.dart' show GoldRepository;
+import '../../common/screen/home_navigation_screen.dart' show myGolds;
+
 class InGameFooter extends ConsumerStatefulWidget {
   const InGameFooter({super.key});
 
@@ -251,6 +254,16 @@ class _InGameFooterState extends ConsumerState<InGameFooter> {
                                           backgroundColor: Colors.redAccent,
                                         ),
                                         onPressed: () async {
+                                          final inGameGold = ref.read(
+                                            inGameGoldProvider,
+                                          );
+
+                                          myGolds += inGameGold;
+
+                                          await GoldRepository().setGolds(
+                                            golds: myGolds,
+                                          );
+
                                           await InGameSavedDataRepository()
                                               .removeInGameData();
 
