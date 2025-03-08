@@ -15,3 +15,4 @@
 
 ## 스토어
 [구글 플레이스토어](https://play.google.com/store/apps/details?id=com.jinpyok.samyeonchoga)
+[애플 앱스토어](https://apps.apple.com/us/app/%EC%82%AC%EB%A9%B4%EC%B4%88%EA%B0%80-janggi-defense/id6742233042)
