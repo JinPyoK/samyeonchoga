@@ -11,38 +11,40 @@ class ErrorSystemNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: pieceSize / 2,
-      bottom: pieceSize,
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: IgnorePointer(
-        child: Container(
-              decoration: BoxDecoration(
-                color: inGameBlackColor.withValues(alpha: 0.8),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.symmetric(
-                horizontal: pieceSize,
-                vertical: pieceSize / 3,
-              ),
-              width: pieceSize * 8,
-              height: pieceSize * 1.5,
-              child: FittedBox(
-                child: Text(
-                  errorMessage,
-                  style: GoogleFonts.songMyung(
-                    color: whiteColor,
-                    fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: pieceSize),
+          child: Container(
+                decoration: BoxDecoration(
+                  color: inGameBlackColor.withValues(alpha: 0.8),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: pieceSize,
+                  vertical: pieceSize / 3,
+                ),
+                width: pieceSize * 8,
+                height: pieceSize * 1.5,
+                child: FittedBox(
+                  child: Text(
+                    errorMessage,
+                    style: GoogleFonts.songMyung(
+                      color: whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
+              )
+              .animate()
+              .fadeIn(duration: const Duration(seconds: 1))
+              .then()
+              .fadeOut(
+                delay: const Duration(milliseconds: 500),
+                duration: const Duration(seconds: 1),
               ),
-            )
-            .animate()
-            .fadeIn(duration: const Duration(seconds: 1))
-            .then()
-            .fadeOut(
-              delay: const Duration(milliseconds: 500),
-              duration: const Duration(seconds: 1),
-            ),
+        ),
       ),
     );
   }

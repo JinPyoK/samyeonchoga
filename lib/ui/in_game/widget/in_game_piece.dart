@@ -109,7 +109,7 @@ class _InGamePieceState extends ConsumerState<InGamePiece> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutCubic,
-      left: boardPositionXValue[widget.pieceModel.x],
+      left: boardPositionXValue[widget.pieceModel.x]! + screenOffset,
       bottom:
           widget.pieceModel.pieceType == PieceType.king
               ? boardPositionYValueForKing[widget.pieceModel.y]

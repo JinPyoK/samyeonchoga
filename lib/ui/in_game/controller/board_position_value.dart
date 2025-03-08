@@ -1,4 +1,9 @@
+import 'package:flutter/material.dart';
+
 double pieceSize = 40;
+
+/// 장기판을 센터에 배치할 때 왼쪽 여백 만큼 이동
+double screenOffset = 0;
 
 Map<int, double> boardPositionXValue = {
   0: 0,
@@ -29,6 +34,7 @@ Map<int, double> boardPositionYValue = {
 Map<int, double> boardPositionYValueForKing = {7: 1, 8: 1, 9: 1};
 
 void initBoardPositionValue({
+  required BuildContext context,
   required double boardWidth,
   required double boardHeight,
 }) {
@@ -36,6 +42,7 @@ void initBoardPositionValue({
   final yValue = boardHeight / 720;
 
   pieceSize = 40 * xValue;
+  screenOffset = (MediaQuery.of(context).size.width - boardWidth) / 2;
 
   boardPositionXValue[0] = xValue * -0.8;
   boardPositionXValue[1] = xValue * 39.5;

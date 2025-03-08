@@ -30,7 +30,11 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
       final size = renderBox.size;
 
       /// 장기판 사이즈에 따른 값 초기화
-      initBoardPositionValue(boardWidth: size.width, boardHeight: size.height);
+      initBoardPositionValue(
+        context: context,
+        boardWidth: size.width,
+        boardHeight: size.height,
+      );
 
       if (widget.gameHadSaved) {
         /// 기물 저장된 데이터로 초기화
@@ -57,7 +61,7 @@ class _InGameBodyState extends ConsumerState<InGameBody> {
           alignment: AlignmentDirectional.bottomStart,
           children: [
             Align(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomCenter,
               child: Image(image: imageBoard, key: imageBoardKey),
             ),
             ...pieceSet,

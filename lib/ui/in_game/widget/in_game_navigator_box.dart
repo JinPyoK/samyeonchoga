@@ -156,7 +156,9 @@ class _InGameNavigatorState extends ConsumerState<InGameNavigatorBox> {
   Widget build(BuildContext context) {
     return Positioned(
       left:
-          boardPositionXValue[widget.pieceActionable.targetX]! + pieceSize / 5,
+          boardPositionXValue[widget.pieceActionable.targetX]! +
+          pieceSize / 5 +
+          screenOffset,
       bottom:
           boardPositionYValue[widget.pieceActionable.targetY]! + pieceSize / 5,
       child: AnimatedOpacity(
